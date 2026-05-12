@@ -1,14 +1,13 @@
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Bot, MessageCircle } from 'lucide-react';
 
-/**
- * Design: Cyber-Luxury Minimalista
- * - Urgência e impacto visual
- * - Gradiente neon
- * - Botões com efeito premium
- * - Espaço negativo estratégico
- */
+function scrollToSimulator() {
+  document.getElementById('simulador-agente')?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  });
+}
 
 export default function CTASection() {
   const containerVariants: Variants = {
@@ -32,62 +31,51 @@ export default function CTASection() {
   };
 
   return (
-    <section className="relative py-24 bg-background overflow-hidden">
-      {/* Background com gradiente */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-slate-950 to-background opacity-50 z-0" />
-
-      {/* Conteúdo */}
+    <section className="relative overflow-hidden bg-black py-24">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,217,255,0.16),_transparent_34%)]" />
       <motion.div
-        className="relative z-10 container max-w-4xl mx-auto px-4 text-center"
+        className="relative z-10 container mx-auto max-w-5xl px-4 text-center"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
       >
-        {/* Headline */}
-        <motion.h2
-          variants={itemVariants}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
-        >
-          Enquanto sua empresa perde tempo em processos manuais,{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-cyan-300">
-            a concorrência já está automatizando tudo
-          </span>
-        </motion.h2>
-
-        {/* Subheadline */}
-        <motion.p
-          variants={itemVariants}
-          className="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto"
-        >
-          Não deixe seu negócio para trás. Comece sua transformação digital hoje mesmo e veja resultados em semanas.
-        </motion.p>
-
-        {/* CTAs */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-cyan-400 text-black shadow-[0_0_40px_rgba(0,217,255,0.35)]"
         >
-          <button className="btn-neon-solid rounded-lg font-semibold flex items-center justify-center gap-2 group">
-            Agendar Diagnóstico Gratuito
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </button>
-          <button className="btn-neon rounded-lg font-semibold">
-            Falar no WhatsApp
-          </button>
+          <Bot className="h-7 w-7" />
         </motion.div>
 
-        {/* Trust indicators */}
+        <motion.h2
+          variants={itemVariants}
+          className="mx-auto max-w-4xl text-4xl font-bold leading-tight text-white md:text-6xl"
+        >
+          Seu proximo cliente pode testar o agente antes de pedir orcamento.
+        </motion.h2>
+
+        <motion.p
+          variants={itemVariants}
+          className="mx-auto mt-6 max-w-2xl text-lg text-gray-400 md:text-xl"
+        >
+          Use o simulador como porta de entrada: ele coleta o lead, mostra valor na hora e abre caminho para fechar o projeto completo.
+        </motion.p>
+
         <motion.div
           variants={itemVariants}
-          className="mt-12 pt-12 border-t border-cyan-500/10"
+          className="mt-9 flex flex-col justify-center gap-4 sm:flex-row"
         >
-          <p className="text-gray-400 text-sm mb-4">Confiado por empresas como:</p>
-          <div className="flex flex-wrap justify-center gap-8 opacity-60">
-            <div className="text-gray-500 font-semibold">500+ Empresas</div>
-            <div className="text-gray-500 font-semibold">50M+ Mensagens</div>
-            <div className="text-gray-500 font-semibold">85% Produtividade</div>
-          </div>
+          <button
+            onClick={scrollToSimulator}
+            className="btn-neon-solid flex items-center justify-center gap-2 rounded-lg font-semibold"
+          >
+            Testar o simulador
+            <ArrowRight className="h-5 w-5" />
+          </button>
+          <button className="btn-neon flex items-center justify-center gap-2 rounded-lg font-semibold">
+            <MessageCircle className="h-5 w-5" />
+            Chamar no WhatsApp
+          </button>
         </motion.div>
       </motion.div>
     </section>

@@ -14,33 +14,33 @@ interface Differential {
 const differentials: Differential[] = [
   {
     icon: <Cpu className="w-12 h-12" />,
-    title: 'Tecnologia Avançada',
-    description: 'IA e machine learning de ponta para automações inteligentes',
+    title: 'Demo Antes da Venda',
+    description: 'O cliente testa o agente antes de chamar no WhatsApp',
   },
   {
     icon: <Users className="w-12 h-12" />,
-    title: 'Atendimento Humanizado',
-    description: 'Suporte especializado e consultoria contínua',
+    title: 'Lead Qualificado',
+    description: 'Formulario coleta contexto antes da simulacao com IA',
   },
   {
     icon: <Zap className="w-12 h-12" />,
-    title: 'Performance',
-    description: 'Sistemas otimizados para máxima velocidade e eficiência',
+    title: 'Entrega Rapida',
+    description: 'Templates aceleram a criacao sem deixar o agente generico',
   },
   {
     icon: <TrendingUp className="w-12 h-12" />,
-    title: 'Escalabilidade',
-    description: 'Soluções que crescem com seu negócio',
+    title: 'Foco em Conversao',
+    description: 'A conversa conduz para orcamento, agendamento ou humano',
   },
   {
     icon: <Lock className="w-12 h-12" />,
-    title: 'Segurança',
-    description: 'Proteção de dados com padrões internacionais',
+    title: 'Chave Protegida',
+    description: 'A API da IA fica no backend, nao exposta no navegador',
   },
   {
     icon: <Gauge className="w-12 h-12" />,
-    title: 'Soluções Personalizadas',
-    description: 'Customizadas para suas necessidades específicas',
+    title: 'Personalizacao Real',
+    description: 'Nome, servicos, precos, horarios e regras entram no prompt',
   },
 ];
 
@@ -81,10 +81,10 @@ export default function DifferentialsSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Por que Escolher a Gente
+            Por que Isso Vende Melhor
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Diferenciais que nos tornam referência em automação e IA
+            A pessoa entende a automacao na pratica e chega mais pronta para contratar.
           </p>
         </motion.div>
 

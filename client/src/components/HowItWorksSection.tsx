@@ -19,23 +19,23 @@ interface Step {
 const steps: Step[] = [
   {
     number: 1,
-    title: 'Diagnóstico',
-    description: 'Analisamos seus processos e identificamos oportunidades de automação',
+    title: 'Template',
+    description: 'Escolhemos o modelo ideal para o nicho: dentista, barbearia, manicure, clinica e outros.',
   },
   {
     number: 2,
-    title: 'Estratégia',
-    description: 'Desenvolvemos um plano customizado de implementação',
+    title: 'Prompt',
+    description: 'Configuramos servicos, precos, horarios, regras, tom de voz e limites do agente.',
   },
   {
     number: 3,
-    title: 'Implementação',
-    description: 'Configuramos e testamos todas as automações',
+    title: 'Fluxo',
+    description: 'Criamos a jornada de mensagens para qualificar, responder, agendar e encaminhar.',
   },
   {
     number: 4,
-    title: 'Escala',
-    description: 'Otimizamos e expandimos para toda a empresa',
+    title: 'Publicacao',
+    description: 'Conectamos o agente aos canais do negocio e ajustamos com base nas conversas reais.',
   },
 ];
 
@@ -76,10 +76,10 @@ export default function HowItWorksSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Como Funciona
+            Como o Projeto Sai do Papel
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Processo simples e eficiente para transformar seu negócio
+            Da ideia do agente ate um atendimento pronto para gerar conversa, lead e agenda.
           </p>
         </motion.div>
 
@@ -150,7 +150,7 @@ export default function HowItWorksSection() {
           viewport={{ once: true }}
         >
           <p className="text-gray-400 mb-6">
-            Pronto para começar sua transformação digital?
+            Quer ver esse fluxo funcionando com a sua empresa?
           </p>
           <button className="btn-neon-solid rounded-lg font-semibold">
             Agendar Diagnóstico Gratuito

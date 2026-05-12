@@ -1,137 +1,191 @@
-import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
+import {
+  ArrowRight,
+  Bot,
+  CalendarCheck,
+  CheckCircle2,
+  MessageSquareText,
+  MousePointerClick,
+  Sparkles,
+} from 'lucide-react';
+
+const quickWins = [
+  'Captura lead antes do teste',
+  'Simula agente com IA',
+  'Mostra fluxo de mensagens',
+  'Conduz para WhatsApp',
+];
+
+const previewMessages = [
+  {
+    role: 'assistant',
+    text: 'Oi, sou a Lia da Bella Nails. Quer marcar manicure, pedicure ou alongamento?',
+  },
+  {
+    role: 'user',
+    text: 'Quero saber valor de alongamento e horario para sexta.',
+  },
+  {
+    role: 'assistant',
+    text: 'O alongamento comeca em R$ 130. Para sexta eu posso checar manha ou tarde. Qual periodo fica melhor?',
+  },
+];
+
+function scrollToSimulator() {
+  document.getElementById('simulador-agente')?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  });
+}
 
 export default function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoDuration, setVideoDuration] = useState<number>(0);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const tilt = useTransform(scrollYProgress, [0, 1], [0, -8]);
-  const translateY = useTransform(scrollYProgress, [0, 1], [0, 40]);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleMetadata = () => {
-      if (video.duration && Number.isFinite(video.duration)) {
-        setVideoDuration(video.duration);
-        video.playbackRate = 1.5; // Aumenta a velocidade para 1.5x
-      }
-    };
-
-    video.addEventListener('loadedmetadata', handleMetadata);
-    video.loop = true; // Ativa o loop
-    video.play().catch(() => {});
-
-    return () => {
-      video.removeEventListener('loadedmetadata', handleMetadata);
-    };
-  }, []);
-
   return (
-    <section ref={containerRef} className="relative min-h-screen overflow-hidden bg-[#02030a] text-white">
-      <motion.div
-        style={{ rotateY: tilt, y: translateY }}
-        className="absolute inset-0 z-0 overflow-hidden"
-      >
-        <video
-          ref={videoRef}
-          className="absolute inset-0 h-full w-full object-cover"
-          muted
-          playsInline
-          src="/hero-video.mp4"
-          preload="auto"
-        />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(2,210,255,0.16),_transparent_20%),radial-gradient(circle_at_bottom_right,_rgba(171,69,255,0.14),_transparent_20%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.05),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(255,255,255,0.04),_transparent_30%)] pointer-events-none" />
-      </motion.div>
+    <section className="relative min-h-screen overflow-hidden bg-[#05070d] text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,_rgba(0,217,255,0.16),_transparent_26%),radial-gradient(circle_at_82%_22%,_rgba(16,185,129,0.12),_transparent_24%),linear-gradient(180deg,_#05070d_0%,_#071018_56%,_#050505_100%)]" />
+      <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:48px_48px]" />
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1480px] flex-col px-6 py-10 lg:px-10">
-        <header className="flex items-center justify-between gap-4 pb-6">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col px-5 py-6 sm:px-8 lg:px-10">
+        <header className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-gradient-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-sm font-bold text-black shadow-[0_0_30px_rgba(0,217,255,0.18)]">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-400 text-sm font-black text-black shadow-[0_0_35px_rgba(0,217,255,0.35)]">
               AT
             </div>
-            <span className="uppercase tracking-[0.35em] text-xs text-slate-400">Automation to You</span>
+            <div>
+              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-white">
+                Automation to You
+              </div>
+              <div className="text-xs text-cyan-200">IA para atendimento e vendas</div>
+            </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <button className="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-medium text-white transition hover:bg-white/10">
-              EN
-            </button>
-            <button className="flex h-12 w-12 flex-col items-center justify-center gap-1 rounded-2xl border border-white/10 bg-white/5 p-2 text-white transition hover:bg-white/10">
-              <span className="block h-[2px] w-6 rounded-full bg-white" />
-              <span className="block h-[2px] w-6 rounded-full bg-white" />
-              <span className="block h-[2px] w-6 rounded-full bg-white" />
-            </button>
-          </div>
+          <button
+            onClick={scrollToSimulator}
+            className="hidden rounded-lg border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:border-cyan-200 hover:bg-cyan-300/15 sm:block"
+          >
+            Testar agente
+          </button>
         </header>
 
-        <div className="grid min-h-[calc(100vh-96px)] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div className="space-y-8 max-w-2xl">
-            <div className="inline-flex items-center gap-3 rounded-full border border-cyan-400/10 bg-white/5 px-4 py-2 text-sm uppercase tracking-[0.35em] text-cyan-300 shadow-[0_0_20px_rgba(0,217,255,0.08)]">
-              <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-              engenharia visual • inteligencia artificial • conversao absoluta
+        <div className="grid flex-1 items-center gap-10 py-12 lg:grid-cols-[0.95fr_1.05fr] lg:py-16">
+          <motion.div
+            className="max-w-3xl"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm text-cyan-100">
+              <Sparkles className="h-4 w-4" />
+              Previa gratuita de automacao
             </div>
 
-            <h1 className="text-5xl font-black leading-[0.95] tracking-[-0.04em] text-white md:text-7xl lg:text-8xl">
-              {Array.from("NOS").map((letter, index) => (
-                <motion.span
-                  key={index}
-                  className="inline-block cursor-pointer"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-fuchsia-500 to-violet-400">
-                {Array.from("ENGENHAMOS").map((letter, index) => (
-                  <motion.span
-                    key={index}
-                    className="inline-block cursor-pointer"
-                    whileHover={{ scale: 1.1, rotate: -5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
-              </span>
-              <br />
-              {Array.from("A REALIDADE.").map((letter, index) => (
-                <motion.span
-                  key={index}
-                  className="inline-block cursor-pointer"
-                  whileHover={{ scale: 1.1, rotate: index % 2 === 0 ? 3 : -3 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
+            <h1 className="text-4xl font-black leading-[1.04] tracking-normal text-white sm:text-5xl md:text-6xl lg:text-7xl">
+              Teste um atendimento de IA antes de contratar.
             </h1>
 
-            <p className="max-w-xl text-lg leading-8 text-slate-300 sm:text-xl">
-              Criamos experiencias digitais hipnoticas, automacoes inteligentes e funis de conversao que aceleram o crescimento real da sua marca.
+            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
+              Cadastre seus dados, escolha um modelo e veja uma previa no estilo WhatsApp com IA e botoes de fluxo.
             </p>
 
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <button className="btn-neon-solid rounded-full px-8 py-4 text-base font-semibold">
-                Ver Cases
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <button
+                onClick={scrollToSimulator}
+                className="btn-neon-solid flex items-center justify-center gap-2 rounded-lg px-6 py-4 text-base font-bold"
+              >
+                Fazer cadastro gratuito
+                <ArrowRight className="h-5 w-5" />
               </button>
-              <button className="btn-neon rounded-full px-8 py-4 text-base font-semibold">
-                Vamos Conversar
+              <button className="btn-neon flex items-center justify-center gap-2 rounded-lg px-6 py-4 text-base font-bold">
+                <MessageSquareText className="h-5 w-5" />
+                Falar no WhatsApp
               </button>
             </div>
-          </div>
+
+            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {quickWins.map((item) => (
+                <div key={item} className="flex items-center gap-3 text-sm text-slate-300">
+                  <CheckCircle2 className="h-5 w-5 text-emerald-300" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.12 }}
+          >
+            <div className="rounded-xl border border-cyan-300/20 bg-slate-950/80 p-4 shadow-[0_0_80px_rgba(0,217,255,0.14)] backdrop-blur-xl">
+              <div className="mb-4 grid grid-cols-3 gap-2">
+                <HeroMetric icon={<MousePointerClick className="h-4 w-4" />} label="Lead" value="Capturado" />
+                <HeroMetric icon={<Bot className="h-4 w-4" />} label="Template" value="Manicure" />
+                <HeroMetric icon={<CalendarCheck className="h-4 w-4" />} label="Objetivo" value="Agendar" />
+              </div>
+
+              <div className="overflow-hidden rounded-xl border border-cyan-300/15 bg-black">
+                <div className="flex items-center gap-3 border-b border-cyan-300/10 bg-slate-950 px-4 py-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-300 text-black">
+                    <Bot className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-white">Lia Assistente</div>
+                    <div className="text-xs text-emerald-300">respondendo como WhatsApp</div>
+                  </div>
+                </div>
+
+                <div className="space-y-3 p-4">
+                  {previewMessages.map((message, index) => (
+                    <div
+                      key={index}
+                      className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`max-w-[82%] rounded-xl px-4 py-3 text-sm leading-relaxed ${
+                          message.role === 'user'
+                            ? 'bg-cyan-300 text-black'
+                            : 'bg-slate-900 text-slate-100'
+                        }`}
+                      >
+                        {message.text}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-4 grid gap-3 md:grid-cols-3">
+                {['Saudacao', 'Preco', 'Agenda'].map((step, index) => (
+                  <div key={step} className="rounded-lg border border-cyan-300/10 bg-cyan-300/5 p-3">
+                    <div className="text-xs text-cyan-200">Fluxo {index + 1}</div>
+                    <div className="mt-1 font-semibold text-white">{step}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
+  );
+}
+
+function HeroMetric({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-lg border border-cyan-300/10 bg-cyan-300/5 p-3">
+      <div className="mb-2 flex items-center gap-2 text-xs text-cyan-200">
+        {icon}
+        {label}
+      </div>
+      <div className="text-sm font-semibold text-white">{value}</div>
+    </div>
   );
 }

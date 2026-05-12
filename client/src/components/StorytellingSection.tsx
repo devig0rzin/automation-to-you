@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text, Float, Sphere, Box } from '@react-three/drei';
@@ -43,6 +43,10 @@ function ChaosScene() {
 function AIScene() {
   const brainRef = useRef<THREE.Mesh>(null);
   const particlesRef = useRef<THREE.Points>(null);
+  const particlePositions = useMemo(
+    () => new Float32Array(Array.from({ length: 300 }, () => (Math.random() - 0.5) * 6)),
+    [],
+  );
 
   useFrame((state) => {
     if (brainRef.current) {
@@ -73,9 +77,7 @@ function AIScene() {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={100}
-            array={new Float32Array(Array.from({ length: 300 }, () => (Math.random() - 0.5) * 6))}
-            itemSize={3}
+            args={[particlePositions, 3]}
           />
         </bufferGeometry>
         <pointsMaterial color="#00D9FF" size={0.02} transparent opacity={0.6} />
@@ -180,17 +182,11 @@ export default function StorytellingSection({ className = "" }: StorytellingSect
           <directionalLight position={[-10, -10, -5]} intensity={0.4} color="#ffffff" />
 
           {scenes.map((scene, index) => (
-            <motion.group
+            <group
               key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{
-                opacity: sceneProgress.get() >= index && sceneProgress.get() < index + 1 ? 1 : 0,
-                scale: sceneProgress.get() >= index && sceneProgress.get() < index + 1 ? 1 : 0.8
-              }}
-              transition={{ duration: 0.8 }}
             >
               <scene.component />
-            </motion.group>
+            </group>
           ))}
         </Canvas>
 

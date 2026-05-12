@@ -2,6 +2,12 @@ import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
+import {
+  registerAgentLead,
+  runAgentSimulation,
+  type LeadPayload,
+  type SimulationPayload,
+} from "./agentSimulation";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,6 +15,27 @@ const __dirname = path.dirname(__filename);
 async function startServer() {
   const app = express();
   const server = createServer(app);
+
+  app.use(express.json({ limit: "1mb" }));
+
+  app.post("/api/agent-leads", (req, res) => {
+    const lead = req.body as LeadPayload;
+    const registeredLead = registerAgentLead(lead);
+
+    res.json({ ok: true, lead: registeredLead });
+  });
+
+  app.post("/api/chat-simulation", async (req, res) => {
+    try {
+      const result = await runAgentSimulation(req.body as SimulationPayload);
+      res.json(result);
+    } catch (error) {
+      console.error("[chat-simulation-error]", error);
+      res.status(500).json({
+        error: "Nao foi possivel simular o atendimento agora.",
+      });
+    }
+  });
 
   // Serve static files from dist/public in production
   const staticPath =

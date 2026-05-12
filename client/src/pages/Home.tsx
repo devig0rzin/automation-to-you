@@ -1,12 +1,10 @@
 import HeroSection from '@/components/HeroSection';
-import AboutSection from '@/components/AboutSection';
-import StorytellingSection from '@/components/StorytellingSection';
 import ServicesSection from '@/components/ServicesSection';
-import AuthoritySection from '@/components/AuthoritySection';
-import ResultsSection from '@/components/ResultsSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 import DifferentialsSection from '@/components/DifferentialsSection';
+import AgentSimulatorSection from '@/components/AgentSimulatorSection';
 import CTASection from '@/components/CTASection';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import Footer from '@/components/Footer';
 import GlobalBackground from '@/components/GlobalBackground';
 
@@ -25,15 +23,13 @@ export default function Home() {
       <GlobalBackground />
       <main className="flex-grow relative z-10">
         <HeroSection />
-        <AboutSection />
-        <StorytellingSection />
+        <AgentSimulatorSection />
         <ServicesSection />
-        <AuthoritySection />
-        <ResultsSection />
         <HowItWorksSection />
         <DifferentialsSection />
         <CTASection />
       </main>
+      <FloatingWhatsApp />
       <Footer />
     </div>
   );

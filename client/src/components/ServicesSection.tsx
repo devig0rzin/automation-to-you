@@ -274,9 +274,9 @@ export default function ServicesSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            TECNOLOGIAS DE
+            O QUE A GENTE
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-cyan-300">
-              AUTOMAÇÃO AVANÇADA
+              MONTA PARA VOCE
             </span>
           </motion.h2>
           <motion.p
@@ -286,7 +286,7 @@ export default function ServicesSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            Soluções completas de IA e automação que transformam processos manuais em sistemas inteligentes e autônomos
+            Agentes de IA, fluxos de atendimento e integracoes para transformar conversas em leads, agendamentos e vendas.
           </motion.p>
         </motion.div>
 
@@ -303,32 +303,32 @@ export default function ServicesSection() {
 const services = [
   {
     icon: <Bot size={24} />,
-    title: 'Bots Inteligentes',
-    description: 'Automatize atendimento, vendas e fluxos de suporte com chatbots que entendem seus clientes.',
+    title: 'Agentes de IA por Nicho',
+    description: 'Templates para clinicas, barbearias, estetica, manicure e outros negocios locais com prompt personalizado.',
   },
   {
     icon: <MessageSquare size={24} />,
-    title: 'Automação de Conversão',
-    description: 'Crie jornadas conversacionais que qualificam leads, agendam reuniões e elevam a conversão.',
+    title: 'Fluxos de Mensagem',
+    description: 'Jornadas em cards para saudacao, qualificacao, precos, agenda, follow-up e passagem para humano.',
   },
   {
     icon: <Zap size={24} />,
-    title: 'Ações Instantâneas',
-    description: 'Dispare notificações, integrações e tarefas em tempo real sem precisar de intervenção manual.',
+    title: 'Captura de Leads',
+    description: 'Formulario antes da simulacao para coletar nome, WhatsApp, empresa, segmento e necessidade.',
   },
   {
     icon: <BarChart3 size={24} />,
-    title: 'Análise de Performance',
-    description: 'Monitore resultados em tempo real e ajuste processos com insights inteligentes.',
+    title: 'Simulacao no Site',
+    description: 'O cliente testa o agente antes de contratar e entende na pratica como a automacao vai funcionar.',
   },
   {
     icon: <Cpu size={24} />,
-    title: 'IA Embutida',
-    description: 'Use inteligência artificial para classificar dados, prever demandas e recomendar ações.',
+    title: 'Prompt Profissional',
+    description: 'Regras de negocio, tom de voz, servicos, precos e limites do agente organizados em uma base segura.',
   },
   {
     icon: <Network size={24} />,
-    title: 'Infraestrutura Conectada',
-    description: 'Integre sistemas, CRM, ERP e canais de vendas com APIs e automações personalizadas.',
+    title: 'Integracoes',
+    description: 'Preparado para conectar WhatsApp, CRM, planilhas, agenda e ferramentas internas do negocio.',
   },
 ];

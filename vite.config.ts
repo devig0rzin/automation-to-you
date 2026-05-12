@@ -5,6 +5,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
+import {
+  registerAgentLead,
+  runAgentSimulation,
+  type LeadPayload,
+  type SimulationPayload,
+} from "./server/agentSimulation";
 
 // =============================================================================
 // Manus Debug Collector - Vite Plugin
@@ -203,7 +209,82 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
+function vitePluginAgentSimulationApi(): Plugin {
+  return {
+    name: "agent-simulation-api",
+    configureServer(server: ViteDevServer) {
+      server.middlewares.use("/api/agent-leads", async (req, res, next) => {
+        if (req.method !== "POST") {
+          return next();
+        }
+
+        try {
+          const lead = (await readJsonBody(req)) as LeadPayload;
+          const registeredLead = registerAgentLead(lead);
+          sendJson(res, 200, { ok: true, lead: registeredLead });
+        } catch {
+          sendJson(res, 400, { error: "Lead invalido." });
+        }
+      });
+
+      server.middlewares.use("/api/chat-simulation", async (req, res, next) => {
+        if (req.method !== "POST") {
+          return next();
+        }
+
+        try {
+          const payload = (await readJsonBody(req)) as SimulationPayload;
+          const result = await runAgentSimulation(payload);
+          sendJson(res, 200, result);
+        } catch (error) {
+          console.error("[chat-simulation-error]", error);
+          sendJson(res, 500, {
+            error: "Nao foi possivel simular o atendimento agora.",
+          });
+        }
+      });
+    },
+  };
+}
+
+function readJsonBody(req: NodeJS.ReadableStream) {
+  return new Promise<unknown>((resolve, reject) => {
+    let body = "";
+
+    req.on("data", (chunk) => {
+      body += chunk.toString();
+    });
+
+    req.on("end", () => {
+      try {
+        resolve(body ? JSON.parse(body) : {});
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    req.on("error", reject);
+  });
+}
+
+function sendJson(
+  res: { writeHead: (status: number, headers: Record<string, string>) => void; end: (body: string) => void },
+  status: number,
+  payload: unknown,
+) {
+  res.writeHead(status, { "Content-Type": "application/json" });
+  res.end(JSON.stringify(payload));
+}
+
+const plugins = [
+  react(),
+  tailwindcss(),
+  jsxLocPlugin(),
+  vitePluginManusRuntime(),
+  vitePluginManusDebugCollector(),
+  vitePluginStorageProxy(),
+  vitePluginAgentSimulationApi(),
+];
 
 export default defineConfig({
   plugins,
