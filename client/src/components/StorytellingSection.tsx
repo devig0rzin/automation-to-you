@@ -12,12 +12,14 @@ import * as THREE from 'three';
 
 function ChaosScene() {
   const groupRef = useRef<THREE.Group>(null);
+  const elapsedRef = useRef(0);
 
-  useFrame((state) => {
+  useFrame((_, delta) => {
+    elapsedRef.current += delta;
     if (groupRef.current) {
-      groupRef.current.rotation.y = state.clock.elapsedTime * 0.5;
+      groupRef.current.rotation.y = elapsedRef.current * 0.5;
       groupRef.current.children.forEach((child, i) => {
-        child.position.y = Math.sin(state.clock.elapsedTime + i) * 0.5;
+        child.position.y = Math.sin(elapsedRef.current + i) * 0.5;
       });
     }
   });
@@ -43,17 +45,19 @@ function ChaosScene() {
 function AIScene() {
   const brainRef = useRef<THREE.Mesh>(null);
   const particlesRef = useRef<THREE.Points>(null);
+  const elapsedRef = useRef(0);
   const particlePositions = useMemo(
     () => new Float32Array(Array.from({ length: 300 }, () => (Math.random() - 0.5) * 6)),
     [],
   );
 
-  useFrame((state) => {
+  useFrame((_, delta) => {
+    elapsedRef.current += delta;
     if (brainRef.current) {
-      brainRef.current.rotation.y = state.clock.elapsedTime * 0.3;
+      brainRef.current.rotation.y = elapsedRef.current * 0.3;
     }
     if (particlesRef.current) {
-      particlesRef.current.rotation.z = state.clock.elapsedTime * 0.2;
+      particlesRef.current.rotation.z = elapsedRef.current * 0.2;
     }
   });
 
@@ -89,7 +93,7 @@ function AIScene() {
 function GrowthScene() {
   const chartRef = useRef<THREE.Group>(null);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (chartRef.current) {
       // Animate growth bars
     }
@@ -109,11 +113,13 @@ function GrowthScene() {
 
 function ResultScene() {
   const trophyRef = useRef<THREE.Mesh>(null);
+  const elapsedRef = useRef(0);
 
-  useFrame((state) => {
+  useFrame((_, delta) => {
+    elapsedRef.current += delta;
     if (trophyRef.current) {
-      trophyRef.current.rotation.y = state.clock.elapsedTime * 0.4;
-      trophyRef.current.position.y = Math.sin(state.clock.elapsedTime * 2) * 0.2;
+      trophyRef.current.rotation.y = elapsedRef.current * 0.4;
+      trophyRef.current.position.y = Math.sin(elapsedRef.current * 2) * 0.2;
     }
   });
 

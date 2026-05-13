@@ -5,6 +5,7 @@ import * as THREE from 'three';
 
 function Particles() {
   const ref = useRef<THREE.Points>(null);
+  const elapsedRef = useRef(0);
 
   const particlesPosition = useMemo(() => {
     const positions = new Float32Array(1000 * 3);
@@ -18,10 +19,11 @@ function Particles() {
     return positions;
   }, []);
 
-  useFrame((state) => {
+  useFrame((_, delta) => {
+    elapsedRef.current += delta;
     if (ref.current) {
-      ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
-      ref.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.15) * 0.1;
+      ref.current.rotation.x = Math.sin(elapsedRef.current * 0.1) * 0.1;
+      ref.current.rotation.y = Math.sin(elapsedRef.current * 0.15) * 0.1;
     }
   });
 
@@ -41,10 +43,12 @@ function Particles() {
 
 function FloatingGrid() {
   const gridRef = useRef<THREE.Mesh>(null);
+  const elapsedRef = useRef(0);
 
-  useFrame((state) => {
+  useFrame((_, delta) => {
+    elapsedRef.current += delta;
     if (gridRef.current) {
-      gridRef.current.rotation.z = state.clock.elapsedTime * 0.05;
+      gridRef.current.rotation.z = elapsedRef.current * 0.05;
     }
   });
 
@@ -63,11 +67,13 @@ function FloatingGrid() {
 
 function HolographicSphere() {
   const sphereRef = useRef<THREE.Mesh>(null);
+  const elapsedRef = useRef(0);
 
-  useFrame((state) => {
+  useFrame((_, delta) => {
+    elapsedRef.current += delta;
     if (sphereRef.current) {
-      sphereRef.current.rotation.x = state.clock.elapsedTime * 0.2;
-      sphereRef.current.rotation.y = state.clock.elapsedTime * 0.3;
+      sphereRef.current.rotation.x = elapsedRef.current * 0.2;
+      sphereRef.current.rotation.y = elapsedRef.current * 0.3;
     }
   });
 

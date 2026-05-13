@@ -1,10 +1,9 @@
-import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
-import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
+import { ZodError } from "zod";
 import {
   registerAgentLead,
   runAgentSimulation,
@@ -85,7 +84,7 @@ function vitePluginManusDebugCollector(): Plugin {
     name: "manus-debug-collector",
 
     transformIndexHtml(html) {
-      if (process.env.NODE_ENV === "production") {
+      if (process.env.NODE_ENV === "production" || process.env.VITE_ENABLE_DEBUG_COLLECTOR !== "true") {
         return html;
       }
       return {
@@ -222,8 +221,8 @@ function vitePluginAgentSimulationApi(): Plugin {
           const lead = (await readJsonBody(req)) as LeadPayload;
           const registeredLead = registerAgentLead(lead);
           sendJson(res, 200, { ok: true, lead: registeredLead });
-        } catch {
-          sendJson(res, 400, { error: "Lead invalido." });
+        } catch (error) {
+          sendJson(res, 400, { error: "Lead inválido.", details: formatApiError(error) });
         }
       });
 
@@ -238,8 +237,9 @@ function vitePluginAgentSimulationApi(): Plugin {
           sendJson(res, 200, result);
         } catch (error) {
           console.error("[chat-simulation-error]", error);
-          sendJson(res, 500, {
-            error: "Nao foi possivel simular o atendimento agora.",
+          sendJson(res, error instanceof ZodError ? 400 : 500, {
+            error: error instanceof ZodError ? "Dados da simulação inválidos." : "Não foi possível simular o atendimento agora.",
+            details: formatApiError(error),
           });
         }
       });
@@ -276,13 +276,24 @@ function sendJson(
   res.end(JSON.stringify(payload));
 }
 
+function formatApiError(error: unknown) {
+  if (error instanceof ZodError) {
+    return error.issues.map((issue) => ({
+      path: issue.path.join("."),
+      message: issue.message,
+    }));
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Erro desconhecido.";
+}
+
 const plugins = [
   react(),
   tailwindcss(),
-  jsxLocPlugin(),
-  vitePluginManusRuntime(),
-  vitePluginManusDebugCollector(),
-  vitePluginStorageProxy(),
   vitePluginAgentSimulationApi(),
 ];
 

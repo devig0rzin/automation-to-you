@@ -5,7 +5,6 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LoadingScreen from "./components/LoadingScreen";
-import MagneticCursor from "./components/MagneticCursor";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ScrollProvider } from "./contexts/ScrollContext";
 import Home from "./pages/Home";
@@ -33,19 +32,17 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider
-        defaultTheme="dark"
+        defaultTheme="light"
         // switchable
       >
         <ScrollProvider>
           <TooltipProvider>
             <Toaster />
-            <MagneticCursor>
-              {loadingComplete ? (
-                <Router />
-              ) : (
-                <LoadingScreen onComplete={() => setLoadingComplete(true)} />
-              )}
-            </MagneticCursor>
+            {loadingComplete ? (
+              <Router />
+            ) : (
+              <LoadingScreen onComplete={() => setLoadingComplete(true)} />
+            )}
           </TooltipProvider>
         </ScrollProvider>
       </ThemeProvider>

@@ -1,161 +1,77 @@
 import { motion } from 'framer-motion';
-import type { Variants } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 
-/**
- * Design: Cyber-Luxury Minimalista
- * - Timeline futurista com linhas luminosas
- * - Números em gradiente neon
- * - Cards com glassmorphism
- * - Animações cinematográficas
- */
-
-interface Step {
-  number: number;
-  title: string;
-  description: string;
-}
-
-const steps: Step[] = [
+const steps = [
   {
-    number: 1,
-    title: 'Template',
-    description: 'Escolhemos o modelo ideal para o nicho: dentista, barbearia, manicure, clinica e outros.',
+    number: '01',
+    title: 'Escolha o template',
+    description: 'Partimos de um modelo por nicho para acelerar a criação sem perder contexto.',
   },
   {
-    number: 2,
-    title: 'Prompt',
-    description: 'Configuramos servicos, precos, horarios, regras, tom de voz e limites do agente.',
+    number: '02',
+    title: 'Ajuste o agente',
+    description: 'Nome, serviços, horários, valores, tom de voz e regras entram na simulação.',
   },
   {
-    number: 3,
-    title: 'Fluxo',
-    description: 'Criamos a jornada de mensagens para qualificar, responder, agendar e encaminhar.',
+    number: '03',
+    title: 'Visualize o fluxo',
+    description: 'O caminho da conversa fica claro em blocos, botões e respostas conectadas.',
   },
   {
-    number: 4,
-    title: 'Publicacao',
-    description: 'Conectamos o agente aos canais do negocio e ajustamos com base nas conversas reais.',
+    number: '04',
+    title: 'Converta no WhatsApp',
+    description: 'Depois da prévia, o lead já entende o valor e segue para uma conversa comercial.',
   },
 ];
 
 export default function HowItWorksSection() {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
   return (
-    <section className="relative py-24 bg-background overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-slate-950 to-background opacity-50 z-0" />
+    <section className="pastel-section border-y border-slate-200/80">
+      <div className="section-inner">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <motion.div
+            className="lg:sticky lg:top-24"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <div className="light-eyebrow mb-5">Processo</div>
+            <h2 className="text-balance text-4xl font-semibold text-slate-950 md:text-6xl">
+              Um caminho simples para transformar ideia em demonstração.
+            </h2>
+            <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
+              O objetivo é reduzir explicações longas. A pessoa testa, entende e visualiza o agente funcionando no contexto dela.
+            </p>
+          </motion.div>
 
-      {/* Conteúdo */}
-      <div className="relative z-10 container max-w-6xl mx-auto px-4">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16 space-y-4"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Como o Projeto Sai do Papel
-          </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Da ideia do agente ate um atendimento pronto para gerar conversa, lead e agenda.
-          </p>
-        </motion.div>
-
-        {/* Timeline */}
-        <motion.div
-          className="relative"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {/* Linha conectora (desktop) */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500/0 via-cyan-500/50 to-cyan-500/0 transform -translate-y-1/2" />
-
-          {/* Grid de passos */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="space-y-4">
             {steps.map((step, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="relative"
+              <motion.article
+                key={step.number}
+                className="light-card p-6 md:p-7"
+                initial={{ opacity: 0, x: 18 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
+                viewport={{ once: true }}
               >
-                {/* Card */}
-                <div className="bg-slate-900/40 backdrop-blur-xl border border-cyan-500/10 rounded-xl p-6 h-full flex flex-col items-center text-center hover:border-cyan-500/30 hover:bg-slate-900/60 transition-all duration-300">
-                  {/* Número com glow */}
-                  <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 border-2 border-cyan-500/30 mb-4 relative">
-                    <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-cyan-300">
-                      {step.number}
-                    </span>
-                    {/* Glow background */}
-                    <div className="absolute inset-0 rounded-full bg-cyan-500/10 blur-lg -z-10" />
+                <div className="flex gap-5">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-sky-100 bg-sky-50 text-sm font-semibold text-sky-700">
+                    {step.number}
                   </div>
-
-                  {/* Título */}
-                  <h3 className="text-xl font-bold text-white mb-3">
-                    {step.title}
-                  </h3>
-
-                  {/* Descrição */}
-                  <p className="text-gray-400 text-sm leading-relaxed flex-grow">
-                    {step.description}
-                  </p>
-
-                  {/* Checkmark */}
-                  <div className="mt-4">
-                    <CheckCircle2 className="w-6 h-6 text-cyan-400" />
+                  <div>
+                    <div className="mb-2 flex items-center gap-2 text-sm text-emerald-600">
+                      <CheckCircle2 className="h-4 w-4" />
+                      Etapa validada
+                    </div>
+                    <h3 className="text-2xl font-semibold text-slate-950">{step.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">{step.description}</p>
                   </div>
                 </div>
-
-                {/* Seta para próximo (desktop) */}
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:flex absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
-                    <div className="w-6 h-1 bg-gradient-to-r from-cyan-500 to-cyan-500/0" />
-                    <div className="w-3 h-3 bg-cyan-500 rounded-full transform translate-x-1" />
-                  </div>
-                )}
-              </motion.div>
+              </motion.article>
             ))}
           </div>
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-gray-400 mb-6">
-            Quer ver esse fluxo funcionando com a sua empresa?
-          </p>
-          <button className="btn-neon-solid rounded-lg font-semibold">
-            Agendar Diagnóstico Gratuito
-          </button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

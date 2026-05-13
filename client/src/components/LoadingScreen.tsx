@@ -1,189 +1,99 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { CheckCircle2, GitBranch, MessageCircle } from 'lucide-react';
+import Logo from './Logo';
 
 interface LoadingScreenProps {
   onComplete: () => void;
 }
 
+const loadingSteps = ['Preparando interface', 'Organizando fluxos', 'Carregando prévia'];
+
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0);
-  const [showScanner, setShowScanner] = useState(false);
-  const [showHologram, setShowHologram] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowScanner(true);
-    }, 500);
-
-    const hologramTimer = setTimeout(() => {
-      setShowHologram(true);
-    }, 1000);
-
     const progressTimer = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
+      setProgress((currentProgress) => {
+        if (currentProgress >= 100) {
           clearInterval(progressTimer);
-          setTimeout(onComplete, 500);
+          setTimeout(onComplete, 420);
           return 100;
         }
-        return prev + 2;
-      });
-    }, 30);
 
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(hologramTimer);
-      clearInterval(progressTimer);
-    };
+        return Math.min(currentProgress + 4, 100);
+      });
+    }, 45);
+
+    return () => clearInterval(progressTimer);
   }, [onComplete]);
 
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden"
+        className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-[#f8fbff]"
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.45 }}
       >
-        {/* Background particles */}
-        <div className="absolute inset-0">
-          {Array.from({ length: 50 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-cyan-400 rounded-full"
-              initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                opacity: 0
-              }}
-              animate={{
-                opacity: [0, 1, 0],
-                scale: [0, 1, 0]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: Math.random() * 2
-              }}
-            />
-          ))}
-        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(186,230,253,0.62),transparent_34%),radial-gradient(circle_at_70%_70%,rgba(11,47,120,0.10),transparent_32%)]" />
+        <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-sky-200/80 to-transparent" />
 
-        {/* Main content */}
-        <div className="relative z-10 text-center">
-          {/* Logo */}
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8"
-          >
-            <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310419663029218109/3cgCxCq7UVz4omHv5sk2Qf/aty-logo.png"
-              alt="Automation to You"
-              className="h-20 w-auto mx-auto filter drop-shadow-2xl"
-            />
-          </motion.div>
-
-          {/* Scanner effect */}
-          <AnimatePresence>
-            {showScanner && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="mb-8"
-              >
-                <div className="relative w-64 h-1 bg-gray-800 rounded-full mx-auto overflow-hidden">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
-                    animate={{ x: ['-100%', '400%'] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                  />
-                </div>
-                <p className="text-cyan-400 text-sm mt-2 font-mono">Scanning systems...</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Hologram effect */}
-          <AnimatePresence>
-            {showHologram && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                className="mb-8"
-              >
-                <div className="relative">
-                  <motion.div
-                    className="text-2xl font-bold text-cyan-400 font-mono"
-                    animate={{
-                      textShadow: [
-                        '0 0 10px rgba(0, 217, 255, 0.5)',
-                        '0 0 20px rgba(0, 217, 255, 0.8)',
-                        '0 0 10px rgba(0, 217, 255, 0.5)'
-                      ]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    INITIALIZING AI CORE
-                  </motion.div>
-                  <motion.div
-                    className="absolute inset-0 text-2xl font-bold text-cyan-400 font-mono opacity-50"
-                    animate={{ x: [0, 2, 0] }}
-                    transition={{ duration: 0.1, repeat: Infinity }}
-                  >
-                    INITIALIZING AI CORE
-                  </motion.div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Progress bar */}
-          <div className="w-80 mx-auto">
-            <div className="flex justify-between text-xs text-gray-400 mb-2">
-              <span>Loading Automation Engine</span>
-              <span>{progress}%</span>
+        <motion.div
+          initial={{ opacity: 0, y: 18, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.55, ease: 'easeOut' }}
+          className="relative z-10 w-[min(92vw,520px)] rounded-2xl border border-slate-200 bg-white/90 p-8 shadow-[0_28px_90px_rgba(15,23,42,0.14)] backdrop-blur-xl"
+        >
+          <div className="mb-8 flex items-center gap-4">
+            <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#0b57b5] text-white shadow-[0_18px_42px_rgba(14,165,233,0.24)]">
+              <MessageCircle className="h-7 w-7" />
             </div>
-            <div className="w-full bg-gray-800 rounded-full h-2 overflow-hidden">
-              <motion.div
-                className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.3 }}
-              />
+            <div>
+              <Logo className="mb-2 h-14 w-auto" />
+              <h1 className="mt-1 text-2xl font-semibold text-slate-950">Abrindo o simulador</h1>
             </div>
           </div>
 
-          {/* Loading dots */}
-          <motion.div
-            className="flex justify-center mt-6 space-x-2"
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                className="w-2 h-2 bg-cyan-400 rounded-full"
-                animate={{ scale: [1, 1.5, 1] }}
-                transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-              />
-            ))}
-          </motion.div>
-        </div>
+          <div className="mb-6 grid grid-cols-3 gap-2">
+            {loadingSteps.map((step, index) => {
+              const isDone = progress >= (index + 1) * 30;
 
-        {/* Grid overlay */}
-        <div className="absolute inset-0 opacity-20">
-          <svg width="100%" height="100%" className="absolute inset-0">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0, 217, 255, 0.1)" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
+              return (
+                <div
+                  key={step}
+                  className={`rounded-lg border px-3 py-3 transition ${
+                    isDone ? 'border-emerald-200 bg-emerald-50' : 'border-slate-200 bg-slate-50'
+                  }`}
+                >
+                  <div className="mb-2 flex items-center justify-between">
+                    {isDone ? (
+                      <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    ) : (
+                      <GitBranch className="h-4 w-4 text-slate-500" />
+                    )}
+                    <span className="text-[11px] text-slate-500">0{index + 1}</span>
+                  </div>
+                  <p className="text-xs leading-4 text-slate-600">{step}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div>
+            <div className="mb-2 flex items-center justify-between text-xs text-slate-500">
+              <span>Carregando experiência</span>
+              <span>{progress}%</span>
+            </div>
+            <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+              <motion.div
+                className="h-full rounded-full bg-gradient-to-r from-[#0b2f78] via-[#0b57b5] to-[#12b8ee]"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.2 }}
+              />
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </AnimatePresence>
   );

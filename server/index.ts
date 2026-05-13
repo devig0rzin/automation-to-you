@@ -2,6 +2,7 @@ import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
+import { ZodError } from "zod";
 import {
   registerAgentLead,
   runAgentSimulation,
@@ -19,10 +20,16 @@ async function startServer() {
   app.use(express.json({ limit: "1mb" }));
 
   app.post("/api/agent-leads", (req, res) => {
-    const lead = req.body as LeadPayload;
-    const registeredLead = registerAgentLead(lead);
-
-    res.json({ ok: true, lead: registeredLead });
+    try {
+      const lead = req.body as LeadPayload;
+      const registeredLead = registerAgentLead(lead);
+      res.json({ ok: true, lead: registeredLead });
+    } catch (error) {
+      res.status(400).json({
+        error: "Dados do lead inválidos.",
+        details: formatApiError(error),
+      });
+    }
   });
 
   app.post("/api/chat-simulation", async (req, res) => {
@@ -31,8 +38,9 @@ async function startServer() {
       res.json(result);
     } catch (error) {
       console.error("[chat-simulation-error]", error);
-      res.status(500).json({
-        error: "Nao foi possivel simular o atendimento agora.",
+      res.status(error instanceof ZodError ? 400 : 500).json({
+        error: error instanceof ZodError ? "Dados da simulação inválidos." : "Não foi possível simular o atendimento agora.",
+        details: formatApiError(error),
       });
     }
   });
@@ -58,3 +66,18 @@ async function startServer() {
 }
 
 startServer().catch(console.error);
+
+function formatApiError(error: unknown) {
+  if (error instanceof ZodError) {
+    return error.issues.map((issue) => ({
+      path: issue.path.join("."),
+      message: issue.message,
+    }));
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Erro desconhecido.";
+}

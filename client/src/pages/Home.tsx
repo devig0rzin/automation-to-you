@@ -19,7 +19,7 @@ import GlobalBackground from '@/components/GlobalBackground';
  */
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-black text-white relative">
+    <div className="min-h-screen flex flex-col bg-[#f8fbff] text-slate-950 relative">
       <GlobalBackground />
       <main className="flex-grow relative z-10">
         <HeroSection />

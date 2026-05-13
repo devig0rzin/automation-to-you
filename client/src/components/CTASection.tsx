@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
-import type { Variants } from 'framer-motion';
-import { ArrowRight, Bot, MessageCircle } from 'lucide-react';
+import { ArrowRight, MessageCircle, Sparkles } from 'lucide-react';
 
 function scrollToSimulator() {
   document.getElementById('simulador-agente')?.scrollIntoView({
@@ -10,74 +9,43 @@ function scrollToSimulator() {
 }
 
 export default function CTASection() {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
   return (
-    <section className="relative overflow-hidden bg-black py-24">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,217,255,0.16),_transparent_34%)]" />
-      <motion.div
-        className="relative z-10 container mx-auto max-w-5xl px-4 text-center"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
+    <section className="pastel-section">
+      <div className="section-inner">
         <motion.div
-          variants={itemVariants}
-          className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-cyan-400 text-black shadow-[0_0_40px_rgba(0,217,255,0.35)]"
+          className="light-panel mx-auto max-w-5xl overflow-hidden p-8 text-center md:p-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
         >
-          <Bot className="h-7 w-7" />
+          <div className="mx-auto mb-7 flex h-14 w-14 items-center justify-center rounded-2xl border border-sky-100 bg-sky-50 text-sky-600">
+            <Sparkles className="h-6 w-6" />
+          </div>
+          <h2 className="mx-auto max-w-4xl text-balance text-4xl font-semibold leading-tight text-slate-950 md:text-6xl">
+            Mostre qualidade antes do cliente pedir orçamento.
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+            Use a prévia como porta de entrada: o lead entende a solução, testa o fluxo e chega mais preparado para fechar.
+          </p>
+
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+            <button onClick={scrollToSimulator} className="warm-button px-6 py-4 text-base">
+              Testar o simulador
+              <ArrowRight className="h-5 w-5" />
+            </button>
+            <a
+              href="https://wa.me/?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20agentes%20de%20IA%20e%20automa%C3%A7%C3%A3o."
+              target="_blank"
+              rel="noreferrer"
+              className="soft-button px-6 py-4 text-base"
+            >
+              <MessageCircle className="h-5 w-5" />
+              Chamar no WhatsApp
+            </a>
+          </div>
         </motion.div>
-
-        <motion.h2
-          variants={itemVariants}
-          className="mx-auto max-w-4xl text-4xl font-bold leading-tight text-white md:text-6xl"
-        >
-          Seu proximo cliente pode testar o agente antes de pedir orcamento.
-        </motion.h2>
-
-        <motion.p
-          variants={itemVariants}
-          className="mx-auto mt-6 max-w-2xl text-lg text-gray-400 md:text-xl"
-        >
-          Use o simulador como porta de entrada: ele coleta o lead, mostra valor na hora e abre caminho para fechar o projeto completo.
-        </motion.p>
-
-        <motion.div
-          variants={itemVariants}
-          className="mt-9 flex flex-col justify-center gap-4 sm:flex-row"
-        >
-          <button
-            onClick={scrollToSimulator}
-            className="btn-neon-solid flex items-center justify-center gap-2 rounded-lg font-semibold"
-          >
-            Testar o simulador
-            <ArrowRight className="h-5 w-5" />
-          </button>
-          <button className="btn-neon flex items-center justify-center gap-2 rounded-lg font-semibold">
-            <MessageCircle className="h-5 w-5" />
-            Chamar no WhatsApp
-          </button>
-        </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

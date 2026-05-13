@@ -1,133 +1,77 @@
 import { motion } from 'framer-motion';
-import type { Variants } from 'framer-motion';
-import { Zap, Users, Cpu, TrendingUp, Lock, Gauge } from 'lucide-react';
+import { Cpu, Gauge, Lock, TrendingUp, Users, Zap } from 'lucide-react';
 
-/**
- * Design: Cyber-Luxury Minimalista\n * - Cards com ícones grandes\n * - Glassmorphism premium\n * - Hover com efeito neon\n * - Grid com espaço negativo\n */
-
-interface Differential {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
-
-const differentials: Differential[] = [
+const differentials = [
   {
-    icon: <Cpu className="w-12 h-12" />,
-    title: 'Demo Antes da Venda',
-    description: 'O cliente testa o agente antes de chamar no WhatsApp',
+    icon: <Cpu className="h-5 w-5" />,
+    title: 'Demo antes da venda',
+    description: 'O lead entende a automação em um ambiente visual, sem depender apenas de explicação verbal.',
   },
   {
-    icon: <Users className="w-12 h-12" />,
-    title: 'Lead Qualificado',
-    description: 'Formulario coleta contexto antes da simulacao com IA',
+    icon: <Users className="h-5 w-5" />,
+    title: 'Contexto capturado',
+    description: 'Dados do negócio entram antes da simulação, deixando a conversa mais personalizada.',
   },
   {
-    icon: <Zap className="w-12 h-12" />,
-    title: 'Entrega Rapida',
-    description: 'Templates aceleram a criacao sem deixar o agente generico',
+    icon: <Zap className="h-5 w-5" />,
+    title: 'Entrega mais rápida',
+    description: 'Templates reduzem o tempo de montagem mantendo uma experiência com aparência exclusiva.',
   },
   {
-    icon: <TrendingUp className="w-12 h-12" />,
-    title: 'Foco em Conversao',
-    description: 'A conversa conduz para orcamento, agendamento ou humano',
+    icon: <TrendingUp className="h-5 w-5" />,
+    title: 'Foco em conversão',
+    description: 'O fluxo conduz para orçamento, agendamento ou atendimento humano com menos atrito.',
   },
   {
-    icon: <Lock className="w-12 h-12" />,
-    title: 'Chave Protegida',
-    description: 'A API da IA fica no backend, nao exposta no navegador',
+    icon: <Lock className="h-5 w-5" />,
+    title: 'Estrutura segura',
+    description: 'A chave da IA fica protegida no backend, sem exposição direta no navegador.',
   },
   {
-    icon: <Gauge className="w-12 h-12" />,
-    title: 'Personalizacao Real',
-    description: 'Nome, servicos, precos, horarios e regras entram no prompt',
+    icon: <Gauge className="h-5 w-5" />,
+    title: 'Ajuste fino',
+    description: 'Tom de voz, regras e serviços podem ser refinados sem reconstruir a experiência inteira.',
   },
 ];
 
 export default function DifferentialsSection() {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
-    <section className="relative py-24 bg-background overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-background to-background opacity-50 z-0" />
-
-      {/* Conteúdo */}
-      <div className="relative z-10 container max-w-6xl mx-auto px-4">
-        {/* Header */}
+    <section className="light-section">
+      <div className="section-inner">
         <motion.div
-          className="text-center mb-16 space-y-4"
-          initial={{ opacity: 0, y: -20 }}
+          className="mx-auto mb-14 max-w-3xl text-center"
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Por que Isso Vende Melhor
+          <div className="light-eyebrow mb-5">Diferenciais</div>
+          <h2 className="text-balance text-4xl font-semibold text-slate-950 md:text-6xl">
+            A experiência precisa vender confiança antes de vender tecnologia.
           </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            A pessoa entende a automacao na pratica e chega mais pronta para contratar.
+          <p className="mt-5 text-lg leading-8 text-slate-600">
+            Cada elemento visual foi pensado para explicar valor, reduzir dúvida e mostrar maturidade profissional.
           </p>
         </motion.div>
 
-        {/* Grid de diferenciais */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {differentials.map((diff, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="group relative"
+            <motion.article
+              key={diff.title}
+              className="light-card p-6"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: index * 0.04 }}
+              viewport={{ once: true }}
             >
-              {/* Card */}
-              <div className="bg-slate-900/40 backdrop-blur-xl border border-cyan-500/10 rounded-xl p-8 h-full flex flex-col items-center text-center hover:border-cyan-500/30 hover:bg-slate-900/60 transition-all duration-300 cursor-pointer">
-                {/* Ícone com glow */}
-                <div className="flex items-center justify-center w-16 h-16 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 text-cyan-400 mb-4 group-hover:shadow-lg group-hover:shadow-cyan-500/40 transition-all duration-300">
-                  {diff.icon}
-                </div>
-
-                {/* Título */}
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors duration-300">
-                  {diff.title}
-                </h3>
-
-                {/* Descrição */}
-                <p className="text-gray-400 text-sm leading-relaxed flex-grow">
-                  {diff.description}
-                </p>
-
-                {/* Linha decorativa */}
-                <div className="mt-4 h-1 w-0 bg-gradient-to-r from-cyan-400 to-cyan-300 group-hover:w-12 transition-all duration-500" />
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-sky-100 bg-sky-50 text-sky-600">
+                {diff.icon}
               </div>
-
-              {/* Glow background */}
-              <div className="absolute inset-0 bg-cyan-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl -z-10" />
-            </motion.div>
+              <h3 className="text-xl font-semibold text-slate-950">{diff.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">{diff.description}</p>
+            </motion.article>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
