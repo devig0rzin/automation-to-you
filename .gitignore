@@ -38,6 +38,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+.manus-logs/
+responsive-report/
 
 # Runtime data
 .data/

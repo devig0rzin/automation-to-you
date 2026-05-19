@@ -648,7 +648,7 @@ export default function AgentSimulatorSection() {
       await sendLeadToSheets(sheetsPayload);
     } catch (error) {
       console.error('[sheets-lead-submit-error]', error);
-      setStatus('Não foi possível enviar o lead para a planilha agora. Tente novamente em instantes.');
+      setStatus('');
     } finally {
       setAgent((current) => ({ ...current, businessName: current.businessName || lead.businessName }));
       setLeadCaptured(true);
@@ -1749,6 +1749,7 @@ function LeadInput({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         className="light-input h-12 w-full"
+        aria-label={label}
         aria-invalid={Boolean(error)}
         required={required}
       />
@@ -1765,6 +1766,7 @@ function TextInput({ label, value, onChange }: { label: string; value: string; o
         value={value}
         onChange={(event) => onChange(event.target.value)}
         className="h-11 w-full rounded-lg border border-slate-200 px-3 outline-none focus:border-cyan-400"
+        aria-label={label}
       />
     </label>
   );

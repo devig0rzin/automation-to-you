@@ -106,6 +106,8 @@
   html {
     scroll-behavior: smooth;
     background: #f8fbff;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
@@ -115,6 +117,7 @@
     font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     line-height: 1.6;
     letter-spacing: 0;
+    font-synthesis: none;
     text-rendering: geometricPrecision;
     -webkit-font-smoothing: antialiased;
     background:
@@ -132,6 +135,7 @@
     font-family: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
     letter-spacing: 0;
     color: inherit;
+    overflow-wrap: break-word;
   }
 
   h1 {
@@ -151,6 +155,14 @@
 
   p {
     color: #64748b;
+    overflow-wrap: break-word;
+  }
+
+  a,
+  button,
+  li,
+  span {
+    overflow-wrap: break-word;
   }
 
   ::selection {
@@ -1037,6 +1049,50 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  @supports not (text-wrap: balance) {
+    .text-balance {
+      text-wrap: normal;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-content h1 {
+      font-size: clamp(2.55rem, 11.5vw, 3.25rem);
+      line-height: 1.02;
+    }
+
+    .hero-content > p,
+    .deliverables-header p,
+    .differentials-header p,
+    .final-cta-card p,
+    .process-content > div > div:first-child > p {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .light-eyebrow,
+    .eyebrow,
+    .process-eyebrow,
+    .hero-content [class*="tracking-"] {
+      max-width: 100%;
+      letter-spacing: 0.12em;
+      line-height: 1.25;
+      white-space: normal;
+    }
+
+    .premium-button,
+    .warm-button,
+    .soft-button,
+    .premium-button-outline,
+    .btn-neon,
+    .btn-neon-solid {
+      min-width: 0;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.25;
+    }
   }
 
   .premium-led-text {
