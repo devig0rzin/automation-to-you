@@ -1,106 +1,64 @@
-﻿# Automation To You
+# Automation to You
 
-Landing page and web application foundation for an AI automation business focused on workflows, integrations and operational systems.
+Landing page premium para uma agencia de automacao com IA. O projeto apresenta uma experiencia visual interativa para demonstrar como automacoes podem reduzir tarefas manuais, conectar sistemas e acelerar operacoes comerciais.
 
-## Problem
+## Visao geral
 
-Many businesses still lose time with repetitive manual tasks: lead follow-up, customer support, scheduling, reminders, spreadsheet updates, payment routines and internal communication.
+Automation to You foi criada como vitrine de portfolio para servicos de automacao, atendimento inteligente e integracao de ferramentas. A interface combina narrativa comercial, secoes de servicos, provas de autoridade e experiencias 3D em tempo real.
 
-This project presents Automation To You as a service brand for companies that want to automate these processes with AI, APIs and modern digital tools.
+## Destaques
 
-## Solution
-
-A modern web experience built to communicate automation services, explain value clearly and support future lead capture, dashboards and internal systems.
-
-```text
-Visitor
-  -> Landing page
-  -> Service explanation
-  -> Contact / lead capture
-  -> Automation diagnosis
-  -> Custom workflow implementation
-```
-
-## Features
-
-- Modern React interface
-- Responsive layout
-- Service-focused sections
-- Animation-ready frontend
-- Express backend foundation
-- Shared types between client and server
-- Component-based structure
-- Ready to evolve into dashboard, CRM or client portal
+- Hero visual com video e chamada direta para diagnostico de processos.
+- Secao 3D interativa inspirada em tunel futurista, criada com Three.js e React Three Fiber.
+- Copy voltada para agencia de automacao, atendimento, vendas e operacoes.
+- Layout responsivo para desktop e mobile.
+- Componentes animados com Framer Motion.
+- Base pronta para incluir screenshots, demo publica e estudos de caso.
 
 ## Stack
 
-- React
+- React 19
 - TypeScript
 - Vite
-- Express
-- Tailwind CSS
-- Radix UI
-- Framer Motion
+- Tailwind CSS 4
 - Three.js
-- Zod
+- React Three Fiber
+- Framer Motion
+- Radix UI
+- Express
 
-## Architecture
-
-```text
-client/       Frontend application
-server/       Express backend
-shared/       Shared schemas and types
-fotos/        Visual assets
-video/        Media assets
-```
-
-## How To Run
-
-1. Clone the repository.
-2. Install dependencies:
+## Como rodar localmente
 
 ```bash
 pnpm install
-```
-
-3. Start the development server:
-
-```bash
 pnpm dev
 ```
 
-4. Build for production:
+O app roda em:
 
-```bash
-pnpm build
+```text
+http://localhost:3000
 ```
 
-5. Start production build:
+## Scripts
 
 ```bash
-pnpm start
+pnpm dev       # inicia o ambiente de desenvolvimento
+pnpm build     # gera build de producao
+pnpm preview   # preview local do build
+pnpm check     # valida TypeScript
+pnpm format    # formata o projeto
 ```
 
-## Environment Variables
+## Roadmap de portfolio
 
-Use `.env.example` as reference.
-
-Never commit real API keys, tokens or private credentials.
+- Adicionar screenshots reais da home, tunel 3D e secoes principais.
+- Publicar demo em Vercel, Netlify ou Cloudflare Pages.
+- Criar estudos de caso com exemplos de automacoes para vendas, suporte e financeiro.
+- Adicionar testes basicos para componentes criticos.
+- Documentar guia de deploy.
+- Melhorar SEO, Open Graph e favicon.
 
 ## Status
 
-In progress.
-
-Next improvements:
-
-- Add real screenshots
-- Add live demo link
-- Add service case studies
-- Add contact form integration
-- Add SEO metadata
-- Add automated tests
-- Add deployment guide
-
-## About
-
-Automation To You is focused on creating practical automation systems using AI, n8n, APIs, webhooks and digital product workflows.
+Em desenvolvimento ativo. O foco atual e polir performance, copy e apresentacao publica para uso em portfolio profissional.
