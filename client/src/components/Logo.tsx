@@ -5,9 +5,9 @@ type LogoProps = {
 export default function Logo({ className = 'h-12 w-auto' }: LogoProps) {
   return (
     <img
-      src="/logo-transparent.png"
+      src="/aty-logo-new.jpg"
       alt="ATY"
-      className={`${className} object-contain`}
+      className={`${className} rounded-full object-cover`}
     />
   );
 }

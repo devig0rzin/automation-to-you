@@ -1,120 +1,59 @@
-import { useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function GlobalBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrame = 0;
-    let width = 0;
-    let height = 0;
-
-    type Particle = {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      opacity: number;
-    };
-
-    const particles: Particle[] = [];
-
-    const setSize = () => {
-      const ratio = window.devicePixelRatio || 1;
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width * ratio;
-      canvas.height = height * ratio;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-    };
-
-    const createParticles = () => {
-      particles.length = 0;
-      const count = width < 768 ? 22 : 44;
-      for (let i = 0; i < count; i += 1) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.18,
-          vy: (Math.random() - 0.5) * 0.18,
-          radius: Math.random() * 1.4 + 0.4,
-          opacity: Math.random() * 0.26 + 0.08,
-        });
-      }
-    };
-
-    const draw = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, 'rgba(186, 230, 253, 0.22)');
-      gradient.addColorStop(0.5, 'rgba(18, 184, 238, 0.10)');
-      gradient.addColorStop(1, 'rgba(11, 47, 120, 0.08)');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-
-      particles.forEach((particle, index) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        if (particle.x < -10) particle.x = width + 10;
-        if (particle.x > width + 10) particle.x = -10;
-        if (particle.y < -10) particle.y = height + 10;
-        if (particle.y > height + 10) particle.y = -10;
-
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(14, 165, 233, ${particle.opacity * 0.65})`;
-        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        for (let j = index + 1; j < particles.length; j += 1) {
-          const next = particles[j];
-          const dx = particle.x - next.x;
-          const dy = particle.y - next.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 118) {
-            ctx.strokeStyle = `rgba(14, 165, 233, ${0.04 * (1 - distance / 118)})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(next.x, next.y);
-            ctx.stroke();
-          }
-        }
-      });
-
-      animationFrame = requestAnimationFrame(draw);
-    };
-
-    const handleResize = () => {
-      setSize();
-      createParticles();
-    };
-
-    handleResize();
-    draw();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrame);
-    };
-  }, []);
+  const { scrollYProgress } = useScroll();
+  const orbitY = useTransform(scrollYProgress, [0, 1], [0, -260]);
+  const orbitRotate = useTransform(scrollYProgress, [0, 1], [0, 48]);
+  const traceY = useTransform(scrollYProgress, [0, 1], [0, 180]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden bg-[#f8fbff]">
-      <canvas ref={canvasRef} className="absolute inset-0 opacity-50" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(186,230,253,0.48),transparent_34%),radial-gradient(circle_at_82%_18%,rgba(11,47,120,0.10),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0)_0%,#f8fbff_86%)]" />
-      <div className="subtle-grid absolute inset-0 opacity-20" />
-      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/70 to-transparent" />
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#f5f9fe]" aria-hidden="true">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_6%,rgba(186,230,253,.62),transparent_29rem),radial-gradient(circle_at_88%_14%,rgba(11,87,181,.12),transparent_31rem),radial-gradient(circle_at_50%_72%,rgba(14,165,233,.08),transparent_34rem),linear-gradient(180deg,#fbfdff_0%,#f2f7fd_48%,#f8fbff_100%)]" />
+
+      <div className="absolute inset-0 opacity-[0.26] [background-image:linear-gradient(rgba(11,87,181,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(11,87,181,.06)_1px,transparent_1px)] [background-size:72px_72px] [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
+
+      <motion.svg
+        className="absolute -right-48 top-28 h-[500px] w-[500px] opacity-[0.12] sm:-right-40 sm:top-24 sm:h-[720px] sm:w-[720px] sm:opacity-[0.16]"
+        viewBox="0 0 720 720"
+        fill="none"
+        style={{ y: orbitY, rotate: orbitRotate }}
+      >
+        <circle cx="360" cy="360" r="300" stroke="#0b57b5" />
+        <circle cx="360" cy="360" r="218" stroke="#0ea5e9" strokeDasharray="7 14" />
+        <circle cx="360" cy="360" r="112" stroke="#0b57b5" />
+        <path d="M360 28V178M360 542V692M28 360H178M542 360H692" stroke="#0b57b5" />
+        <path d="M126 126L232 232M488 488L594 594M594 126L488 232M232 488L126 594" stroke="#0ea5e9" />
+        <circle cx="360" cy="360" r="24" fill="#0b57b5" fillOpacity=".22" />
+        <circle cx="360" cy="60" r="9" fill="#0ea5e9" />
+        <circle cx="660" cy="360" r="9" fill="#0ea5e9" />
+      </motion.svg>
+
+      <motion.svg
+        className="absolute -left-48 top-[46%] hidden h-[620px] w-[620px] opacity-[0.11] md:block"
+        viewBox="0 0 620 620"
+        fill="none"
+        style={{ y: traceY, rotate: orbitRotate }}
+      >
+        <circle cx="310" cy="310" r="252" stroke="#0b57b5" />
+        <circle cx="310" cy="310" r="172" stroke="#0ea5e9" strokeDasharray="4 12" />
+        <path d="M310 58V562M58 310H562" stroke="#0b57b5" />
+        <circle cx="310" cy="310" r="15" fill="#0ea5e9" fillOpacity=".28" />
+      </motion.svg>
+
+      <motion.svg className="absolute inset-x-0 top-[28%] hidden h-[38rem] w-full opacity-[0.13] sm:block" viewBox="0 0 1440 600" fill="none" style={{ y: traceY }}>
+        <path
+          d="M-60 420 C170 420 180 140 420 140 C650 140 650 470 890 470 C1120 470 1130 220 1500 220"
+          stroke="#0ea5e9"
+          strokeWidth="1.5"
+          strokeDasharray="6 12"
+        />
+        <circle cx="420" cy="140" r="7" fill="#0b57b5" />
+        <circle cx="890" cy="470" r="7" fill="#0b57b5" />
+        <circle cx="1210" cy="260" r="5" fill="#0ea5e9" />
+      </motion.svg>
+
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/75 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white/55 to-transparent" />
     </div>
   );
 }

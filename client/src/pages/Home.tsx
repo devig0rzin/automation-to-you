@@ -1,28 +1,25 @@
-import HeroSection from '@/components/HeroSection';
-import ServicesSection from '@/components/ServicesSection';
-import HowItWorksSection from '@/components/HowItWorksSection';
-import DifferentialsSection from '@/components/DifferentialsSection';
 import AgentSimulatorSection from '@/components/AgentSimulatorSection';
+import CapabilitiesStorySection from '@/components/CapabilitiesStorySection';
+import CreativeShowcaseSection from '@/components/CreativeShowcaseSection';
 import CTASection from '@/components/CTASection';
+import DifferentialsSection from '@/components/DifferentialsSection';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import Footer from '@/components/Footer';
 import GlobalBackground from '@/components/GlobalBackground';
+import HeroSection from '@/components/HeroSection';
+import ImageJourneyOverlay from '@/components/ImageJourneyOverlay';
+import HowItWorksSection from '@/components/HowItWorksSection';
+import ServicesSection from '@/components/ServicesSection';
 
-/**
- * Design: Futuristic AI Automation Center
- * - Hero cinematográfico com 3D e parallax
- * - Storytelling visual com narrativa scroll
- * - Seções com profundidade e 3D
- * - Microinterações premium
- * - Ambiente vivo com partículas e grids
- * - Autoridade visual com números reais
- */
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#f8fbff] text-slate-950 relative">
+    <div className="relative flex min-h-screen flex-col bg-transparent text-slate-950">
       <GlobalBackground />
-      <main className="flex-grow relative z-10">
+      <ImageJourneyOverlay />
+      <main className="relative z-10 flex-grow">
         <HeroSection />
+        <CreativeShowcaseSection />
+        <CapabilitiesStorySection />
         <AgentSimulatorSection />
         <ServicesSection />
         <HowItWorksSection />

@@ -17,6 +17,7 @@ import {
   Wand2,
   X,
 } from 'lucide-react';
+import TechnologyBackdrop from './TechnologyBackdrop';
 
 type LeadForm = {
   name: string;
@@ -725,15 +726,55 @@ export default function AgentSimulatorSection() {
   return (
     <section
       id="simulador-agente"
-      className="simulator-section section-shell scroll-mt-6 bg-[#030712] text-white"
+      className="aty-light-detail aty-light-detail--reverse simulator-section section-shell scroll-mt-6 overflow-hidden bg-white/82 text-slate-950"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(18,184,238,0.16),transparent_30rem),radial-gradient(circle_at_78%_28%,rgba(11,47,120,0.34),transparent_34rem),linear-gradient(135deg,#030712_0%,#061224_45%,#02040a_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(125,211,252,0.08)_1px,transparent_1px),linear-gradient(rgba(125,211,252,0.06)_1px,transparent_1px)] bg-[size:72px_72px] opacity-40 [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]" />
-      <div className="absolute inset-x-0 top-24 h-px bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-slate-200" />
+      <div className="pointer-events-none absolute -right-32 top-20 h-96 w-96 rounded-full bg-sky-100/70 blur-3xl" />
 
       <div className="section-inner">
         <motion.div
-          className="mb-14 max-w-4xl"
+          className="mb-14 grid gap-10 border-b border-slate-200 pb-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-end"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div>
+            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#0b57b5]">
+              <span className="h-px w-10 bg-[#0b57b5]" />
+              Demonstração interativa
+            </div>
+            <h2 className="mt-6 max-w-4xl text-balance text-[2.65rem] font-bold leading-[0.94] tracking-[-0.045em] sm:text-5xl md:text-7xl">
+              Seu atendimento, antes de virar projeto.
+            </h2>
+          </div>
+          <div>
+            <p className="max-w-xl text-lg leading-8 text-slate-600">
+              Monte uma versão do seu atendimento e converse com ela agora. Você escolhe o segmento, define o contexto
+              e vê a experiência funcionando no WhatsApp.
+            </p>
+            <div className="simulator-steps mt-8 grid grid-cols-1 border-y border-slate-200 sm:grid-cols-3">
+              {[
+                ['01', 'Cadastre', 'seu negócio'],
+                ['02', 'Configure', 'o atendimento'],
+                ['03', 'Converse', 'com a prévia'],
+              ].map(([number, title, copy]) => (
+                <div key={number} className="border-b border-slate-200 py-4 last:border-b-0 sm:border-b-0 sm:border-r sm:py-5 sm:pr-4 sm:last:border-r-0 sm:[&:not(:first-child)]:pl-4">
+                  <div className="font-mono text-xs font-bold text-[#0b57b5]">{number}</div>
+                  <div className="mt-2 text-sm font-bold text-slate-950">{title}</div>
+                  <div className="mt-1 text-xs leading-5 text-slate-500">{copy}</div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-slate-500">
+              <Check className="h-4 w-4 text-emerald-500" />
+              Sem cartão e sem compromisso
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="hidden"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -747,13 +788,53 @@ export default function AgentSimulatorSection() {
           <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
             Faça um cadastro rápido, escolha entre Agente IA ou Fluxo de mensagens e veja como seu atendimento ficaria no WhatsApp.
           </p>
+          <div className="mt-8 grid gap-3 md:grid-cols-3">
+            {[
+              ['Sites', 'cada tela com presença'],
+              ['Apps', 'dados e operação juntos'],
+              ['IA', 'resposta com contexto'],
+            ].map(([title, copy], index) => (
+              <motion.div
+                key={title}
+                className="rounded-[1.1rem] border border-white/10 bg-white/[0.06] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl"
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
+              >
+                <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-100/80">
+                  {index === 0 ? <Smartphone className="h-4 w-4" /> : index === 1 ? <Bot className="h-4 w-4" /> : <Wand2 className="h-4 w-4" />}
+                  {title}
+                </div>
+                <p className="mt-2 text-sm leading-6 text-slate-300">{copy}</p>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
-        <div className="simulator-wrapper grid grid-cols-1 gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8">
+        <div className="relative overflow-hidden rounded-[1.6rem] bg-[#07111f] p-2.5 shadow-[0_36px_100px_rgba(7,17,31,0.22)] sm:rounded-[2.25rem] sm:p-5 lg:p-7">
+          <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.06)_1px,transparent_1px)] [background-size:48px_48px]" />
+          <div className="relative mb-4 flex flex-col gap-3 px-2 py-2 text-white sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-sky-400/25 bg-sky-400/10 text-sky-300">
+                <Bot className="h-4 w-4" />
+              </span>
+              <div>
+                <div className="text-sm font-bold">Laboratório de atendimento</div>
+                <div className="mt-0.5 text-xs text-white/45">Configure à esquerda. Teste à direita.</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-300">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_14px_rgba(52,211,153,0.8)]" />
+              ambiente de demonstração ativo
+            </div>
+          </div>
+
+        <div className="simulator-wrapper relative grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5" style={{ alignItems: 'stretch' }}>
           <motion.div
-            className="simulator-card rounded-2xl border border-white/10 bg-white/[0.94] p-4 text-slate-950 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-2xl md:p-5"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="simulator-card h-full rounded-[1.5rem] border border-white/10 bg-[#f8fafc] p-4 text-slate-950 shadow-[0_24px_80px_rgba(0,0,0,0.28)] md:p-6"
+            initial={{ opacity: 0, x: -18 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45 }}
           >
@@ -857,17 +938,27 @@ export default function AgentSimulatorSection() {
           </motion.div>
 
           <motion.div
-            className="preview-card rounded-2xl border border-white/10 bg-white/[0.94] p-4 text-slate-950 shadow-[0_24px_80px_rgba(0,0,0,0.32)] backdrop-blur-2xl md:p-5"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="preview-card relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0b1626] p-0 shadow-[0_28px_80px_rgba(0,0,0,0.38)]"
+            initial={{ opacity: 0, x: 18 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45 }}
+            style={{ perspective: '1200px' }}
           >
-            <div className="mb-5">
-              <h3 className="text-2xl font-bold text-slate-950">Prévia do atendimento</h3>
-              <p className="mt-1 text-sm text-slate-500">Veja como o cliente visualizará a conversa.</p>
+            {/* Header bar */}
+            <div className="flex items-center justify-between gap-4 border-b border-white/8 px-5 py-4">
+              <div>
+                <h3 className="text-base font-bold text-white">Prévia do atendimento</h3>
+                <p className="mt-0.5 text-xs text-white/40">Veja como o cliente visualizará a conversa.</p>
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/[0.07] px-3 py-1.5 text-xs font-semibold text-cyan-100">
+                <Sparkles className="h-3.5 w-3.5" />
+                AO VIVO
+              </div>
             </div>
-            <div className={`${leadCaptured ? '' : 'pointer-events-none opacity-70'}`}>
+            {/* Phone container — fills available space */}
+            <div className={`flex min-h-0 flex-1 items-center justify-center px-2 pb-4 pt-2 sm:px-5 sm:pb-6 sm:pt-3 ${leadCaptured ? '' : 'pointer-events-none opacity-70'}`}>
+              <div className="w-full">
               <WhatsAppPreview
                 mode={builderMode}
                 agentName={agent.agentName}
@@ -887,14 +978,10 @@ export default function AgentSimulatorSection() {
                 onSendMessage={sendMessage}
                 onFlowOptionClick={selectFlowOption}
               />
-              {!leadCaptured && (
-                <div className="mt-4 flex items-center gap-2 text-sm text-slate-500">
-                  <MessageCircle className="h-4 w-4 text-cyan-300" />
-                  Faça o cadastro gratuito para liberar a prévia.
-                </div>
-              )}
+              </div>
             </div>
           </motion.div>
+        </div>
         </div>
 
         {leadCaptured && builderMode === 'fluxo' && isFlowCanvasOpen && (
@@ -946,7 +1033,7 @@ function LeadCaptureForm({
             <UserRound className="h-5 w-5" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-slate-950">Crie sua prévia gratuita</h3>
+            <h3 className="text-xl font-bold text-slate-950 sm:text-2xl">Crie sua prévia gratuita</h3>
             <p className="mt-1 text-sm leading-6 text-slate-600">
               Preencha os dados abaixo e veja como seu atendimento ficaria no WhatsApp.
             </p>
@@ -1579,9 +1666,19 @@ function WhatsAppPreview({
     : undefined;
 
   return (
-    <div className="phone-preview mx-auto max-w-[440px] rounded-[2rem] border border-slate-700/80 bg-slate-950 p-3 shadow-[0_30px_90px_rgba(0,0,0,0.5)]">
-      <div className="mx-auto mb-3 h-1.5 w-20 rounded-full bg-slate-700" />
-      <div className="flex h-[680px] min-h-0 flex-col overflow-hidden rounded-[1.45rem] border border-black/40 bg-[#0b141a]">
+    <div
+      className="phone-preview relative mx-auto rounded-[3rem] border-[7px] border-[#080b12] bg-[#080b12] p-1 shadow-[0_28px_80px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.10)]"
+    >
+      <TechnologyBackdrop variant="wide" />
+      <div className="pointer-events-none absolute left-1/2 top-3 z-20 h-7 w-24 -translate-x-1/2 rounded-full bg-black shadow-[0_1px_0_rgba(255,255,255,0.08)]">
+        <span className="absolute right-2.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-slate-800 ring-1 ring-slate-700" />
+      </div>
+      <span className="pointer-events-none absolute -left-[10px] top-28 h-10 w-[3px] rounded-l bg-slate-700" />
+      <span className="pointer-events-none absolute -left-[10px] top-44 h-16 w-[3px] rounded-l bg-slate-700" />
+      <span className="pointer-events-none absolute -right-[10px] top-36 h-20 w-[3px] rounded-r bg-slate-700" />
+      <div
+        className="flex min-h-0 flex-col overflow-hidden rounded-[2.45rem] border border-white/5 bg-[#0b141a] pt-5"
+      >
         <div className="flex items-center justify-between gap-3 border-b border-black/30 bg-[#202c33] px-4 py-3">
           <div className="flex min-w-0 items-center gap-3">
             <div className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-emerald-300/35 bg-gradient-to-br from-cyan-300 to-emerald-300 text-sm font-black text-slate-950 shadow-[0_0_0_3px_rgba(0,168,132,0.12)]">
@@ -1605,7 +1702,7 @@ function WhatsAppPreview({
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1 text-slate-300">
+          <div className="phone-toolbar-actions flex items-center gap-1 text-slate-300">
             <button className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-white/10" aria-label="Ligar">
               <Phone className="h-4 w-4" />
             </button>

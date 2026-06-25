@@ -1,131 +1,150 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BarChart3, Bot, Cpu, MessageSquare, Network, Zap } from 'lucide-react';
+import { Bot, Braces, LayoutDashboard, MonitorSmartphone, Workflow } from 'lucide-react';
+import ServiceSystemVisual from './ServiceSystemVisual';
 
-const services = [
+const offers = [
   {
-    icon: <Bot className="h-5 w-5" />,
-    title: 'Agentes de IA sob medida',
-    description: 'Criamos um agente com linguagem, regras e respostas alinhadas ao seu negócio.',
-    details: ['Prompt personalizado', 'Regras de atendimento', 'Tom de voz da empresa', 'Treinamento por segmento'],
-    insight:
-      'Seu atendimento passa a responder com mais consistência, seguindo regras do seu negócio e mantendo uma comunicação profissional com seus clientes.',
+    icon: MonitorSmartphone,
+    number: '01',
+    title: 'Sites e páginas de campanha',
+    copy: 'Uma presença digital forte para apresentar, vender e direcionar o próximo passo.',
+    items: ['Institucional', 'Landing pages', 'Experiências interativas'],
   },
   {
-    icon: <MessageSquare className="h-5 w-5" />,
-    title: 'Fluxos conversacionais',
-    description: 'Criamos caminhos guiados para atendimento, qualificação e conversão pelo WhatsApp.',
-    details: ['Botões e respostas rápidas', 'Coleta de dados', 'Qualificação de leads', 'Encaminhamento para humano'],
-    insight: 'O cliente percorre um caminho claro, com perguntas, respostas e próximos passos bem definidos.',
+    icon: LayoutDashboard,
+    number: '02',
+    title: 'Aplicações e portais',
+    copy: 'Interfaces para clientes e equipes consultarem dados, executarem tarefas e acompanharem processos.',
+    items: ['Dashboards', 'Área do cliente', 'Sistemas internos'],
   },
   {
-    icon: <Network className="h-5 w-5" />,
-    title: 'Integrações operacionais',
-    description: 'Conectamos sua automação com ferramentas que já fazem parte da sua rotina.',
-    details: ['Google Sheets', 'CRMs', 'APIs', 'Webhooks'],
-    insight:
-      'As informações deixam de ficar espalhadas e passam a circular entre WhatsApp, planilhas, CRM e ferramentas internas.',
+    icon: Bot,
+    number: '03',
+    title: 'Atendimento com IA',
+    copy: 'Agentes treinados com as informações, regras e limites reais da sua operação.',
+    items: ['WhatsApp', 'Triagem', 'Qualificação'],
   },
   {
-    icon: <Zap className="h-5 w-5" />,
-    title: 'Automação de tarefas',
-    description: 'Reduzimos processos repetitivos com rotinas simples, rastreáveis e fáceis de manter.',
-    details: ['Envio de mensagens', 'Atualização de planilhas', 'Notificações automáticas', 'Organização de leads'],
-    insight:
-      'Tarefas repetitivas são executadas automaticamente, reduzindo erro manual e economizando tempo da operação.',
+    icon: Workflow,
+    number: '04',
+    title: 'Automação operacional',
+    copy: 'Fluxos que movimentam dados e tarefas entre as ferramentas que sua equipe já usa.',
+    items: ['CRM', 'Planilhas', 'Notificações'],
   },
-  {
-    icon: <Cpu className="h-5 w-5" />,
-    title: 'Simulação antes da venda',
-    description: 'O cliente consegue testar o valor da automação antes de falar com o time comercial.',
-    details: ['Prévia personalizada', 'Teste no WhatsApp', 'Demonstração rápida', 'Experiência guiada'],
-    insight:
-      'O cliente entende o valor da solução antes da reunião comercial, aumentando a confiança e a chance de conversão.',
-  },
-  {
-    icon: <BarChart3 className="h-5 w-5" />,
-    title: 'Dados para decisão',
-    description: 'Organizamos conversas, leads e resultados para facilitar acompanhamento e melhoria.',
-    details: ['Histórico de atendimentos', 'Status dos leads', 'Métricas básicas', 'Base para relatórios'],
-    insight: 'As conversas e leads viram informações organizadas para acompanhamento, análise e melhoria contínua.',
-  },
-];
-
-const processSteps = [
-  'Entendemos seu atendimento',
-  'Criamos a automação',
-  'Integramos com seus canais',
-  'Você acompanha os resultados',
 ];
 
 export default function ServicesSection() {
-  const [selectedDeliverable, setSelectedDeliverable] = useState(0);
-  const activeService = services[selectedDeliverable];
-
   return (
-    <section className="deliverables-section light-section">
-      <div className="section-inner">
-        <motion.div
-          className="deliverables-header mb-14 max-w-3xl"
-          initial={{ opacity: 0, y: 20 }}
+    <section id="entregas" className="relative overflow-hidden bg-[#07111f] py-20 text-white sm:py-24 md:py-36">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_12%,rgba(14,165,233,.13),transparent_25rem),radial-gradient(circle_at_12%_74%,rgba(11,87,181,.12),transparent_28rem)]" />
+      <div className="pointer-events-none absolute -right-44 top-20 h-[34rem] w-[34rem] rounded-full border border-sky-300/10" />
+      <div className="pointer-events-none absolute -right-24 top-40 h-[22rem] w-[22rem] rounded-full border border-dashed border-sky-300/10" />
+      <div className="pointer-events-none absolute -left-52 bottom-20 h-[32rem] w-[32rem] rounded-full border border-white/[0.05]" />
+      <svg className="pointer-events-none absolute right-10 top-16 h-48 w-48 opacity-[0.08]" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <circle cx="100" cy="100" r="72" stroke="#7dd3fc" />
+        <circle cx="100" cy="100" r="48" stroke="#7dd3fc" strokeDasharray="5 8" />
+        <path d="M100 18V55M100 145V182M18 100H55M145 100H182" stroke="#7dd3fc" />
+        <path d="M42 42L68 68M132 132L158 158M158 42L132 68M68 132L42 158" stroke="#7dd3fc" />
+        <circle cx="100" cy="100" r="9" fill="#7dd3fc" />
+      </svg>
+
+      <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <motion.header
+          className="grid gap-8 border-b border-white/10 pb-14 lg:grid-cols-[1fr_0.75fr] lg:items-end"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.65 }}
         >
-          <div className="light-eyebrow mb-5">O que entregamos</div>
-          <h2 className="text-balance text-4xl font-semibold text-slate-950 md:text-6xl">
-            Automação com cara de produto, não de experimento.
-          </h2>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-            Da primeira mensagem até a integração final, o projeto é desenhado para parecer confiável, simples e comercialmente pronto.
+          <div>
+            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-sky-300">
+              <Braces className="h-4 w-4" />
+              O que podemos construir
+            </div>
+            <h2 className="mt-6 max-w-4xl text-balance text-[2.75rem] font-bold leading-[0.94] tracking-[-0.045em] sm:text-5xl md:text-7xl">
+              Um contato entra. O sistema inteiro responde.
+            </h2>
+          </div>
+          <p className="max-w-xl text-lg leading-8 text-white/60">
+            Entramos no ponto que mais trava o negócio hoje e deixamos a estrutura preparada para o próximo passo.
+            O projeto pode começar pequeno sem nascer limitado.
           </p>
-        </motion.div>
-
-        <div className="deliverables-grid grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <motion.button
-              key={service.title}
-              type="button"
-              onClick={() => setSelectedDeliverable(index)}
-              aria-pressed={selectedDeliverable === index}
-              className={`deliverable-card light-card group p-6 text-left ${selectedDeliverable === index ? 'active' : ''}`}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: index * 0.04 }}
-              viewport={{ once: true }}
-            >
-              <div className="deliverable-icon mb-8 flex h-11 w-11 items-center justify-center rounded-xl border border-sky-100 bg-sky-50 text-sky-600 transition group-hover:border-sky-300 group-hover:bg-sky-100">
-                {service.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-slate-950">{service.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{service.description}</p>
-              <ul className="deliverable-details mt-5 grid gap-2">
-                {service.details.map((detail) => (
-                  <li key={detail}>{detail}</li>
-                ))}
-              </ul>
-            </motion.button>
-          ))}
-        </div>
+        </motion.header>
 
         <motion.div
-          className="deliverable-insight"
-          key={activeService.title}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.25 }}
+          className="mt-12 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]"
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.7 }}
         >
-          <div className="text-sm font-bold uppercase tracking-[0.18em] text-sky-700">Na prática, isso entrega:</div>
-          <p className="mt-3 text-lg leading-8 text-slate-700">{activeService.insight}</p>
+          <ServiceSystemVisual />
+          <div className="flex flex-col justify-between rounded-[1.6rem] border border-white/10 bg-white/[0.04] p-5 sm:rounded-[2rem] sm:p-7 md:p-9">
+            <div>
+              <div className="font-mono text-xs font-bold text-sky-300">ATY / ARCHITECTURE</div>
+              <h3 className="mt-6 text-3xl font-bold leading-[1.03] tracking-[-0.035em] sm:text-4xl md:text-5xl">
+                O efeito visual agora mostra o trabalho acontecendo.
+              </h3>
+              <p className="mt-6 text-base leading-8 text-white/60">
+                O visitante chega pelo site, conversa com o agente, vira informação organizada e aciona o próximo passo.
+                A animação segue exatamente a lógica da entrega.
+              </p>
+            </div>
+            <a
+              href="https://github.com/devig0rzin/automation-to-you"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-10 inline-flex items-center justify-between border-t border-white/10 pt-5 text-sm font-bold text-white transition hover:text-sky-300"
+            >
+              Ver o projeto no GitHub
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </motion.div>
 
-        <div className="process-steps">
-          {processSteps.map((step, index) => (
-            <div key={step} className="process-step">
-              <span>{index + 1}</span>
-              <p>{step}</p>
-            </div>
-          ))}
+        <div className="mt-16 grid gap-4 lg:grid-cols-12">
+          {offers.map((offer, index) => {
+            const Icon = offer.icon;
+            const layout = [
+              'lg:col-span-7',
+              'lg:col-span-5',
+              'lg:col-span-5',
+              'lg:col-span-7',
+            ][index];
+            return (
+              <motion.article
+                key={offer.title}
+                className={`group relative min-h-[280px] overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.035] p-5 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-sky-300/25 hover:bg-white/[0.055] sm:min-h-[310px] sm:rounded-[1.8rem] sm:p-7 md:p-9 ${layout}`}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.45 }}
+                transition={{ duration: 0.55, delay: index * 0.04 }}
+              >
+                <div className="absolute -right-12 -top-12 h-44 w-44 rounded-full border border-white/[0.06] transition duration-500 group-hover:scale-110 group-hover:border-sky-300/15" />
+                <div className="absolute right-7 top-7 font-mono text-5xl font-bold tracking-[-0.08em] text-white/[0.045]">{offer.number}</div>
+
+                <div className="relative flex h-full flex-col">
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-[1rem] border border-sky-300/15 bg-sky-300/[0.07] text-sky-300 transition group-hover:bg-sky-300/[0.12]">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div className="font-mono text-xs font-bold text-sky-300/60">{offer.number} / 04</div>
+                  </div>
+
+                  <h3 className="mt-8 max-w-xl text-2xl font-bold tracking-[-0.03em] sm:mt-10 sm:text-3xl md:text-4xl">{offer.title}</h3>
+                  <p className="mt-3 max-w-2xl text-base leading-7 text-white/55">{offer.copy}</p>
+
+                  <div className="mt-auto flex flex-wrap gap-2 pt-8">
+                    {offer.items.map((item) => (
+                      <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-white/65">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,10 +1,24 @@
-import { ArrowRight, Instagram, Mail } from 'lucide-react';
+import { ArrowRight, Github, Instagram, Mail } from 'lucide-react';
 import Logo from './Logo';
 import WhatsAppIcon from './WhatsAppIcon';
 
-const productLinks = ['Agentes de IA', 'Fluxos de WhatsApp', 'Automações', 'Integrações'];
-const companyLinks = ['Sobre', 'Como funciona', 'Privacidade', 'Termos'];
-const contactLinks = ['WhatsApp', 'Instagram', 'E-mail'];
+const productLinks = [
+  ['Agentes de IA', '#simulador-agente'],
+  ['Sites e sistemas', '#servicos'],
+  ['Automações', '#entregas'],
+  ['Projetos', '#projetos'],
+] as const;
+const companyLinks = [
+  ['Início', '#hero-section'],
+  ['Como funciona', '#processo'],
+  ['Diferenciais', '#diferenciais'],
+  ['Contato', '#contato'],
+] as const;
+const contactLinks = [
+  ['WhatsApp', 'https://wa.me/5511987793213'],
+  ['Instagram', 'https://instagram.com/automationtoy'],
+  ['E-mail', 'mailto:contato@automationtoyou.com'],
+] as const;
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -18,11 +32,11 @@ export default function Footer() {
               <div className="flex items-center gap-3">
                 <Logo className="footer-logo h-16 w-auto" />
                 <div>
-                  <div className="text-xs text-slate-500">AI automation studio</div>
+                  <div className="text-xs text-slate-500">Development & automation studio</div>
                 </div>
               </div>
               <p className="footer-description mt-5 max-w-sm text-sm leading-7 text-slate-600">
-                Criamos automações, agentes de IA e fluxos conversacionais para empresas que querem vender, atender e captar leads com mais autoridade.
+                Criamos sites, agentes de IA e automações para empresas que querem vender, atender e operar com mais autoridade.
               </p>
             </div>
 
@@ -33,10 +47,10 @@ export default function Footer() {
               <div className="footer-column">
                 <h4 className="mb-4 text-sm font-semibold text-slate-950">Contato</h4>
                 <ul className="mb-5 space-y-3">
-                  {contactLinks.map((link) => (
-                    <li key={link}>
-                      <a href="#" className="group inline-flex items-center gap-1 text-sm text-slate-600 transition hover:text-sky-700">
-                        {link}
+                  {contactLinks.map(([label, href]) => (
+                    <li key={label}>
+                      <a href={href} className="group inline-flex items-center gap-1 text-sm text-slate-600 transition hover:text-sky-700">
+                        {label}
                         <ArrowRight className="h-3 w-3 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100" />
                       </a>
                     </li>
@@ -51,6 +65,9 @@ export default function Footer() {
                   </SocialLink>
                   <SocialLink href="mailto:contato@automationtoyou.com" label="Email">
                     <Mail className="h-5 w-5" />
+                  </SocialLink>
+                  <SocialLink href="https://github.com/devig0rzin/automation-to-you" label="GitHub">
+                    <Github className="h-5 w-5" />
                   </SocialLink>
                 </div>
               </div>
@@ -69,15 +86,15 @@ export default function Footer() {
   );
 }
 
-function FooterColumn({ title, links }: { title: string; links: string[] }) {
+function FooterColumn({ title, links }: { title: string; links: ReadonlyArray<readonly [string, string]> }) {
   return (
     <div className="footer-column">
       <h4 className="mb-4 text-sm font-semibold text-slate-950">{title}</h4>
       <ul className="space-y-3">
-        {links.map((link) => (
-          <li key={link}>
-            <a href="#" className="group inline-flex items-center gap-1 text-sm text-slate-600 transition hover:text-sky-700">
-              {link}
+        {links.map(([label, href]) => (
+          <li key={label}>
+            <a href={href} className="group inline-flex min-h-11 items-center gap-1 text-sm text-slate-600 transition hover:text-sky-700">
+              {label}
               <ArrowRight className="h-3 w-3 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100" />
             </a>
           </li>

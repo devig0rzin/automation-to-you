@@ -1,90 +1,57 @@
 import { motion } from 'framer-motion';
-import { Cpu, Gauge, Lock, TrendingUp, Users, Zap } from 'lucide-react';
+import { Eye, Gauge, MessageSquareText, Puzzle, ShieldCheck, Wrench } from 'lucide-react';
+import TechnologyBackdrop from './TechnologyBackdrop';
 
-const differentials = [
-  {
-    icon: <Cpu className="h-5 w-5" />,
-    title: 'Demo antes da venda',
-    description: 'O cliente vê a automação funcionando antes de decidir, reduzindo dúvidas e aumentando a confiança.',
-    featured: true,
-  },
-  {
-    icon: <Users className="h-5 w-5" />,
-    title: 'Contexto capturado',
-    description: 'Os dados do negócio entram na experiência desde o início, tornando a simulação mais próxima da realidade.',
-  },
-  {
-    icon: <Zap className="h-5 w-5" />,
-    title: 'Entrega mais rápida',
-    description: 'Templates prontos aceleram a criação sem deixar a experiência com aparência genérica.',
-  },
-  {
-    icon: <TrendingUp className="h-5 w-5" />,
-    title: 'Foco em conversão',
-    description: 'O fluxo conduz o cliente para o próximo passo, seja orçamento, agendamento ou atendimento humano.',
-  },
-  {
-    icon: <Lock className="h-5 w-5" />,
-    title: 'Estrutura segura',
-    description: 'A lógica da automação fica protegida no backend, sem exposição desnecessária no navegador.',
-  },
-  {
-    icon: <Gauge className="h-5 w-5" />,
-    title: 'Ajuste fino',
-    description: 'Tom de voz, regras, serviços e mensagens podem ser refinados sem reconstruir toda a experiência.',
-  },
+const principles = [
+  [Eye, '01', 'Decisão visível', 'Escopo, prioridades e escolhas ficam claros. Você sabe o que está sendo feito e por quê.'],
+  [Puzzle, '02', 'Integração real', 'Construímos em volta da operação existente e conectamos as ferramentas que já fazem parte da rotina.'],
+  [Gauge, '03', 'Qualidade de produção', 'Performance, responsividade, segurança e estabilidade entram desde a primeira versão.'],
+  [MessageSquareText, '04', 'Contato direto', 'Você conversa com quem desenha e implementa. Menos repasse, menos ruído e respostas mais rápidas.'],
+  [ShieldCheck, '05', 'Base preparada', 'Código, dados e acessos ficam organizados para crescer sem depender de improviso.'],
+  [Wrench, '06', 'Continuidade', 'A entrega inclui contexto, documentação e acompanhamento para continuar útil depois da publicação.'],
 ];
 
 export default function DifferentialsSection() {
   return (
-    <section className="differentials-section light-section">
-      <div className="section-inner">
-        <motion.div
-          className="differentials-header mx-auto mb-14 max-w-3xl text-center"
-          initial={{ opacity: 0, y: 18 }}
+    <section id="diferenciais" className="aty-light-detail aty-light-detail--reverse relative overflow-hidden bg-[#f4f7fb]/82 py-20 text-slate-950 sm:py-24 md:py-36">
+      <TechnologyBackdrop variant="left" />
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <motion.header
+          className="grid gap-8 lg:grid-cols-[1fr_0.72fr] lg:items-end"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <div className="light-eyebrow mb-5">Diferenciais</div>
-          <h2 className="text-balance text-4xl font-semibold text-slate-950 md:text-6xl">
-            Confiança antes da tecnologia.
-          </h2>
-          <p className="mt-5 text-lg leading-8 text-slate-600">
-            Antes de falar em automação, o cliente precisa entender valor, visualizar resultado e sentir segurança para avançar.
+          <div>
+            <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#0b57b5]">Nosso padrão de trabalho</div>
+            <h2 className="mt-6 max-w-4xl text-balance text-[2.65rem] font-bold leading-[0.95] tracking-[-0.045em] sm:text-5xl md:text-7xl">
+              Feito para funcionar depois do lançamento.
+            </h2>
+          </div>
+          <p className="max-w-xl text-lg leading-8 text-slate-600">
+            Uma boa entrega não depende de quem a construiu estar sempre por perto. Ela precisa ser clara, estável e utilizável pela empresa.
           </p>
-        </motion.div>
+        </motion.header>
 
-        <div className="differentials-grid grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {differentials.map((diff, index) => (
+        <div className="mt-12 border-t border-slate-200 sm:mt-16">
+          {principles.map(([Icon, number, title, copy], index) => (
             <motion.article
-              key={diff.title}
-              className={`differential-card light-card p-6 ${diff.featured ? 'featured' : ''}`}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: index * 0.04 }}
-              viewport={{ once: true }}
+              key={title as string}
+              className="group grid grid-cols-[44px_1fr] gap-x-4 gap-y-3 border-b border-slate-200 py-7 md:grid-cols-[72px_60px_0.8fr_1.2fr] md:items-center md:gap-5 md:py-10"
+              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.5 }}
             >
-              <div className="differential-icon mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-sky-100 bg-sky-50 text-sky-600">
-                {diff.icon}
+              <div className="font-mono text-xs font-bold text-[#0b57b5]">{number as string}</div>
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-sky-200 bg-white/70 text-[#0b57b5] transition group-hover:bg-[#0b57b5] group-hover:text-white">
+                <Icon className="h-5 w-5" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-950">{diff.title}</h3>
-              {diff.featured && <span className="differential-pill">Principal</span>}
-              <p className="mt-3 text-sm leading-7 text-slate-600">{diff.description}</p>
+              <h3 className="self-center text-xl font-bold tracking-[-0.02em] md:text-3xl">{title as string}</h3>
+              <p className="col-span-2 max-w-2xl text-sm leading-7 text-slate-600 md:col-span-1 md:text-base">{copy as string}</p>
             </motion.article>
           ))}
         </div>
-
-        <motion.div
-          className="differentials-cta"
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
-          viewport={{ once: true }}
-        >
-          <p>Quer que seu cliente veja valor antes da reunião?</p>
-          <a href="#simulador-agente">Testar experiência gratuita</a>
-        </motion.div>
       </div>
     </section>
   );

@@ -8,6 +8,7 @@ import LoadingScreen from "./components/LoadingScreen";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ScrollProvider } from "./contexts/ScrollContext";
 import Home from "./pages/Home";
+import CursorGlow from "./components/CursorGlow";
 
 
 function Router() {
@@ -38,6 +39,7 @@ function App() {
         <ScrollProvider>
           <TooltipProvider>
             <Toaster />
+            <CursorGlow />
             {loadingComplete ? (
               <Router />
             ) : (
