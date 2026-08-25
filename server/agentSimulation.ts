@@ -35,7 +35,7 @@ export type SimulationPayload = {
 };
 
 const DEFAULT_MODEL = "openai/gpt-4o-mini";
-const LEADS_DIR = path.resolve(process.cwd(), ".data");
+const LEADS_DIR = process.env.VERCEL ? path.join("/tmp", "automation-to-you") : path.resolve(process.cwd(), ".data");
 const LEADS_PATH = path.join(LEADS_DIR, "agent-leads.jsonl");
 const ASSISTANT_MESSAGE_SEPARATOR = "@@NOVA_MENSAGEM@@";
 
