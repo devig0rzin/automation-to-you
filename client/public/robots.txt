@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://automationtoyou.com.br/sitemap.xml
