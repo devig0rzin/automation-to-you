@@ -45,7 +45,7 @@ export default function Footer() {
               <FooterColumn title="Empresa" links={companyLinks} />
 
               <div className="footer-column">
-                <h4 className="mb-4 text-sm font-semibold text-slate-950">Contato</h4>
+                <h3 className="mb-4 text-sm font-semibold text-slate-950">Contato</h3>
                 <ul className="mb-5 space-y-3">
                   {contactLinks.map(([label, href]) => (
                     <li key={label}>
@@ -89,7 +89,7 @@ export default function Footer() {
 function FooterColumn({ title, links }: { title: string; links: ReadonlyArray<readonly [string, string]> }) {
   return (
     <div className="footer-column">
-      <h4 className="mb-4 text-sm font-semibold text-slate-950">{title}</h4>
+      <h3 className="mb-4 text-sm font-semibold text-slate-950">{title}</h3>
       <ul className="space-y-3">
         {links.map(([label, href]) => (
           <li key={label}>
