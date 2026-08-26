@@ -4,10 +4,14 @@ import { useState } from 'react';
 import HeroStudioScene from './HeroStudioScene';
 import Logo from './Logo';
 import TechnologyBackdrop from './TechnologyBackdrop';
+import { trackEvent } from '@/lib/analytics';
 
 function scrollToProjects() {
   document.getElementById('projetos')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+const headerWhatsAppUrl = 'https://wa.me/5511987793213?text=Oi%2C%20quero%20conhecer%20a%20ATY';
+const heroProjectWhatsAppUrl = 'https://wa.me/5511987793213?text=Oi%2C%20quero%20tirar%20um%20projeto%20do%20papel';
 
 export default function HeroSection() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,9 +47,15 @@ export default function HeroSection() {
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
             <a
-              href="https://wa.me/5511987793213?text=Oi%2C%20quero%20conhecer%20a%20ATY"
+              href={headerWhatsAppUrl}
               target="_blank"
               rel="noreferrer"
+              onClick={() =>
+                trackEvent('click_whatsapp', {
+                  cta_location: 'header',
+                  link_url: headerWhatsAppUrl,
+                })
+              }
               className="flex h-11 w-11 items-center justify-center rounded-full bg-slate-950 text-white shadow-[0_12px_28px_rgba(15,23,42,0.2)] transition hover:-translate-y-0.5 hover:bg-[#0b57b5] active:scale-95"
               aria-label="Falar com a ATY"
             >
@@ -108,9 +118,19 @@ export default function HeroSection() {
               <ArrowRight className="h-5 w-5" />
             </button>
             <a
-              href="https://wa.me/5511987793213?text=Oi%2C%20quero%20tirar%20um%20projeto%20do%20papel"
+              href={heroProjectWhatsAppUrl}
               target="_blank"
               rel="noreferrer"
+              onClick={() => {
+                trackEvent('click_project', {
+                  cta_location: 'hero',
+                  cta_text: 'Falar sobre um projeto',
+                });
+                trackEvent('click_whatsapp', {
+                  cta_location: 'hero',
+                  link_url: heroProjectWhatsAppUrl,
+                });
+              }}
               className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-6 py-4 text-base font-bold text-slate-800 transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-[#0b57b5]"
             >
               <MessageSquareText className="h-5 w-5 text-emerald-500" />

@@ -18,6 +18,7 @@ import {
   X,
 } from 'lucide-react';
 import TechnologyBackdrop from './TechnologyBackdrop';
+import { trackEvent } from '@/lib/analytics';
 
 type LeadForm = {
   name: string;
@@ -633,13 +634,20 @@ export default function AgentSimulatorSection() {
     setIsRegisteringLead(true);
 
     const sheetsPayload = buildSheetsLeadPayload(lead, agent, selectedTemplate, builderMode);
+    let localLeadSubmitted = false;
 
     try {
-      await fetch('/api/agent-leads', {
+      const response = await fetch('/api/agent-leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(lead),
       });
+
+      if (!response.ok) {
+        throw new Error(`Lead API returned ${response.status}`);
+      }
+
+      localLeadSubmitted = true;
     } catch (error) {
       console.error('[local-lead-submit-error]', error);
       setStatus('Lead salvo localmente. A API será conectada quando o servidor estiver pronto.');
@@ -647,6 +655,12 @@ export default function AgentSimulatorSection() {
 
     try {
       await sendLeadToSheets(sheetsPayload);
+      if (localLeadSubmitted) {
+        trackEvent('submit_contact', {
+          form_name: 'agent_simulator_lead',
+          form_location: 'agent_simulator',
+        });
+      }
     } catch (error) {
       console.error('[sheets-lead-submit-error]', error);
       setStatus('');

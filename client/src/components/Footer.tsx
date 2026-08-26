@@ -1,6 +1,7 @@
 import { ArrowRight, Github, Instagram, Mail } from 'lucide-react';
 import Logo from './Logo';
 import WhatsAppIcon from './WhatsAppIcon';
+import { trackEvent } from '@/lib/analytics';
 
 const productLinks = [
   ['Agentes de IA', '#simulador-agente'],
@@ -49,7 +50,18 @@ export default function Footer() {
                 <ul className="mb-5 space-y-3">
                   {contactLinks.map(([label, href]) => (
                     <li key={label}>
-                      <a href={href} className="group inline-flex items-center gap-1 text-sm text-slate-600 transition hover:text-sky-700">
+                      <a
+                        href={href}
+                        onClick={() => {
+                          if (label === 'WhatsApp') {
+                            trackEvent('click_whatsapp', {
+                              cta_location: 'footer',
+                              link_url: href,
+                            });
+                          }
+                        }}
+                        className="group inline-flex items-center gap-1 text-sm text-slate-600 transition hover:text-sky-700"
+                      >
                         {label}
                         <ArrowRight className="h-3 w-3 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100" />
                       </a>
@@ -60,7 +72,7 @@ export default function Footer() {
                   <SocialLink href="https://instagram.com/automationtoy" label="Instagram">
                     <Instagram className="h-5 w-5" />
                   </SocialLink>
-                  <SocialLink href="https://wa.me/5511987793213" label="WhatsApp">
+                  <SocialLink href="https://wa.me/5511987793213" label="WhatsApp" analyticsLocation="footer_social">
                     <WhatsAppIcon className="h-6 w-6" />
                   </SocialLink>
                   <SocialLink href="mailto:contato@automationtoyou.com" label="Email">
@@ -104,13 +116,21 @@ function FooterColumn({ title, links }: { title: string; links: ReadonlyArray<re
   );
 }
 
-function SocialLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+function SocialLink({ href, label, analyticsLocation, children }: { href: string; label: string; analyticsLocation?: string; children: React.ReactNode }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
+      onClick={() => {
+        if (analyticsLocation && label === 'WhatsApp') {
+          trackEvent('click_whatsapp', {
+            cta_location: analyticsLocation,
+            link_url: href,
+          });
+        }
+      }}
       className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700"
     >
       {children}

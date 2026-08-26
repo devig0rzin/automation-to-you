@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Check } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
+import { trackEvent } from '@/lib/analytics';
+
+const contactProjectWhatsAppUrl = 'https://wa.me/5511987793213?text=Olá!%20Quero%20conversar%20sobre%20um%20projeto%20com%20a%20ATY.';
 
 export default function CTASection() {
   return (
@@ -33,9 +36,19 @@ export default function CTASection() {
             </div>
           </div>
           <a
-            href="https://wa.me/5511987793213?text=Olá!%20Quero%20conversar%20sobre%20um%20projeto%20com%20a%20ATY."
+            href={contactProjectWhatsAppUrl}
             target="_blank"
             rel="noreferrer"
+            onClick={() => {
+              trackEvent('click_project', {
+                cta_location: 'contact_section',
+                cta_text: 'Explicar meu projeto',
+              });
+              trackEvent('click_whatsapp', {
+                cta_location: 'contact_section',
+                link_url: contactProjectWhatsAppUrl,
+              });
+            }}
             className="group inline-flex min-h-14 items-center justify-between gap-4 rounded-2xl bg-white px-5 py-4 font-bold text-slate-950 transition hover:-translate-y-1 active:scale-[0.98] sm:gap-6 sm:px-6 sm:py-5"
           >
             <span className="flex items-center gap-3">
