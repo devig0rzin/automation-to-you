@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion';
 import { Bot, LayoutDashboard, MonitorSmartphone, Workflow } from 'lucide-react';
 import { useRef, useState } from 'react';
 
@@ -47,15 +47,30 @@ const capabilities = [
 
 export default function CapabilitiesStorySection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const activeRef = useRef(0);
+  const reduceMotion = useReducedMotion();
   const [active, setActive] = useState(0);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] });
 
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
-    setActive(Math.min(capabilities.length - 1, Math.floor(value * capabilities.length)));
+    const next = Math.min(capabilities.length - 1, Math.floor(value * capabilities.length));
+    if (next !== activeRef.current) {
+      activeRef.current = next;
+      setActive(next);
+    }
   });
 
+  const handleSelect = (index: number) => {
+    activeRef.current = index;
+    setActive(index);
+  };
+
   return (
-    <section ref={sectionRef} id="servicos" className="aty-light-detail relative bg-[#f4f7fb]/82 text-slate-950 lg:h-[440vh]">
+    <section
+      ref={sectionRef}
+      id="servicos"
+      className={`aty-light-detail relative bg-[#f4f7fb]/82 text-slate-950 ${reduceMotion ? '' : 'h-[400vh]'} lg:h-[440vh]`}
+    >
       <div className="hidden h-dvh overflow-hidden lg:sticky lg:top-0 lg:block">
         <div className="mx-auto flex h-full max-w-[1440px] flex-col px-12 py-8">
           <header className="grid shrink-0 gap-8 border-b border-slate-200 pb-7 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
@@ -81,7 +96,7 @@ export default function CapabilitiesStorySection() {
           </header>
 
           <div className="grid min-h-0 flex-1 gap-12 py-8 lg:grid-cols-[0.88fr_1.12fr] xl:gap-20">
-            <SystemMap active={active} onSelect={setActive} />
+            <SystemMap active={active} onSelect={handleSelect} />
             <ActiveChapter active={active} />
           </div>
 
@@ -109,7 +124,161 @@ export default function CapabilitiesStorySection() {
         </div>
       </div>
 
-      <div className="mx-auto px-5 py-20 sm:px-8 sm:py-24 lg:hidden">
+      {reduceMotion ? <MobileStaticCapabilities /> : <MobileStickyCapabilities active={active} />}
+    </section>
+  );
+}
+
+function MobileStickyCapabilities({ active }: { active: number }) {
+  const capability = capabilities[active];
+  const ActiveIcon = capability.icon;
+
+  return (
+    <div data-mobile-capabilities-stage="true" className="sticky top-0 flex h-[100svh] min-h-[35.5rem] overflow-hidden px-3 py-[max(0.75rem,env(safe-area-inset-top))] sm:px-4 lg:hidden">
+      <div className="relative mx-auto flex h-full w-full max-w-[30rem] flex-col justify-between overflow-hidden rounded-[1.45rem] border border-slate-200 bg-white/86 p-3.5 shadow-[0_26px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl min-[390px]:rounded-[1.6rem] min-[390px]:p-5">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_12%,rgba(14,165,233,0.14),transparent_13rem),radial-gradient(circle_at_15%_78%,rgba(11,87,181,0.08),transparent_12rem)]" />
+
+        <div className="relative mx-auto max-w-[24rem] shrink-0 text-center">
+          <div className="mx-auto max-w-[18rem] text-[9px] font-bold uppercase leading-4 tracking-[0.16em] text-[#0b57b5] min-[390px]:max-w-none min-[390px]:text-[10px]">
+            Uma parceira para construir e operar
+          </div>
+          <h2 className="mx-auto mt-2 max-w-[22rem] text-balance text-[clamp(1.78rem,8vw,2.65rem)] font-bold leading-[1] tracking-[-0.035em]">
+            Do primeiro clique ao processo rodando sozinho.
+          </h2>
+          <div className="mt-3 flex items-center justify-center gap-3 text-xs font-semibold text-slate-500">
+            <span className="font-mono text-[#0b57b5]">{capability.number} / 04</span>
+            <span className="h-1 w-1 rounded-full bg-slate-300" />
+            <span>continue rolando</span>
+          </div>
+        </div>
+
+        <MobileSystemMap active={active} />
+
+        <div className="relative min-h-[15.25rem] shrink-0 rounded-[1.25rem] border border-slate-200/80 bg-white/72 p-3.5 shadow-[0_16px_42px_rgba(15,23,42,0.07)] min-[390px]:min-h-[15.5rem] min-[390px]:p-4">
+          <AnimatePresence mode="wait">
+            <motion.article
+              key={capability.title}
+              initial={{ opacity: 0, y: 20, filter: 'blur(5px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -20, filter: 'blur(5px)' }}
+              transition={{ duration: 0.42, ease: 'easeOut' }}
+              className="absolute inset-3.5 flex flex-col min-[390px]:inset-4"
+            >
+              <div className="grid grid-cols-[2.75rem_1fr] items-start gap-3">
+                <motion.div
+                  key={capability.short}
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[1rem] border border-sky-200 bg-sky-50 text-[#0b57b5]"
+                  initial={{ opacity: 0, scale: 0.75, rotate: -15 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  transition={{ duration: 0.38, ease: 'easeOut' }}
+                >
+                  <ActiveIcon className="h-5 w-5" />
+                </motion.div>
+                <div className="min-w-0">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#0b57b5]">
+                    {capability.number} / {capability.short}
+                  </div>
+                  <h3 className="mt-1 text-[clamp(1.08rem,4.75vw,1.42rem)] font-bold leading-[1.08] tracking-[-0.015em] text-slate-950">
+                    {capability.title}
+                  </h3>
+                </div>
+              </div>
+
+              <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600">{capability.description}</p>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {capability.deliverables.map((item) => (
+                  <span key={item} className="rounded-full border border-sky-100 bg-sky-50 px-2.5 py-1 text-[10px] font-bold text-sky-800">
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-auto border-t border-slate-200 pt-3 text-xs font-bold leading-5 text-slate-900 min-[390px]:text-sm">
+                {capability.outcome}
+              </div>
+            </motion.article>
+          </AnimatePresence>
+        </div>
+
+        <div className="relative grid shrink-0 grid-cols-4 gap-2">
+          {capabilities.map((item, index) => (
+            <div key={item.short}>
+              <div className="h-1 overflow-hidden rounded-full bg-slate-200">
+                <motion.div
+                  className="h-full origin-left bg-[#0b57b5]"
+                  animate={{ scaleX: index <= active ? 1 : 0 }}
+                  transition={{ duration: 0.34 }}
+                />
+              </div>
+              <div className={`mt-1 text-[9px] font-bold uppercase tracking-[0.08em] ${index === active ? 'text-[#0b57b5]' : 'text-slate-400'}`}>
+                {item.number}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileSystemMap({ active }: { active: number }) {
+  const ActiveIcon = capabilities[active].icon;
+  const positions = [
+    'left-1/2 top-0 -translate-x-1/2',
+    'right-1 top-1/2 -translate-y-1/2',
+    'bottom-0 left-1/2 -translate-x-1/2',
+    'left-1 top-1/2 -translate-y-1/2',
+  ];
+
+  return (
+    <div className="relative mx-auto my-2 aspect-square w-[min(76vw,15.75rem)] shrink-0 min-[390px]:my-4 min-[390px]:w-[min(70vw,18rem)]">
+      <motion.div
+        className="absolute inset-[18%] rounded-full border border-dashed border-[#0b57b5]/18"
+        animate={{ rotate: active * 90 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <div className="absolute inset-[34%] rounded-[1.4rem] border border-sky-200 bg-white shadow-[0_18px_45px_rgba(11,87,181,0.12)]" />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={capabilities[active].short}
+          className="absolute inset-[39%] z-10 flex items-center justify-center rounded-[1rem] bg-[#0b57b5] text-white shadow-[0_0_38px_rgba(11,87,181,0.28)]"
+          initial={{ opacity: 0, scale: 0.75, rotate: -15 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          exit={{ opacity: 0, scale: 0.8, rotate: 15 }}
+          transition={{ duration: 0.36 }}
+        >
+          <ActiveIcon className="h-5 w-5" />
+        </motion.div>
+      </AnimatePresence>
+
+      {capabilities.map((item, index) => {
+        const Icon = item.icon;
+        const selected = index === active;
+        const complete = index < active;
+        return (
+          <motion.div
+            key={item.short}
+            className={`absolute ${positions[index]} z-20 flex w-[4.95rem] flex-col items-center gap-1 rounded-[0.9rem] border px-1.5 py-2 text-center transition min-[390px]:w-[5.5rem] min-[390px]:px-2 ${
+              selected
+                ? 'border-sky-300 bg-sky-50 text-[#0b57b5] shadow-[0_14px_34px_rgba(11,87,181,0.14)]'
+                : complete
+                  ? 'border-emerald-100 bg-emerald-50 text-emerald-700'
+                  : 'border-slate-200 bg-white/80 text-slate-400'
+            }`}
+            animate={{ scale: selected ? 1.05 : 0.96, opacity: selected || complete ? 1 : 0.72 }}
+            transition={{ duration: 0.32 }}
+          >
+            <Icon className="h-4 w-4" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.08em]">{item.short}</span>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
+
+function MobileStaticCapabilities() {
+  return (
+    <div className="mx-auto px-5 py-20 sm:px-8 sm:py-24 lg:hidden">
         <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#0b57b5]">Uma parceira para construir e operar</div>
         <h2 className="mt-5 text-balance text-[2.65rem] font-bold leading-[0.96] tracking-[-0.04em] sm:text-5xl">
           Do primeiro clique ao processo rodando sozinho.
@@ -120,7 +289,6 @@ export default function CapabilitiesStorySection() {
           ))}
         </div>
       </div>
-    </section>
   );
 }
 
