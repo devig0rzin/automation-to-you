@@ -3,6 +3,7 @@ import { ArrowDown, ArrowRight, Menu, MessageSquareText, X } from 'lucide-react'
 import { useState } from 'react';
 import HeroStudioScene from './HeroStudioScene';
 import Logo from './Logo';
+import MobileHeroJourney from './MobileHeroJourney';
 import TechnologyBackdrop from './TechnologyBackdrop';
 import { trackEvent } from '@/lib/analytics';
 
@@ -137,6 +138,7 @@ export default function HeroSection() {
               Falar sobre um projeto
             </a>
           </div>
+          <MobileHeroJourney />
           <div className="mt-10 hidden grid-cols-3 gap-4 border-t border-slate-200 pt-6 sm:grid">
             <HeroMetric value="3D" label="experiências que respondem" />
             <HeroMetric value="Web" label="sites, apps e portais" />
