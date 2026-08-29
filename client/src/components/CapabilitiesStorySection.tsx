@@ -238,10 +238,10 @@ function MobileCapabilityPanel({ capability, active }: { capability: (typeof cap
 function MobileSystemMap({ active }: { active: number }) {
   const ActiveIcon = capabilities[active].icon;
   const positions = [
-    'left-1/2 top-0 -translate-x-1/2',
-    'right-1 top-1/2 -translate-y-1/2',
-    'bottom-0 left-1/2 -translate-x-1/2',
-    'left-1 top-1/2 -translate-y-1/2',
+    'left-1/2 -top-1 -translate-x-1/2 min-[440px]:top-0',
+    '-right-1 top-1/2 -translate-y-1/2 min-[440px]:right-1',
+    'bottom-[-0.125rem] left-1/2 -translate-x-1/2 min-[440px]:bottom-0',
+    '-left-1 top-1/2 -translate-y-1/2 min-[440px]:left-1',
   ];
 
   return (
@@ -272,7 +272,7 @@ function MobileSystemMap({ active }: { active: number }) {
         return (
           <motion.div
             key={item.short}
-            className={`absolute ${positions[index]} z-20 flex w-[3.85rem] flex-col items-center gap-0.5 rounded-[0.75rem] border px-1 py-1.5 text-center transition min-[440px]:w-[5.5rem] min-[440px]:gap-1 min-[440px]:rounded-[0.9rem] min-[440px]:px-2 min-[440px]:py-2 ${
+            className={`absolute ${positions[index]} z-20 flex w-[4.3rem] flex-col items-center gap-1 rounded-[0.8rem] border px-1.5 py-1.5 text-center transition min-[440px]:w-[5.5rem] min-[440px]:rounded-[0.9rem] min-[440px]:px-2 min-[440px]:py-2 ${
               selected
                 ? 'border-sky-300 bg-sky-50 text-[#0b57b5] shadow-[0_14px_34px_rgba(11,87,181,0.14)]'
                 : complete
@@ -282,7 +282,7 @@ function MobileSystemMap({ active }: { active: number }) {
             animate={{ scale: selected ? 1.05 : 0.96, opacity: selected || complete ? 1 : 0.72 }}
             transition={{ duration: 0.32 }}
           >
-            <Icon className="h-4 w-4" />
+            <Icon className="h-[1.125rem] w-[1.125rem] min-[440px]:h-4 min-[440px]:w-4" />
             <span className="text-[9px] font-bold uppercase tracking-[0.08em]">{item.short}</span>
           </motion.div>
         );
