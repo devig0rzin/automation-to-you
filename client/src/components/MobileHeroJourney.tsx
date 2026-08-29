@@ -2,9 +2,9 @@ import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform 
 import { useEffect, useRef } from 'react';
 
 const cards = [
-  { src: '/aty-showcase-1-mobile.webp', rotate: -7, x: -30, y: 10, label: 'Projeto 01', range: [0.08, 0.5], endX: -72, endY: 226, endRotate: -1, endScale: 1.18 },
-  { src: '/aty-showcase-2-mobile.webp', rotate: 1, x: 0, y: 28, label: 'Projeto 02', range: [0.2, 0.66], endX: 20, endY: 296, endRotate: 2, endScale: 1.12 },
-  { src: '/aty-showcase-3-mobile.webp', rotate: 7, x: 32, y: 46, label: 'Projeto 03', range: [0.34, 0.82], endX: 78, endY: 366, endRotate: 1, endScale: 1.06 },
+  { src: '/projects/project-01-next-phase-mobile.webp', alt: 'Next Phase Finish Carpentry website project', rotate: -7, x: -30, y: 10, label: 'Projeto 01', range: [0.08, 0.5], endX: -72, endY: 226, endRotate: -1, endScale: 1.18 },
+  { src: '/projects/project-02-joao-pedro-mobile.webp', alt: 'João Pedro e Jessica wedding website project', rotate: 1, x: 0, y: 28, label: 'Projeto 02', range: [0.2, 0.66], endX: 20, endY: 296, endRotate: 2, endScale: 1.12 },
+  { src: '/projects/project-03-espaco-neia-mobile.webp', alt: 'Espaço Néia aesthetics website project', rotate: 7, x: 32, y: 46, label: 'Projeto 03', range: [0.34, 0.82], endX: 78, endY: 366, endRotate: 1, endScale: 1.06 },
 ] as const;
 
 export default function MobileHeroJourney() {
@@ -14,10 +14,6 @@ export default function MobileHeroJourney() {
     target: stageRef,
     offset: ['start 74%', 'end -32%'],
   });
-
-  const deviceY = useTransform(scrollYProgress, [0, 0.52, 1], [0, -18, -28]);
-  const deviceScale = useTransform(scrollYProgress, [0, 0.55, 1], [1, 0.94, 0.9]);
-  const deviceOpacity = useTransform(scrollYProgress, [0, 0.62, 1], [1, 0.78, 0.48]);
 
   useEffect(() => {
     const projects = document.getElementById('projetos');
@@ -44,18 +40,6 @@ export default function MobileHeroJourney() {
 
   return (
     <div ref={stageRef} className="relative mx-auto mt-9 h-[clamp(26rem,112vw,34rem)] max-w-[28rem] overflow-x-clip md:hidden" aria-hidden="true">
-      <motion.div
-        className="absolute inset-x-3 top-2 mx-auto h-[58%] max-w-[24rem] rounded-[1.65rem] border border-slate-200/80 bg-white/58 shadow-[0_30px_80px_rgba(11,87,181,0.13)] backdrop-blur-xl"
-        initial={reduceMotion ? false : { opacity: 0, y: 20, scale: 0.94 }}
-        animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.58, ease: 'easeOut' }}
-        style={reduceMotion ? undefined : { y: deviceY, scale: deviceScale, opacity: deviceOpacity, willChange: 'transform, opacity' }}
-      >
-        <div className="absolute inset-3 overflow-hidden rounded-[1.25rem] bg-[linear-gradient(145deg,rgba(255,255,255,0.92),rgba(224,242,254,0.82))]">
-          <div className="absolute left-5 top-5 h-2 w-16 rounded-full bg-[#0b57b5]/18" />
-        </div>
-      </motion.div>
-
       <motion.div
         className="absolute left-1/2 top-[24%] h-[16.5rem] w-[clamp(10.35rem,50.5vw,14.1rem)] -translate-x-1/2"
       >
@@ -98,7 +82,7 @@ function JourneyCard({
         transition={{ duration: 0.5, delay: 0.16 + index * 0.08, ease: 'easeOut' }}
       >
         <div className="aspect-[1.18] overflow-hidden rounded-[0.75rem] bg-slate-100">
-          <img src={card.src} alt="" className="h-full w-full object-cover" loading="eager" decoding="async" />
+          <img src={card.src} alt={card.alt} className="h-full w-full object-cover" loading="eager" decoding="async" />
         </div>
         <span className="absolute bottom-4 left-4 rounded-full border border-white/50 bg-white/85 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-slate-700 backdrop-blur">
           {card.label}

@@ -2,9 +2,9 @@ import { motion, useMotionValue } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 
 const cards = [
-  { src: '/aty-showcase-1.png', rotate: -5 },
-  { src: '/aty-showcase-2.png', rotate: 1 },
-  { src: '/aty-showcase-3.png', rotate: 5 },
+  { src: '/projects/project-01-next-phase.webp', alt: 'Next Phase Finish Carpentry website project', rotate: -5 },
+  { src: '/projects/project-02-joao-pedro.webp', alt: 'João Pedro e Jessica wedding website project', rotate: 1 },
+  { src: '/projects/project-03-espaco-neia.webp', alt: 'Espaço Néia aesthetics website project', rotate: 5 },
 ] as const;
 
 export default function ImageJourneyOverlay() {
@@ -99,7 +99,7 @@ function JourneyCard({
       style={{ left: 0, top: 0, x, y, width, rotate, scale, opacity }}
     >
       <div className="aspect-[1.18] overflow-hidden rounded-[0.9rem]">
-        <img src={card.src} alt="" className="h-full w-full object-cover" />
+        <img src={card.src} alt={card.alt} className="h-full w-full object-cover" />
       </div>
     </motion.article>
   );

@@ -10,22 +10,25 @@ const cards = [
     eyebrow: 'Card 01',
     title: 'Imagem que abre a experiência com peso de produto.',
     description: 'A composição apresenta o projeto com clareza e ajuda o cliente a entender o valor da entrega.',
-    src: '/aty-showcase-1.png',
-    mobileSrc: '/aty-showcase-1-mobile.webp',
+    src: '/projects/project-01-next-phase.webp',
+    mobileSrc: '/projects/project-01-next-phase-mobile.webp',
+    alt: 'Next Phase Finish Carpentry website project',
   },
   {
     eyebrow: 'Card 02',
     title: 'Um produto digital apresentado com profundidade.',
     description: 'Interface, informação e acabamento visual trabalhando juntos sem competir pela atenção.',
-    src: '/aty-showcase-2.png',
-    mobileSrc: '/aty-showcase-2-mobile.webp',
+    src: '/projects/project-02-joao-pedro.webp',
+    mobileSrc: '/projects/project-02-joao-pedro-mobile.webp',
+    alt: 'João Pedro e Jessica wedding website project',
   },
   {
     eyebrow: 'Card 03',
     title: 'Automação explicada de forma visual e direta.',
     description: 'A imagem fecha a sequência e mostra como as partes do negócio passam a trabalhar conectadas.',
-    src: '/aty-showcase-3.png',
-    mobileSrc: '/aty-showcase-3-mobile.webp',
+    src: '/projects/project-03-espaco-neia.webp',
+    mobileSrc: '/projects/project-03-espaco-neia-mobile.webp',
+    alt: 'Espaço Néia aesthetics website project',
   },
 ] as const;
 
@@ -178,7 +181,7 @@ function ProjectCard({
           <div className="relative aspect-[1.18] overflow-hidden rounded-[0.9rem]">
             <picture className="block h-full w-full">
               <source media="(max-width: 767px)" srcSet={card.mobileSrc} type="image/webp" />
-              <img src={card.src} alt={card.title} className="h-full w-full object-cover" loading="lazy" />
+              <img src={card.src} alt={card.alt} className="h-full w-full object-cover" loading="lazy" />
             </picture>
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/20" />
             <span className="absolute bottom-4 left-4 rounded-full border border-white/40 bg-white/80 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-slate-700 backdrop-blur">
