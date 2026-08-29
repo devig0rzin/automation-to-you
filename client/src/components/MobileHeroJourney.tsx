@@ -54,7 +54,6 @@ export default function MobileHeroJourney() {
         <div className="absolute inset-3 overflow-hidden rounded-[1.25rem] bg-[linear-gradient(145deg,rgba(255,255,255,0.92),rgba(224,242,254,0.82))]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_34%_22%,rgba(11,87,181,0.16),transparent_7rem),radial-gradient(circle_at_72%_70%,rgba(14,165,233,0.14),transparent_8rem)]" />
           <div className="absolute left-5 top-5 h-2 w-16 rounded-full bg-[#0b57b5]/18" />
-          <div className="absolute bottom-5 right-5 h-10 w-10 rounded-full border border-[#0b57b5]/18 bg-white/40 backdrop-blur" />
         </div>
       </motion.div>
 
