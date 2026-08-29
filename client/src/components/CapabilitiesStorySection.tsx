@@ -140,18 +140,18 @@ function MobileStickyCapabilities({ active }: { active: number }) {
   const capability = capabilities[active];
 
   return (
-    <div data-mobile-capabilities-stage="true" className="sticky top-0 flex h-[100svh] min-h-[35.5rem] overflow-hidden px-2.5 py-[max(0.6rem,env(safe-area-inset-top))] sm:px-4 lg:hidden">
-      <div className="relative mx-auto flex h-full w-full max-w-[30rem] flex-col justify-between overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white/86 p-2.5 shadow-[0_26px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl min-[390px]:rounded-[1.6rem] min-[390px]:p-5">
+    <div data-mobile-capabilities-stage="true" className="sticky top-0 flex h-[100svh] min-h-[35.5rem] overflow-hidden px-2.5 py-[max(0.55rem,env(safe-area-inset-top))] sm:px-4 lg:hidden">
+      <div className="relative mx-auto flex h-full w-full max-w-[30rem] flex-col justify-between overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white/86 p-2 shadow-[0_26px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl min-[440px]:rounded-[1.6rem] min-[440px]:p-5">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_12%,rgba(14,165,233,0.14),transparent_13rem),radial-gradient(circle_at_15%_78%,rgba(11,87,181,0.08),transparent_12rem)]" />
 
         <div className="relative mx-auto max-w-[24rem] shrink-0 text-center">
-          <div className="mx-auto max-w-[18rem] text-[9px] font-bold uppercase leading-4 tracking-[0.14em] text-[#0b57b5] min-[390px]:max-w-none min-[390px]:text-[10px] min-[390px]:tracking-[0.16em]">
+          <div className="mx-auto max-w-[18rem] text-[9px] font-bold uppercase leading-4 tracking-[0.14em] text-[#0b57b5] min-[440px]:max-w-none min-[440px]:text-[10px] min-[440px]:tracking-[0.16em]">
             Uma parceira para construir e operar
           </div>
-          <h2 className="mx-auto mt-2 max-w-[20rem] text-balance text-[clamp(1.52rem,7.5vw,2.15rem)] font-bold leading-[1] tracking-[-0.025em] min-[390px]:max-w-[22rem] min-[390px]:text-[clamp(1.78rem,8vw,2.65rem)] min-[390px]:tracking-[-0.035em]">
+          <h2 className="mx-auto mt-1.5 max-w-[20rem] text-balance text-[clamp(1.36rem,6.8vw,1.95rem)] font-bold leading-[1] tracking-[-0.025em] min-[440px]:mt-2 min-[440px]:max-w-[22rem] min-[440px]:text-[clamp(1.78rem,8vw,2.65rem)] min-[440px]:tracking-[-0.035em]">
             Do primeiro clique ao processo rodando sozinho.
           </h2>
-          <div className="mt-2 flex items-center justify-center gap-2 text-xs font-semibold text-slate-500 min-[390px]:mt-3 min-[390px]:gap-3">
+          <div className="mt-2 flex items-center justify-center gap-2 text-xs font-semibold text-slate-500 min-[440px]:mt-3 min-[440px]:gap-3">
             <span className="font-mono text-[#0b57b5]">{capability.number} / 04</span>
             <span className="h-1 w-1 rounded-full bg-slate-300" />
             <span>continue rolando</span>
@@ -160,7 +160,7 @@ function MobileStickyCapabilities({ active }: { active: number }) {
 
         <MobileSystemMap active={active} />
 
-        <div className="relative min-h-[12.9rem] shrink-0 rounded-[1.15rem] border border-slate-200/80 bg-white/72 p-3 shadow-[0_16px_42px_rgba(15,23,42,0.07)] min-[390px]:min-h-[15.5rem] min-[390px]:rounded-[1.25rem] min-[390px]:p-4">
+        <div className="relative min-h-[15.9rem] shrink-0 rounded-[1.15rem] border border-slate-200/80 bg-white/72 p-2.5 shadow-[0_16px_42px_rgba(15,23,42,0.07)] min-[440px]:min-h-[15.5rem] min-[440px]:rounded-[1.25rem] min-[440px]:p-4">
           {capabilities.map((item, index) => (
             <MobileCapabilityPanel key={item.title} capability={item} active={active === index} />
           ))}
@@ -200,35 +200,35 @@ function MobileCapabilityPanel({ capability, active }: { capability: (typeof cap
         pointerEvents: active ? 'auto' : 'none',
       }}
       transition={{ duration: 0.34, ease: 'easeOut' }}
-      className="absolute inset-3 flex flex-col min-[390px]:inset-4"
+      className="absolute inset-2.5 flex flex-col min-[440px]:inset-4"
     >
-      <div className="grid grid-cols-[2.35rem_1fr] items-start gap-2.5 min-[390px]:grid-cols-[2.75rem_1fr] min-[390px]:gap-3">
+      <div className="grid grid-cols-[2.15rem_1fr] items-start gap-2 min-[440px]:grid-cols-[2.75rem_1fr] min-[440px]:gap-3">
         <motion.div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[0.85rem] border border-sky-200 bg-sky-50 text-[#0b57b5] min-[390px]:h-11 min-[390px]:w-11 min-[390px]:rounded-[1rem]"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[0.75rem] border border-sky-200 bg-sky-50 text-[#0b57b5] min-[440px]:h-11 min-[440px]:w-11 min-[440px]:rounded-[1rem]"
           animate={{ scale: active ? 1 : 0.82, rotate: active ? 0 : -8 }}
           transition={{ duration: 0.32, ease: 'easeOut' }}
         >
           <Icon className="h-5 w-5" />
         </motion.div>
         <div className="min-w-0">
-          <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#0b57b5]">
+          <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#0b57b5] min-[440px]:text-[10px] min-[440px]:tracking-[0.16em]">
             {capability.number} / {capability.short}
           </div>
-          <h3 className="mt-1 text-[clamp(0.98rem,4.35vw,1.2rem)] font-bold leading-[1.08] tracking-[-0.01em] text-slate-950 min-[390px]:text-[clamp(1.08rem,4.75vw,1.42rem)] min-[390px]:tracking-[-0.015em]">
+          <h3 className="mt-0.5 text-[clamp(0.9rem,4vw,1.08rem)] font-bold leading-[1.08] tracking-[-0.01em] text-slate-950 min-[440px]:mt-1 min-[440px]:text-[clamp(1.08rem,4.75vw,1.42rem)] min-[440px]:tracking-[-0.015em]">
             {capability.title}
           </h3>
         </div>
       </div>
 
-      <p className="mt-2 line-clamp-2 text-[0.8125rem] leading-5 text-slate-600 min-[390px]:mt-3 min-[390px]:line-clamp-3 min-[390px]:text-sm min-[390px]:leading-6">{capability.description}</p>
-      <div className="mt-2 flex flex-wrap gap-1.5 min-[390px]:mt-3">
+      <p className="mt-1.5 text-[0.72rem] leading-[1.45] text-slate-600 min-[440px]:mt-3 min-[440px]:text-sm min-[440px]:leading-6">{capability.description}</p>
+      <div className="mt-2 flex flex-wrap gap-1 min-[440px]:mt-3 min-[440px]:gap-1.5">
         {capability.deliverables.map((item) => (
-          <span key={item} className="rounded-full border border-sky-100 bg-sky-50 px-2.5 py-1 text-[10px] font-bold text-sky-800">
+          <span key={item} data-capability-chip="true" className="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 text-[9px] font-bold text-sky-800 min-[440px]:px-2.5 min-[440px]:py-1 min-[440px]:text-[10px]">
             {item}
           </span>
         ))}
       </div>
-      <div className="mt-2 hidden max-w-[13.2rem] border-t border-slate-200 pt-2 text-[0.7rem] font-bold leading-4 text-slate-900 min-[360px]:block min-[360px]:max-w-none min-[390px]:mt-auto min-[390px]:pt-3 min-[390px]:text-sm min-[390px]:leading-5">
+      <div data-capability-outcome="true" className="mt-auto border-t border-slate-200 pt-2 text-[0.7rem] font-bold leading-4 text-slate-900 min-[440px]:pt-3 min-[440px]:text-sm min-[440px]:leading-5">
         {capability.outcome}
       </div>
     </motion.article>
@@ -245,7 +245,7 @@ function MobileSystemMap({ active }: { active: number }) {
   ];
 
   return (
-    <div className="relative mx-auto my-1 aspect-square w-[min(64vw,12rem)] shrink-0 min-[390px]:my-4 min-[390px]:w-[min(70vw,18rem)]">
+    <div className="relative mx-auto my-0 aspect-square w-[min(49vw,9.2rem)] shrink-0 min-[440px]:my-4 min-[440px]:w-[min(70vw,18rem)]">
       <motion.div
         className="absolute inset-[18%] rounded-full border border-dashed border-[#0b57b5]/18"
         animate={{ rotate: active * 90 }}
@@ -272,7 +272,7 @@ function MobileSystemMap({ active }: { active: number }) {
         return (
           <motion.div
             key={item.short}
-            className={`absolute ${positions[index]} z-20 flex w-[4.2rem] flex-col items-center gap-1 rounded-[0.8rem] border px-1 py-1.5 text-center transition min-[390px]:w-[5.5rem] min-[390px]:rounded-[0.9rem] min-[390px]:px-2 min-[390px]:py-2 ${
+            className={`absolute ${positions[index]} z-20 flex w-[3.85rem] flex-col items-center gap-0.5 rounded-[0.75rem] border px-1 py-1.5 text-center transition min-[440px]:w-[5.5rem] min-[440px]:gap-1 min-[440px]:rounded-[0.9rem] min-[440px]:px-2 min-[440px]:py-2 ${
               selected
                 ? 'border-sky-300 bg-sky-50 text-[#0b57b5] shadow-[0_14px_34px_rgba(11,87,181,0.14)]'
                 : complete

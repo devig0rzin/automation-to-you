@@ -2,9 +2,9 @@ import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform 
 import { useEffect, useRef } from 'react';
 
 const cards = [
-  { src: '/aty-showcase-1-mobile.webp', rotate: -7, x: -26, y: 10, label: 'Projeto 01', range: [0.08, 0.46], endX: -64, endY: 190, endRotate: -1, endScale: 1.18 },
-  { src: '/aty-showcase-2-mobile.webp', rotate: 1, x: 2, y: 25, label: 'Projeto 02', range: [0.2, 0.62], endX: 18, endY: 252, endRotate: 2, endScale: 1.12 },
-  { src: '/aty-showcase-3-mobile.webp', rotate: 7, x: 30, y: 40, label: 'Projeto 03', range: [0.34, 0.78], endX: 70, endY: 316, endRotate: 1, endScale: 1.06 },
+  { src: '/aty-showcase-1-mobile.webp', rotate: -7, x: -30, y: 10, label: 'Projeto 01', range: [0.08, 0.5], endX: -72, endY: 226, endRotate: -1, endScale: 1.18 },
+  { src: '/aty-showcase-2-mobile.webp', rotate: 1, x: 0, y: 28, label: 'Projeto 02', range: [0.2, 0.66], endX: 20, endY: 296, endRotate: 2, endScale: 1.12 },
+  { src: '/aty-showcase-3-mobile.webp', rotate: 7, x: 32, y: 46, label: 'Projeto 03', range: [0.34, 0.82], endX: 78, endY: 366, endRotate: 1, endScale: 1.06 },
 ] as const;
 
 export default function MobileHeroJourney() {
@@ -51,22 +51,15 @@ export default function MobileHeroJourney() {
         transition={{ duration: 0.58, ease: 'easeOut' }}
         style={reduceMotion ? undefined : { y: deviceY, scale: deviceScale, opacity: deviceOpacity, willChange: 'transform, opacity' }}
       >
-        <div className="absolute inset-3 overflow-hidden rounded-[1.25rem] bg-[#071a3d]">
-          <img
-            src="/computador-transparent.png"
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover opacity-90"
-            loading="eager"
-            decoding="async"
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_22%,rgba(255,255,255,0.28),transparent_9rem),linear-gradient(180deg,rgba(7,26,61,0.04),rgba(7,26,61,0.34))]" />
-          <div className="absolute left-5 top-5 h-2 w-16 rounded-full bg-white/70" />
-          <div className="absolute bottom-5 right-5 h-10 w-10 rounded-full border border-white/35 bg-white/15 backdrop-blur" />
+        <div className="absolute inset-3 overflow-hidden rounded-[1.25rem] bg-[linear-gradient(145deg,rgba(255,255,255,0.92),rgba(224,242,254,0.82))]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_34%_22%,rgba(11,87,181,0.16),transparent_7rem),radial-gradient(circle_at_72%_70%,rgba(14,165,233,0.14),transparent_8rem)]" />
+          <div className="absolute left-5 top-5 h-2 w-16 rounded-full bg-[#0b57b5]/18" />
+          <div className="absolute bottom-5 right-5 h-10 w-10 rounded-full border border-[#0b57b5]/18 bg-white/40 backdrop-blur" />
         </div>
       </motion.div>
 
       <motion.div
-        className="absolute left-1/2 top-[24%] h-[15rem] w-[clamp(9.4rem,46vw,12.8rem)] -translate-x-1/2"
+        className="absolute left-1/2 top-[24%] h-[16.5rem] w-[clamp(10.35rem,50.5vw,14.1rem)] -translate-x-1/2"
       >
         {cards.map((card, index) => (
           <JourneyCard key={card.src} card={card} index={index} progress={scrollYProgress} reduceMotion={Boolean(reduceMotion)} />

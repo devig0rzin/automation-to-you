@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
@@ -49,6 +49,14 @@ export default function CreativeShowcaseSection() {
   const [mobileProjectArrivals, setMobileProjectArrivals] = useState([false, false, false]);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
   const bgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.025, 1.05]);
+
+  useMotionValueEvent(scrollYProgress, 'change', (value) => {
+    if (!isMobile || value < 0.14) return;
+
+    const next = [true, true, true];
+    mobileProjectArrivalsRef.current = next;
+    setMobileProjectArrivals(next);
+  });
 
   useEffect(() => {
     const updateArrival = (event: Event) => {
