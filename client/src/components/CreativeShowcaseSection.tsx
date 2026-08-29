@@ -1,31 +1,35 @@
 import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { ArrowUpRight, Sparkles } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import TechnologyBackdrop from './TechnologyBackdrop';
 import { useIsMobile } from '@/hooks/useMobile';
+import { trackEvent } from '@/lib/analytics';
 
 const cards = [
   {
-    eyebrow: 'Card 01',
-    title: 'Imagem que abre a experiência com peso de produto.',
-    description: 'A composição apresenta o projeto com clareza e ajuda o cliente a entender o valor da entrega.',
+    eyebrow: 'Next Phase',
+    title: 'Next Phase Finish Carpentry',
+    description: 'Site institucional para uma empresa americana de finish carpentry, criado para apresentar serviços, projetos e facilitar pedidos de orçamento.',
+    url: 'https://nextphasefinishcarpentry.com/',
     src: '/projects/project-01-next-phase.webp',
     mobileSrc: '/projects/project-01-next-phase-mobile.webp',
     alt: 'Next Phase Finish Carpentry website project',
   },
   {
-    eyebrow: 'Card 02',
-    title: 'Um produto digital apresentado com profundidade.',
-    description: 'Interface, informação e acabamento visual trabalhando juntos sem competir pela atenção.',
+    eyebrow: 'João & Jessica',
+    title: 'João Pedro & Jessica',
+    description: 'Site de casamento criado para reunir informações do evento, presença, localização, presentes e contagem regressiva em uma experiência personalizada.',
+    url: 'https://www.casamentojoaojessica.com.br/',
     src: '/projects/project-02-joao-pedro.webp',
     mobileSrc: '/projects/project-02-joao-pedro-mobile.webp',
     alt: 'João Pedro e Jessica wedding website project',
   },
   {
-    eyebrow: 'Card 03',
-    title: 'Automação explicada de forma visual e direta.',
-    description: 'A imagem fecha a sequência e mostra como as partes do negócio passam a trabalhar conectadas.',
+    eyebrow: 'Espaço Néia',
+    title: 'Espaço Néia',
+    description: 'Site de estética desenvolvido para apresentar tratamentos, campanhas e facilitar o agendamento de avaliações.',
+    url: 'https://espa-o-neia.vercel.app/',
     src: '/projects/project-03-espaco-neia.webp',
     mobileSrc: '/projects/project-03-espaco-neia-mobile.webp',
     alt: 'Espaço Néia aesthetics website project',
@@ -166,6 +170,15 @@ function ProjectCard({
   mobileProjectArrived: boolean;
   isMobile: boolean;
 }) {
+  const trackProjectLink = (linkType: 'image' | 'name' | 'text') => {
+    trackEvent('click_project', {
+      cta_location: 'selected_projects',
+      project_name: card.title,
+      link_type: linkType,
+      link_url: card.url,
+    });
+  };
+
   return (
     <Reveal variant="slide-up" delay={index * 0.1}>
       <article>
@@ -178,24 +191,50 @@ function ProjectCard({
           animate={isMobile ? { opacity: mobileProjectArrived ? 1 : 0, y: mobileProjectArrived ? 0 : 24, scale: mobileProjectArrived ? 1 : 0.96 } : undefined}
           transition={{ duration: 0.42, delay: index * 0.08, ease: 'easeOut' }}
         >
-          <div className="relative aspect-[1.18] overflow-hidden rounded-[0.9rem]">
+          <a
+            href={card.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative block aspect-[1.18] overflow-hidden rounded-[0.9rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b57b5] focus-visible:ring-offset-2"
+            onClick={() => trackProjectLink('image')}
+          >
             <picture className="block h-full w-full">
               <source media="(max-width: 767px)" srcSet={card.mobileSrc} type="image/webp" />
               <img src={card.src} alt={card.alt} className="h-full w-full object-cover" loading="lazy" />
             </picture>
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/20" />
-            <span className="absolute bottom-4 left-4 rounded-full border border-white/40 bg-white/80 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-slate-700 backdrop-blur">
+            <span className="absolute bottom-4 left-4 max-w-[calc(100%-2rem)] rounded-full border border-white/40 bg-white/80 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-slate-700 backdrop-blur">
               {card.eyebrow}
             </span>
-          </div>
+          </a>
         </motion.div>
         <motion.div
           className="pt-5"
           animate={isMobile ? { opacity: mobileJourneyArrived ? 1 : 0.72, y: mobileJourneyArrived ? 0 : 10 } : undefined}
           transition={{ duration: 0.42, delay: index * 0.08 + 0.04, ease: 'easeOut' }}
         >
-          <h3 className="text-lg font-bold leading-snug text-slate-950">{card.title}</h3>
+          <h3 className="text-lg font-bold leading-snug text-slate-950">
+            <a
+              href={card.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-[#0b57b5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b57b5] focus-visible:ring-offset-2"
+              onClick={() => trackProjectLink('name')}
+            >
+              {card.title}
+            </a>
+          </h3>
           <p className="mt-2 text-base leading-7 text-slate-500">{card.description}</p>
+          <a
+            href={card.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-[#0b57b5] transition-colors hover:text-sky-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b57b5] focus-visible:ring-offset-2"
+            onClick={() => trackProjectLink('text')}
+          >
+            Ver site
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </a>
         </motion.div>
       </article>
     </Reveal>
