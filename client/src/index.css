@@ -963,6 +963,19 @@
   }
 
   @media (max-width: 768px) {
+    h1,
+    h2,
+    h3,
+    p,
+    a,
+    button,
+    li,
+    span {
+      hyphens: none;
+      overflow-wrap: normal;
+      word-break: normal;
+    }
+
     .hero-content::before {
       inset: -1.25rem;
       border-radius: 1.5rem;

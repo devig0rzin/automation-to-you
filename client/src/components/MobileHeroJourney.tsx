@@ -1,10 +1,10 @@
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 
 const cards = [
-  { src: '/aty-showcase-1-mobile.webp', rotate: -4, x: -22, y: 0, label: 'Projeto 01', range: [0.05, 0.58], endX: -38, endY: 102, endRotate: -1, endScale: 1 },
-  { src: '/aty-showcase-2-mobile.webp', rotate: 0, x: 0, y: 18, label: 'Projeto 02', range: [0.13, 0.68], endX: 18, endY: 154, endRotate: 2, endScale: 0.98 },
-  { src: '/aty-showcase-3-mobile.webp', rotate: 4, x: 22, y: 36, label: 'Projeto 03', range: [0.21, 0.78], endX: 42, endY: 204, endRotate: 1, endScale: 0.96 },
+  { src: '/aty-showcase-1-mobile.webp', rotate: -7, x: -26, y: 10, label: 'Projeto 01', range: [0.08, 0.46], endX: -64, endY: 190, endRotate: -1, endScale: 1.18 },
+  { src: '/aty-showcase-2-mobile.webp', rotate: 1, x: 2, y: 25, label: 'Projeto 02', range: [0.2, 0.62], endX: 18, endY: 252, endRotate: 2, endScale: 1.12 },
+  { src: '/aty-showcase-3-mobile.webp', rotate: 7, x: 30, y: 40, label: 'Projeto 03', range: [0.34, 0.78], endX: 70, endY: 316, endRotate: 1, endScale: 1.06 },
 ] as const;
 
 export default function MobileHeroJourney() {
@@ -12,12 +12,12 @@ export default function MobileHeroJourney() {
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: stageRef,
-    offset: ['start 72%', 'end -18%'],
+    offset: ['start 74%', 'end -32%'],
   });
 
-  const deviceY = useTransform(scrollYProgress, [0, 0.5, 1], [0, -22, -25]);
+  const deviceY = useTransform(scrollYProgress, [0, 0.52, 1], [0, -18, -28]);
   const deviceScale = useTransform(scrollYProgress, [0, 0.55, 1], [1, 0.94, 0.9]);
-  const deviceOpacity = useTransform(scrollYProgress, [0, 0.58, 1], [1, 0.72, 0.45]);
+  const deviceOpacity = useTransform(scrollYProgress, [0, 0.62, 1], [1, 0.78, 0.48]);
 
   useEffect(() => {
     const projects = document.getElementById('projetos');
@@ -34,10 +34,18 @@ export default function MobileHeroJourney() {
     return () => observer.disconnect();
   }, [reduceMotion]);
 
+  useMotionValueEvent(scrollYProgress, 'change', (value) => {
+    window.dispatchEvent(
+      new CustomEvent('aty-mobile-project-arrival', {
+        detail: [value >= 0.86, value >= 0.91, value >= 0.96],
+      }),
+    );
+  });
+
   return (
-    <div ref={stageRef} className="relative mt-9 h-[clamp(23rem,82vw,30rem)] overflow-x-clip md:hidden" aria-hidden="true">
+    <div ref={stageRef} className="relative mx-auto mt-9 h-[clamp(26rem,112vw,34rem)] max-w-[28rem] overflow-x-clip md:hidden" aria-hidden="true">
       <motion.div
-        className="absolute inset-x-0 top-2 mx-auto h-[68%] max-w-[25rem] rounded-[1.65rem] border border-slate-200/80 bg-white/58 shadow-[0_30px_80px_rgba(11,87,181,0.13)] backdrop-blur-xl"
+        className="absolute inset-x-3 top-2 mx-auto h-[58%] max-w-[24rem] rounded-[1.65rem] border border-slate-200/80 bg-white/58 shadow-[0_30px_80px_rgba(11,87,181,0.13)] backdrop-blur-xl"
         initial={reduceMotion ? false : { opacity: 0, y: 20, scale: 0.94 }}
         animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.58, ease: 'easeOut' }}
@@ -58,7 +66,7 @@ export default function MobileHeroJourney() {
       </motion.div>
 
       <motion.div
-        className="absolute left-1/2 top-[21%] h-[13.5rem] w-[min(78vw,19.5rem)] -translate-x-1/2"
+        className="absolute left-1/2 top-[24%] h-[15rem] w-[clamp(9.4rem,46vw,12.8rem)] -translate-x-1/2"
       >
         {cards.map((card, index) => (
           <JourneyCard key={card.src} card={card} index={index} progress={scrollYProgress} reduceMotion={Boolean(reduceMotion)} />
@@ -83,13 +91,15 @@ function JourneyCard({
   const y = useTransform(progress, [0, card.range[0], card.range[1], 1], [card.y, card.y, card.endY, card.endY + 42]);
   const rotate = useTransform(progress, [0, card.range[0], card.range[1], 1], [card.rotate, card.rotate, card.endRotate, card.endRotate]);
   const scale = useTransform(progress, [0, card.range[0], card.range[1], 1], [1 - index * 0.035, 1 - index * 0.035, card.endScale, card.endScale * 0.92]);
-  const opacity = useTransform(progress, [0, card.range[1], 0.9, 1], [1, 1, 0.82 - index * 0.14, 0]);
+  const arrivalStart = 0.84 + index * 0.05;
+  const arrivalEnd = Math.min(0.98, arrivalStart + 0.1);
+  const opacity = useTransform(progress, [0, card.range[1], arrivalStart, arrivalEnd], [1, 1, 1, 0]);
 
   return (
     <motion.article
       data-mobile-journey-card={index + 1}
       className="absolute inset-x-0 top-0 overflow-hidden rounded-[1.05rem] border border-white/80 bg-white p-2 shadow-[0_18px_44px_rgba(15,23,42,0.16)]"
-      style={reduceMotion ? undefined : { x, y, rotate, scale, opacity, willChange: 'transform, opacity' }}
+      style={reduceMotion ? { zIndex: 3 - index } : { x, y, rotate, scale, opacity, zIndex: 3 - index, willChange: 'transform, opacity' }}
     >
       <motion.div
         initial={reduceMotion ? false : { opacity: 0, y: 18, rotate: card.rotate * 0.35, scale: 0.94 }}

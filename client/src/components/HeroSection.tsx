@@ -97,19 +97,19 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 mx-auto grid max-w-[1440px] items-center gap-2 px-5 pb-16 pt-5 sm:min-h-[calc(100dvh-6rem)] sm:gap-4 sm:px-8 sm:pb-10 sm:pt-8 lg:grid-cols-[0.84fr_1.16fr] lg:px-12">
-        <div className="max-w-2xl py-7 sm:py-8">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3.5 py-2 text-xs font-bold text-[#0b57b5]">
+        <div className="mx-auto max-w-[23rem] py-7 text-center sm:max-w-2xl sm:py-8 md:mx-0 md:text-left">
+          <div className="mx-auto mb-5 inline-flex max-w-[21rem] items-center justify-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3.5 py-2 text-xs font-bold text-[#0b57b5] md:mx-0 md:justify-start">
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
             Projetos digitais e automações sob medida
           </div>
-          <h1 className="text-balance text-[2.75rem] font-bold leading-[0.96] min-[360px]:text-5xl sm:text-6xl lg:text-[5.5rem]">
+          <h1 className="mx-auto max-w-[22rem] text-balance text-[2.45rem] font-bold leading-[0.98] min-[360px]:text-[2.9rem] sm:max-w-none sm:text-6xl md:mx-0 lg:text-[5.5rem]">
             Construímos o digital que faz seu negócio parecer maior.
           </h1>
-          <p className="mt-5 max-w-xl text-base leading-7 text-slate-600 sm:mt-6 sm:text-lg sm:leading-8">
+          <p className="mx-auto mt-5 max-w-[21.5rem] text-base leading-7 text-slate-600 sm:mt-6 sm:max-w-xl sm:text-lg sm:leading-8 md:mx-0">
             Sites com 3D, landing pages, aplicativos e automações com IA. Da primeira impressão até a operação que
             acontece nos bastidores.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mx-auto mt-8 flex max-w-[21.5rem] flex-col gap-3 sm:max-w-none sm:flex-row md:mx-0">
             <button
               type="button"
               onClick={scrollToProjects}

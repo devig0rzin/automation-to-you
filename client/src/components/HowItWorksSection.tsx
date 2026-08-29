@@ -39,18 +39,18 @@ export default function HowItWorksSection() {
       <TechnologyBackdrop variant="right" />
       <div className="relative z-10 mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
         <motion.header
-          className="grid gap-8 border-b border-slate-200 pb-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-end"
+          className="mx-auto grid max-w-[23rem] gap-8 border-b border-slate-200 pb-14 text-center sm:max-w-none lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:text-left"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
           <div>
             <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#0b57b5]">Do problema à produção</div>
-            <h2 className="mt-6 max-w-4xl text-balance text-[2.65rem] font-bold leading-[0.95] tracking-[-0.045em] sm:text-5xl md:text-7xl">
+            <h2 className="mx-auto mt-6 max-w-[22rem] text-balance text-[2.35rem] font-bold leading-[0.98] tracking-[-0.035em] sm:max-w-4xl sm:text-5xl md:text-7xl lg:mx-0 lg:leading-[0.95] lg:tracking-[-0.045em]">
               Você vê o projeto avançar. Sem caixa-preta.
             </h2>
           </div>
-          <p className="max-w-xl text-lg leading-8 text-slate-600">
+          <p className="mx-auto max-w-[21.5rem] text-base leading-7 text-slate-600 sm:max-w-xl sm:text-lg sm:leading-8 lg:mx-0">
             Cada etapa termina com algo concreto para avaliar. Menos apresentações abstratas, mais decisões visíveis e versões funcionando.
           </p>
         </motion.header>

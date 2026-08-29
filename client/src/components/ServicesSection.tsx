@@ -50,22 +50,22 @@ export default function ServicesSection() {
 
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
         <motion.header
-          className="grid gap-8 border-b border-white/10 pb-14 lg:grid-cols-[1fr_0.75fr] lg:items-end"
+          className="mx-auto grid max-w-[23rem] gap-8 border-b border-white/10 pb-14 text-center sm:max-w-none lg:grid-cols-[1fr_0.75fr] lg:items-end lg:text-left"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.65 }}
         >
           <div>
-            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-sky-300">
+            <div className="flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-sky-300 lg:justify-start lg:tracking-[0.2em]">
               <Braces className="h-4 w-4" />
               O que podemos construir
             </div>
-            <h2 className="mt-6 max-w-4xl text-balance text-[2.75rem] font-bold leading-[0.94] tracking-[-0.045em] sm:text-5xl md:text-7xl">
+            <h2 className="mx-auto mt-6 max-w-[22rem] text-balance text-[2.4rem] font-bold leading-[0.98] tracking-[-0.035em] sm:max-w-4xl sm:text-5xl md:text-7xl lg:mx-0 lg:leading-[0.94] lg:tracking-[-0.045em]">
               Um contato entra. O sistema inteiro responde.
             </h2>
           </div>
-          <p className="max-w-xl text-lg leading-8 text-white/60">
+          <p className="mx-auto max-w-[21.5rem] text-base leading-7 text-white/60 sm:max-w-xl sm:text-lg sm:leading-8 lg:mx-0">
             Entramos no ponto que mais trava o negócio hoje e deixamos a estrutura preparada para o próximo passo.
             O projeto pode começar pequeno sem nascer limitado.
           </p>

@@ -45,6 +45,8 @@ export default function CreativeShowcaseSection() {
   const isMobile = useIsMobile();
   const [journeyArrived, setJourneyArrived] = useState(false);
   const [mobileJourneyArrived, setMobileJourneyArrived] = useState(false);
+  const mobileProjectArrivalsRef = useRef([false, false, false]);
+  const [mobileProjectArrivals, setMobileProjectArrivals] = useState([false, false, false]);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
   const bgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.025, 1.05]);
 
@@ -66,6 +68,30 @@ export default function CreativeShowcaseSection() {
     window.addEventListener('aty-mobile-journey-arrival', updateMobileArrival);
     return () => window.removeEventListener('aty-mobile-journey-arrival', updateMobileArrival);
   }, []);
+
+  useEffect(() => {
+    const updateProjectArrival = (event: Event) => {
+      const detail = (event as CustomEvent<boolean[]>).detail;
+      if (Array.isArray(detail)) {
+        const next = detail.slice(0, 3);
+        if (next.some((value, index) => value !== mobileProjectArrivalsRef.current[index])) {
+          mobileProjectArrivalsRef.current = next;
+          setMobileProjectArrivals(next);
+        }
+      }
+    };
+
+    window.addEventListener('aty-mobile-project-arrival', updateProjectArrival);
+    return () => window.removeEventListener('aty-mobile-project-arrival', updateProjectArrival);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile || !mobileJourneyArrived) return;
+
+    const next = [true, true, true];
+    mobileProjectArrivalsRef.current = next;
+    setMobileProjectArrivals(next);
+  }, [isMobile, mobileJourneyArrived]);
 
   return (
     <section ref={sectionRef} id="projetos" className="aty-light-detail aty-light-detail--reverse relative overflow-hidden bg-white/76 py-20 text-slate-950 sm:py-24 md:py-32">
@@ -98,7 +124,15 @@ export default function CreativeShowcaseSection() {
 
         <div className="mt-14 grid gap-9 md:grid-cols-3 md:gap-5 lg:gap-7">
           {cards.map((card, index) => (
-            <ProjectCard key={card.title} card={card} index={index} journeyArrived={journeyArrived} mobileJourneyArrived={mobileJourneyArrived} isMobile={isMobile} />
+            <ProjectCard
+              key={card.title}
+              card={card}
+              index={index}
+              journeyArrived={journeyArrived}
+              mobileJourneyArrived={mobileJourneyArrived}
+              mobileProjectArrived={mobileProjectArrivals[index]}
+              isMobile={isMobile}
+            />
           ))}
         </div>
       </div>
@@ -111,12 +145,14 @@ function ProjectCard({
   index,
   journeyArrived,
   mobileJourneyArrived,
+  mobileProjectArrived,
   isMobile,
 }: {
   card: (typeof cards)[number];
   index: number;
   journeyArrived: boolean;
   mobileJourneyArrived: boolean;
+  mobileProjectArrived: boolean;
   isMobile: boolean;
 }) {
   return (
@@ -124,11 +160,12 @@ function ProjectCard({
       <article>
         <motion.div
           id={`showcase-slot-${index + 1}`}
+          data-mobile-project-card={index + 1}
           className={`overflow-hidden rounded-[1.2rem] border border-slate-200 bg-slate-50 p-3 shadow-[0_14px_40px_rgba(15,23,42,0.07)] transition-opacity duration-150 ${
             journeyArrived ? 'opacity-100' : 'opacity-100 md:opacity-0'
           }`}
-          animate={isMobile ? { opacity: mobileJourneyArrived ? 1 : 0.72, y: mobileJourneyArrived ? 0 : 20 } : undefined}
-          transition={{ duration: 0.48, delay: index * 0.06, ease: 'easeOut' }}
+          animate={isMobile ? { opacity: mobileProjectArrived ? 1 : 0, y: mobileProjectArrived ? 0 : 24, scale: mobileProjectArrived ? 1 : 0.96 } : undefined}
+          transition={{ duration: 0.42, delay: index * 0.08, ease: 'easeOut' }}
         >
           <div className="relative aspect-[1.18] overflow-hidden rounded-[0.9rem]">
             <picture className="block h-full w-full">
@@ -143,8 +180,8 @@ function ProjectCard({
         </motion.div>
         <motion.div
           className="pt-5"
-          animate={isMobile ? { opacity: mobileJourneyArrived ? 1 : 0.88, y: mobileJourneyArrived ? 0 : 8 } : undefined}
-          transition={{ duration: 0.42, delay: index * 0.04, ease: 'easeOut' }}
+          animate={isMobile ? { opacity: mobileJourneyArrived ? 1 : 0.72, y: mobileJourneyArrived ? 0 : 10 } : undefined}
+          transition={{ duration: 0.42, delay: index * 0.08 + 0.04, ease: 'easeOut' }}
         >
           <h3 className="text-lg font-bold leading-snug text-slate-950">{card.title}</h3>
           <p className="mt-2 text-base leading-7 text-slate-500">{card.description}</p>

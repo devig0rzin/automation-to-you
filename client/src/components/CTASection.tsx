@@ -17,16 +17,16 @@ export default function CTASection() {
       >
         <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.06)_1px,transparent_1px)] [background-size:48px_48px]" />
         <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full border border-sky-300/10" />
-        <div className="relative grid gap-12 lg:grid-cols-[1fr_320px] lg:items-end">
+        <div className="relative grid gap-10 text-center lg:grid-cols-[1fr_320px] lg:items-end lg:text-left">
           <div>
             <div className="text-xs font-bold uppercase tracking-[0.2em] text-sky-300">Vamos conversar</div>
-            <h2 className="mt-6 max-w-5xl text-balance text-[2.55rem] font-bold leading-[0.95] tracking-[-0.045em] sm:text-5xl md:text-7xl">
+            <h2 className="mx-auto mt-6 max-w-[22rem] text-balance text-[2.55rem] font-bold leading-[0.95] tracking-[-0.045em] sm:max-w-5xl sm:text-5xl md:text-7xl lg:mx-0">
               Qual parte do seu negócio ainda depende de improviso?
             </h2>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-white/60">
+            <p className="mx-auto mt-7 max-w-[21.5rem] text-base leading-7 text-white/60 sm:max-w-2xl sm:text-lg sm:leading-8 lg:mx-0">
               Pode ser uma página que não converte, um atendimento lento ou um processo preso em tarefas manuais. Mostre o problema; a gente organiza o próximo passo.
             </p>
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-white/55">
+            <div className="mx-auto mt-8 flex max-w-[21rem] flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold text-white/55 sm:max-w-none lg:mx-0 lg:justify-start">
               {['Conversa objetiva', 'Sem proposta genérica', 'Próximo passo claro'].map((item) => (
                 <span key={item} className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-emerald-400" />
@@ -49,7 +49,7 @@ export default function CTASection() {
                 link_url: contactProjectWhatsAppUrl,
               });
             }}
-            className="group inline-flex min-h-14 items-center justify-between gap-4 rounded-2xl bg-white px-5 py-4 font-bold text-slate-950 transition hover:-translate-y-1 active:scale-[0.98] sm:gap-6 sm:px-6 sm:py-5"
+            className="group mx-auto inline-flex min-h-14 w-full max-w-[21rem] items-center justify-between gap-4 rounded-2xl bg-white px-5 py-4 font-bold text-slate-950 transition hover:-translate-y-1 active:scale-[0.98] sm:gap-6 sm:px-6 sm:py-5 lg:mx-0 lg:w-auto"
           >
             <span className="flex items-center gap-3">
               <WhatsAppIcon className="h-6 w-6 text-emerald-500" />

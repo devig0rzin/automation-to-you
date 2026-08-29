@@ -747,27 +747,27 @@ export default function AgentSimulatorSection() {
 
       <div className="section-inner">
         <motion.div
-          className="mb-14 grid gap-10 border-b border-slate-200 pb-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-end"
+          className="mx-auto mb-14 grid max-w-[23rem] gap-10 border-b border-slate-200 pb-14 text-center sm:max-w-none lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:text-left"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <div>
-            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#0b57b5]">
-              <span className="h-px w-10 bg-[#0b57b5]" />
+            <div className="flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-[#0b57b5] lg:justify-start lg:tracking-[0.2em]">
+              <span className="hidden h-px w-10 bg-[#0b57b5] sm:block" />
               Demonstração interativa
             </div>
-            <h2 className="mt-6 max-w-4xl text-balance text-[2.65rem] font-bold leading-[0.94] tracking-[-0.045em] sm:text-5xl md:text-7xl">
+            <h2 className="mx-auto mt-6 max-w-[22rem] text-balance text-[clamp(2.45rem,11vw,3.45rem)] font-bold leading-[0.98] tracking-[-0.035em] sm:max-w-4xl sm:text-5xl md:text-7xl lg:mx-0 lg:leading-[0.94] lg:tracking-[-0.045em]">
               Seu atendimento, antes de virar projeto.
             </h2>
           </div>
           <div>
-            <p className="max-w-xl text-lg leading-8 text-slate-600">
+            <p className="mx-auto max-w-[21.5rem] text-base leading-7 text-slate-600 sm:max-w-xl sm:text-lg sm:leading-8 lg:mx-0">
               Monte uma versão do seu atendimento e converse com ela agora. Você escolhe o segmento, define o contexto
               e vê a experiência funcionando no WhatsApp.
             </p>
-            <div className="simulator-steps mt-8 grid grid-cols-1 border-y border-slate-200 sm:grid-cols-3">
+            <div className="simulator-steps mx-auto mt-8 grid max-w-[20rem] grid-cols-1 border-y border-slate-200 text-center sm:max-w-none sm:grid-cols-3 lg:mx-0 lg:text-left">
               {[
                 ['01', 'Cadastre', 'seu negócio'],
                 ['02', 'Configure', 'o atendimento'],
@@ -780,7 +780,7 @@ export default function AgentSimulatorSection() {
                 </div>
               ))}
             </div>
-            <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-slate-500">
+            <div className="mt-5 flex items-center justify-center gap-2 text-sm font-semibold text-slate-500 lg:justify-start">
               <Check className="h-4 w-4 text-emerald-500" />
               Sem cartão e sem compromisso
             </div>
