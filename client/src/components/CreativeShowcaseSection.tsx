@@ -17,8 +17,8 @@ const cards = [
     alt: 'Next Phase Finish Carpentry website project',
   },
   {
-    eyebrow: 'João & Jessica',
-    title: 'Sites personalizados para casamentos',
+    eyebrow: 'Casamento',
+    title: 'Sites para casamento',
     description: 'Criamos experiências digitais para casamentos, reunindo confirmação de presença, localização, presentes, informações do evento e contagem regressiva.',
     url: 'https://www.casamentojoaojessica.com.br/',
     src: '/projects/joao-jessica-final.webp',
