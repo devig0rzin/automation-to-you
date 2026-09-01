@@ -2,9 +2,9 @@ import { motion, useMotionValue } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 
 const cards = [
-  { src: '/projects/project-01-next-phase.webp', alt: 'Next Phase Finish Carpentry website project', rotate: -5 },
-  { src: '/projects/project-02-joao-pedro.webp', alt: 'João Pedro e Jessica wedding website project', rotate: 1 },
-  { src: '/projects/project-03-espaco-neia.webp', alt: 'Espaço Néia aesthetics website project', rotate: 5 },
+  { src: '/projects/next-phase-final.webp', alt: 'Next Phase Finish Carpentry website project', rotate: -5 },
+  { src: '/projects/joao-jessica-final.webp', alt: 'João Pedro e Jessica wedding website project', rotate: 1 },
+  { src: '/projects/espaco-neia-final.webp', alt: 'Espaço Néia aesthetics website project', rotate: 5 },
 ] as const;
 
 export default function ImageJourneyOverlay() {

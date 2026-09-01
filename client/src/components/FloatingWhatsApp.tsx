@@ -3,7 +3,7 @@ import WhatsAppIcon from './WhatsAppIcon';
 import { trackEvent } from '@/lib/analytics';
 
 const floatingWhatsAppUrl =
-  'https://wa.me/5511987793213?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20agentes%20de%20IA%20e%20automa%C3%A7%C3%A3o.';
+  'https://wa.me/5511945177464?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20agentes%20de%20IA%20e%20automa%C3%A7%C3%A3o.';
 
 export default function FloatingWhatsApp() {
   const [isSimulatorVisible, setIsSimulatorVisible] = useState(false);

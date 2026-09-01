@@ -16,7 +16,7 @@ const companyLinks = [
   ['Contato', '#contato'],
 ] as const;
 const contactLinks = [
-  ['WhatsApp', 'https://wa.me/5511987793213'],
+  ['WhatsApp', 'https://wa.me/5511945177464'],
   ['Instagram', 'https://instagram.com/automationtoy'],
   ['E-mail', 'mailto:contato@automationtoyou.com'],
 ] as const;
@@ -72,7 +72,7 @@ export default function Footer() {
                   <SocialLink href="https://instagram.com/automationtoy" label="Instagram">
                     <Instagram className="h-5 w-5" />
                   </SocialLink>
-                  <SocialLink href="https://wa.me/5511987793213" label="WhatsApp" analyticsLocation="footer_social">
+                  <SocialLink href="https://wa.me/5511945177464" label="WhatsApp" analyticsLocation="footer_social">
                     <WhatsAppIcon className="h-6 w-6" />
                   </SocialLink>
                   <SocialLink href="mailto:contato@automationtoyou.com" label="Email">

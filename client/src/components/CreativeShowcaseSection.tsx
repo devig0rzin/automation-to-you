@@ -12,8 +12,8 @@ const cards = [
     title: 'Next Phase Finish Carpentry',
     description: 'Site institucional para uma empresa americana de finish carpentry, criado para apresentar serviços, projetos e facilitar pedidos de orçamento.',
     url: 'https://nextphasefinishcarpentry.com/',
-    src: '/projects/project-01-next-phase.webp',
-    mobileSrc: '/projects/project-01-next-phase-mobile.webp',
+    src: '/projects/next-phase-final.webp',
+    mobileSrc: '/projects/next-phase-final-mobile.webp',
     alt: 'Next Phase Finish Carpentry website project',
   },
   {
@@ -21,8 +21,8 @@ const cards = [
     title: 'João Pedro & Jessica',
     description: 'Site de casamento criado para reunir informações do evento, presença, localização, presentes e contagem regressiva em uma experiência personalizada.',
     url: 'https://www.casamentojoaojessica.com.br/',
-    src: '/projects/project-02-joao-pedro.webp',
-    mobileSrc: '/projects/project-02-joao-pedro-mobile.webp',
+    src: '/projects/joao-jessica-final.webp',
+    mobileSrc: '/projects/joao-jessica-final-mobile.webp',
     alt: 'João Pedro e Jessica wedding website project',
   },
   {
@@ -30,8 +30,8 @@ const cards = [
     title: 'Espaço Néia',
     description: 'Site de estética desenvolvido para apresentar tratamentos, campanhas e facilitar o agendamento de avaliações.',
     url: 'https://espa-o-neia.vercel.app/',
-    src: '/projects/project-03-espaco-neia.webp',
-    mobileSrc: '/projects/project-03-espaco-neia-mobile.webp',
+    src: '/projects/espaco-neia-final.webp',
+    mobileSrc: '/projects/espaco-neia-final-mobile.webp',
     alt: 'Espaço Néia aesthetics website project',
   },
 ] as const;

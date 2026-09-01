@@ -11,8 +11,8 @@ function scrollToProjects() {
   document.getElementById('projetos')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-const headerWhatsAppUrl = 'https://wa.me/5511987793213?text=Oi%2C%20quero%20conhecer%20a%20ATY';
-const heroProjectWhatsAppUrl = 'https://wa.me/5511987793213?text=Oi%2C%20quero%20tirar%20um%20projeto%20do%20papel';
+const headerWhatsAppUrl = 'https://wa.me/5511945177464?text=Oi%2C%20quero%20conhecer%20a%20ATY';
+const heroProjectWhatsAppUrl = 'https://wa.me/5511945177464?text=Oi%2C%20quero%20tirar%20um%20projeto%20do%20papel';
 
 export default function HeroSection() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -2,9 +2,9 @@ import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform 
 import { useEffect, useRef } from 'react';
 
 const cards = [
-  { src: '/projects/project-01-next-phase-mobile.webp', alt: 'Next Phase Finish Carpentry website project', rotate: -7, x: -30, y: 10, label: 'Projeto 01', range: [0.08, 0.5], endX: -72, endY: 226, endRotate: -1, endScale: 1.18 },
-  { src: '/projects/project-02-joao-pedro-mobile.webp', alt: 'João Pedro e Jessica wedding website project', rotate: 1, x: 0, y: 28, label: 'Projeto 02', range: [0.2, 0.66], endX: 20, endY: 296, endRotate: 2, endScale: 1.12 },
-  { src: '/projects/project-03-espaco-neia-mobile.webp', alt: 'Espaço Néia aesthetics website project', rotate: 7, x: 32, y: 46, label: 'Projeto 03', range: [0.34, 0.82], endX: 78, endY: 366, endRotate: 1, endScale: 1.06 },
+  { src: '/projects/next-phase-final-mobile.webp', alt: 'Next Phase Finish Carpentry website project', rotate: -7, x: -30, y: 10, label: 'Projeto 01', range: [0.08, 0.5], endX: -72, endY: 226, endRotate: -1, endScale: 1.18 },
+  { src: '/projects/joao-jessica-final-mobile.webp', alt: 'João Pedro e Jessica wedding website project', rotate: 1, x: 0, y: 28, label: 'Projeto 02', range: [0.2, 0.66], endX: 20, endY: 296, endRotate: 2, endScale: 1.12 },
+  { src: '/projects/espaco-neia-final-mobile.webp', alt: 'Espaço Néia aesthetics website project', rotate: 7, x: 32, y: 46, label: 'Projeto 03', range: [0.34, 0.82], endX: 78, endY: 366, endRotate: 1, endScale: 1.06 },
 ] as const;
 
 export default function MobileHeroJourney() {

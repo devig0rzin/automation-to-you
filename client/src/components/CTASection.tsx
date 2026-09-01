@@ -3,7 +3,7 @@ import { ArrowUpRight, Check } from 'lucide-react';
 import WhatsAppIcon from './WhatsAppIcon';
 import { trackEvent } from '@/lib/analytics';
 
-const contactProjectWhatsAppUrl = 'https://wa.me/5511987793213?text=Olá!%20Quero%20conversar%20sobre%20um%20projeto%20com%20a%20ATY.';
+const contactProjectWhatsAppUrl = 'https://wa.me/5511945177464?text=Olá!%20Quero%20conversar%20sobre%20um%20projeto%20com%20a%20ATY.';
 
 export default function CTASection() {
   return (
