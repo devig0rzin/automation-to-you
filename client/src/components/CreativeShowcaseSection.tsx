@@ -9,8 +9,8 @@ import { trackEvent } from '@/lib/analytics';
 const cards = [
   {
     eyebrow: 'Next Phase',
-    title: 'Next Phase Finish Carpentry',
-    description: 'Site institucional para uma empresa americana de finish carpentry, criado para apresentar serviços, projetos e facilitar pedidos de orçamento.',
+    title: 'Sites para empresas nos EUA',
+    description: 'Criamos sites profissionais para empresas que atuam no mercado americano, com apresentação de serviços, portfólio e foco em gerar novos pedidos de orçamento.',
     url: 'https://nextphasefinishcarpentry.com/',
     src: '/projects/next-phase-final.webp',
     mobileSrc: '/projects/next-phase-final-mobile.webp',
@@ -18,8 +18,8 @@ const cards = [
   },
   {
     eyebrow: 'João & Jessica',
-    title: 'João Pedro & Jessica',
-    description: 'Site de casamento criado para reunir informações do evento, presença, localização, presentes e contagem regressiva em uma experiência personalizada.',
+    title: 'Sites personalizados para casamentos',
+    description: 'Criamos experiências digitais para casamentos, reunindo confirmação de presença, localização, presentes, informações do evento e contagem regressiva.',
     url: 'https://www.casamentojoaojessica.com.br/',
     src: '/projects/joao-jessica-final.webp',
     mobileSrc: '/projects/joao-jessica-final-mobile.webp',
@@ -27,8 +27,8 @@ const cards = [
   },
   {
     eyebrow: 'Espaço Néia',
-    title: 'Espaço Néia',
-    description: 'Site de estética desenvolvido para apresentar tratamentos, campanhas e facilitar o agendamento de avaliações.',
+    title: 'Sites para clínicas e estética',
+    description: 'Desenvolvemos sites para clínicas e negócios de estética, apresentando tratamentos, campanhas e facilitando o contato e o agendamento de avaliações.',
     url: 'https://espa-o-neia.vercel.app/',
     src: '/projects/espaco-neia-final.webp',
     mobileSrc: '/projects/espaco-neia-final-mobile.webp',
