@@ -115,7 +115,7 @@
     @apply bg-background text-foreground;
     min-height: 100dvh;
     overflow-x: hidden;
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     line-height: 1.6;
     letter-spacing: 0;
     font-synthesis: none;
@@ -135,7 +135,8 @@
   h4,
   h5,
   h6 {
-    font-family: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Bricolage Grotesque Variable', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+    font-optical-sizing: auto;
     letter-spacing: 0;
     color: inherit;
     overflow-wrap: break-word;
@@ -169,8 +170,8 @@
   }
 
   ::selection {
-    background: rgba(125, 211, 252, 0.28);
-    color: #ffffff;
+    background: #cfe3fb;
+    color: #0a1a33;
   }
 
   button:not(:disabled),
@@ -1675,4 +1676,103 @@
   .footer-socials a:hover {
     transform: none;
   }
+}
+
+/* ===================== ATY 2.0 ===================== */
+:root {
+  --aty-paper: #f7f9fc;
+  --aty-white: #ffffff;
+  --aty-ink: #0a1a33;
+  --aty-muted: #5b6b82;
+  --aty-blue: #0b57b5;
+  --aty-sky: #7cc4ff;
+  --aty-go: #12b76a;
+  --aty-line: #dce4ef;
+}
+
+.font-display {
+  font-family: 'Bricolage Grotesque Variable', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  font-optical-sizing: auto;
+}
+
+.font-code {
+  font-family: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.aty-page p {
+  color: inherit;
+}
+
+/* Palco 3D do site sendo montado */
+.aty-stage {
+  perspective: 1700px;
+  perspective-origin: 50% 40%;
+}
+
+.aty-stage-scale {
+  width: 560px;
+  height: 380px;
+  transform-style: preserve-3d;
+  scale: 0.56;
+}
+
+@media (min-width: 375px) {
+  .aty-stage-scale { scale: 0.6; }
+}
+
+@media (min-width: 414px) {
+  .aty-stage-scale { scale: 0.66; }
+}
+
+@media (min-width: 640px) {
+  .aty-stage-scale { scale: 0.78; }
+}
+
+@media (min-width: 768px) {
+  .aty-stage-scale { scale: 0.64; }
+}
+
+@media (min-width: 1024px) {
+  .aty-stage-scale { scale: 0.76; }
+}
+
+@media (min-width: 1280px) {
+  .aty-stage-scale { scale: 1.06; }
+}
+
+.aty-preserve {
+  transform-style: preserve-3d;
+}
+
+.aty-layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Faixa de segmentos */
+.aty-marquee {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.aty-marquee-track {
+  animation: aty-marquee 38s linear infinite;
+}
+
+.aty-marquee:hover .aty-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes aty-marquee {
+  to { transform: translateX(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aty-marquee-track { animation: none; }
+  .aty-marquee { overflow-x: auto; }
 }

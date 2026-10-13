@@ -1,14 +1,11 @@
-import { useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
-import LoadingScreen from "./components/LoadingScreen";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ScrollProvider } from "./contexts/ScrollContext";
 import Home from "./pages/Home";
-import CursorGlow from "./components/CursorGlow";
 
 
 function Router() {
@@ -28,8 +25,6 @@ function Router() {
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
-  const [loadingComplete, setLoadingComplete] = useState(false);
-
   return (
     <ErrorBoundary>
       <ThemeProvider
@@ -39,12 +34,7 @@ function App() {
         <ScrollProvider>
           <TooltipProvider>
             <Toaster />
-            <CursorGlow />
-            {loadingComplete ? (
-              <Router />
-            ) : (
-              <LoadingScreen onComplete={() => setLoadingComplete(true)} />
-            )}
+            <Router />
           </TooltipProvider>
         </ScrollProvider>
       </ThemeProvider>

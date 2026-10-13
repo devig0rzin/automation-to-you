@@ -1,139 +1,78 @@
-import { ArrowRight, Github, Instagram, Mail } from 'lucide-react';
+import { Instagram, Mail } from 'lucide-react';
 import Logo from './Logo';
 import WhatsAppIcon from './WhatsAppIcon';
 import { trackEvent } from '@/lib/analytics';
+import { EMAIL, INSTAGRAM_URL, whatsappLink } from '@/lib/site';
 
-const productLinks = [
-  ['Agentes de IA', '#simulador-agente'],
-  ['Sites e sistemas', '#servicos'],
-  ['Automações', '#entregas'],
+const nav = [
+  ['Como nasce seu site', '#inicio'],
   ['Projetos', '#projetos'],
-] as const;
-const companyLinks = [
-  ['Início', '#hero-section'],
-  ['Como funciona', '#processo'],
-  ['Diferenciais', '#diferenciais'],
-  ['Contato', '#contato'],
-] as const;
-const contactLinks = [
-  ['WhatsApp', 'https://wa.me/5511945177464'],
-  ['Instagram', 'https://instagram.com/automationtoy'],
-  ['E-mail', 'mailto:contato@automationtoyou.com'],
+  ['O que vem pronto', '#incluso'],
+  ['Tipos de site', '#tipos'],
+  ['Manutenção', '#manutencao'],
+  ['Automação', '#automacao'],
+  ['Dúvidas', '#duvidas'],
 ] as const;
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const year = new Date().getFullYear();
+  const wa = whatsappLink();
 
   return (
-    <footer className="footer relative overflow-hidden border-t border-slate-200 bg-white">
-      <div className="footer-main relative z-10">
-        <div className="container mx-auto max-w-7xl px-4 py-14">
-          <div className="grid gap-10 md:grid-cols-[1.3fr_0.7fr_0.7fr_0.8fr]">
-            <div className="footer-brand">
-              <div className="flex items-center gap-3">
-                <Logo className="footer-logo h-16 w-auto" />
-                <div>
-                  <div className="text-xs text-slate-500">Development & automation studio</div>
-                </div>
-              </div>
-              <p className="footer-description mt-5 max-w-sm text-sm leading-7 text-slate-600">
-                Criamos sites, agentes de IA e automações para empresas que querem vender, atender e operar com mais autoridade.
-              </p>
-            </div>
-
-            <div className="footer-columns contents">
-              <FooterColumn title="Produto" links={productLinks} />
-              <FooterColumn title="Empresa" links={companyLinks} />
-
-              <div className="footer-column">
-                <h3 className="mb-4 text-sm font-semibold text-slate-950">Contato</h3>
-                <ul className="mb-5 space-y-3">
-                  {contactLinks.map(([label, href]) => (
-                    <li key={label}>
-                      <a
-                        href={href}
-                        onClick={() => {
-                          if (label === 'WhatsApp') {
-                            trackEvent('click_whatsapp', {
-                              cta_location: 'footer',
-                              link_url: href,
-                            });
-                          }
-                        }}
-                        className="group inline-flex items-center gap-1 text-sm text-slate-600 transition hover:text-sky-700"
-                      >
-                        {label}
-                        <ArrowRight className="h-3 w-3 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                <div className="footer-socials flex gap-3">
-                  <SocialLink href="https://instagram.com/automationtoy" label="Instagram">
-                    <Instagram className="h-5 w-5" />
-                  </SocialLink>
-                  <SocialLink href="https://wa.me/5511945177464" label="WhatsApp" analyticsLocation="footer_social">
-                    <WhatsAppIcon className="h-6 w-6" />
-                  </SocialLink>
-                  <SocialLink href="mailto:contato@automationtoyou.com" label="Email">
-                    <Mail className="h-5 w-5" />
-                  </SocialLink>
-                  <SocialLink href="https://github.com/devig0rzin/automation-to-you" label="GitHub">
-                    <Github className="h-5 w-5" />
-                  </SocialLink>
-                </div>
-              </div>
-            </div>
+    <footer className="border-t border-[var(--aty-line)] bg-white px-5 pb-10 pt-14 sm:px-8 lg:px-12">
+      <div className="mx-auto grid max-w-[1180px] gap-10 md:grid-cols-[1.2fr_1fr_0.8fr]">
+        <div>
+          <div className="flex items-center gap-3">
+            <Logo className="h-11 w-11" />
+            <span className="font-display text-xl font-bold tracking-[-0.02em] text-[var(--aty-ink)]">Automation To You</span>
           </div>
+          <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-[var(--aty-muted)]">
+            Sites do zero e manutenção contínua, sistemas e automação com IA para pequenas e médias empresas. Feitos por programador, acelerados por IA.
+          </p>
         </div>
-      </div>
 
-      <div className="footer-bottom relative z-10">
-        <div className="container mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 text-sm md:flex-row md:items-center md:justify-between">
-          <p>&copy; {currentYear} ATY Automation Studio. Todos os direitos reservados.</p>
-          <p>Design, IA e automação para experiências comerciais melhores.</p>
-        </div>
-      </div>
-    </footer>
-  );
-}
+        <nav aria-label="Rodapé">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-2.5">
+            {nav.map(([label, href]) => (
+              <li key={href}>
+                <a href={href} className="text-[15px] text-[var(--aty-muted)] transition hover:text-[var(--aty-ink)]">
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-function FooterColumn({ title, links }: { title: string; links: ReadonlyArray<readonly [string, string]> }) {
-  return (
-    <div className="footer-column">
-      <h3 className="mb-4 text-sm font-semibold text-slate-950">{title}</h3>
-      <ul className="space-y-3">
-        {links.map(([label, href]) => (
-          <li key={label}>
-            <a href={href} className="group inline-flex min-h-11 items-center gap-1 text-sm text-slate-600 transition hover:text-sky-700">
-              {label}
-              <ArrowRight className="h-3 w-3 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100" />
+        <ul className="space-y-3">
+          <li>
+            <a
+              href={wa}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackEvent('click_whatsapp', { cta_location: 'footer', link_url: wa })}
+              className="inline-flex items-center gap-2.5 text-[15px] text-[var(--aty-ink)] transition hover:text-[var(--aty-blue)]"
+            >
+              <WhatsAppIcon className="h-5 w-5" />
+              WhatsApp
             </a>
           </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function SocialLink({ href, label, analyticsLocation, children }: { href: string; label: string; analyticsLocation?: string; children: React.ReactNode }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      onClick={() => {
-        if (analyticsLocation && label === 'WhatsApp') {
-          trackEvent('click_whatsapp', {
-            cta_location: analyticsLocation,
-            link_url: href,
-          });
-        }
-      }}
-      className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700"
-    >
-      {children}
-    </a>
+          <li>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2.5 text-[15px] text-[var(--aty-ink)] transition hover:text-[var(--aty-blue)]">
+              <Instagram className="h-5 w-5" />
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2.5 text-[15px] text-[var(--aty-ink)] transition hover:text-[var(--aty-blue)]">
+              <Mail className="h-5 w-5" />
+              {EMAIL}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div className="mx-auto mt-12 max-w-[1180px] border-t border-[var(--aty-line)] pt-6 text-sm text-[var(--aty-muted)]">
+        © {year} Automation To You. Todos os direitos reservados.
+      </div>
+    </footer>
   );
 }

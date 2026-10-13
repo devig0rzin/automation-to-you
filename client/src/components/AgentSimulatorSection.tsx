@@ -17,7 +17,6 @@ import {
   Wand2,
   X,
 } from 'lucide-react';
-import TechnologyBackdrop from './TechnologyBackdrop';
 import { trackEvent } from '@/lib/analytics';
 
 type LeadForm = {
@@ -308,7 +307,7 @@ const templates: Template[] = [
     description: 'Comece do zero com perguntas para montar IA e fluxo.',
     defaults: {
       templateId: 'personalizado',
-      agentName: 'Clara',
+      agentName: 'Alex',
       schedule: '',
       services: '',
       prices: '',
@@ -316,7 +315,7 @@ const templates: Template[] = [
       tone: 'natural, claro e consultivo',
       customInstructions: 'Use as informações preenchidas para criar uma conversa sob medida.',
     },
-    opening: 'Olá, aqui é Clara da MBA. Posso te ajudar a entender o melhor atendimento e encontrar uma solução rápida pelo WhatsApp.',
+    opening: 'Olá, aqui é o Alex. Posso te ajudar a entender o melhor atendimento e encontrar uma solução rápida pelo WhatsApp.',
     flow: [
       createFlowBlock('saudacao', 'Apresentação', 'Olá! Sou o assistente virtual. Como posso te ajudar hoje?', [
         createFlowOption('Ver preços'),
@@ -971,7 +970,7 @@ export default function AgentSimulatorSection() {
               </div>
             </div>
             {/* Phone container — fills available space */}
-            <div className={`flex min-h-0 flex-1 items-center justify-center px-2 pb-4 pt-2 sm:px-5 sm:pb-6 sm:pt-3 ${leadCaptured ? '' : 'pointer-events-none opacity-70'}`}>
+            <div className={`flex min-h-0 flex-1 items-center justify-center px-2 pb-4 pt-2 sm:px-5 sm:pb-6 sm:pt-3 ${leadCaptured ? '' : 'pointer-events-none saturate-[0.85]'}`}>
               <div className="w-full">
               <WhatsAppPreview
                 mode={builderMode}
@@ -1619,7 +1618,7 @@ function FormattedMessage({ content }: { content: string }) {
     <span className="whitespace-pre-line">
       {parts.map((part, index) =>
         part.startsWith('**') && part.endsWith('**') ? (
-          <strong key={`${part}-${index}`} className="font-bold text-white">
+          <strong key={`${part}-${index}`} className="font-bold">
             {part.slice(2, -2)}
           </strong>
         ) : (
@@ -1673,7 +1672,7 @@ function WhatsAppPreview({
   const isFlowMode = mode === 'fluxo';
   const chatBackgroundStyle = backgroundSrc
     ? {
-        backgroundImage: `linear-gradient(rgba(11, 20, 26, 0.16), rgba(11, 20, 26, 0.34)), url(${backgroundSrc})`,
+        backgroundImage: `url(${backgroundSrc})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
       }
@@ -1683,7 +1682,6 @@ function WhatsAppPreview({
     <div
       className="phone-preview relative mx-auto rounded-[3rem] border-[7px] border-[#080b12] bg-[#080b12] p-1 shadow-[0_28px_80px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.10)]"
     >
-      <TechnologyBackdrop variant="wide" />
       <div className="pointer-events-none absolute left-1/2 top-3 z-20 h-7 w-24 -translate-x-1/2 rounded-full bg-black shadow-[0_1px_0_rgba(255,255,255,0.08)]">
         <span className="absolute right-2.5 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-slate-800 ring-1 ring-slate-700" />
       </div>
@@ -1691,9 +1689,9 @@ function WhatsAppPreview({
       <span className="pointer-events-none absolute -left-[10px] top-44 h-16 w-[3px] rounded-l bg-slate-700" />
       <span className="pointer-events-none absolute -right-[10px] top-36 h-20 w-[3px] rounded-r bg-slate-700" />
       <div
-        className="flex min-h-0 flex-col overflow-hidden rounded-[2.45rem] border border-white/5 bg-[#0b141a] pt-5"
+        className="flex min-h-0 flex-col overflow-hidden rounded-[2.45rem] border border-white/5 bg-[#f0f2f5] pt-5"
       >
-        <div className="flex items-center justify-between gap-3 border-b border-black/30 bg-[#202c33] px-4 py-3">
+        <div className="flex items-center justify-between gap-3 border-b border-black/5 bg-[#f0f2f5] px-4 py-3">
           <div className="flex min-w-0 items-center gap-3">
             <div className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-emerald-300/35 bg-gradient-to-br from-cyan-300 to-emerald-300 text-sm font-black text-slate-950 shadow-[0_0_0_3px_rgba(0,168,132,0.12)]">
               {initials}
@@ -1710,26 +1708,26 @@ function WhatsAppPreview({
               )}
             </div>
             <div className="min-w-0">
-              <div className="truncate font-semibold text-white">{displayAgentName}</div>
-              <div className="truncate text-xs text-emerald-300">
-                {`${displayBusinessName} • online`}
+              <div className="truncate font-semibold text-[#111b21]">{displayAgentName}</div>
+              <div className="truncate text-xs text-[#667781]">
+                {`Assistente virtual • ${displayBusinessName}`}
               </div>
             </div>
           </div>
-          <div className="phone-toolbar-actions flex items-center gap-1 text-slate-300">
-            <button className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-white/10" aria-label="Ligar">
+          <div className="phone-toolbar-actions flex items-center gap-1 text-[#54656f]">
+            <button className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-black/5" aria-label="Ligar">
               <Phone className="h-4 w-4" />
             </button>
-            <button className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-white/10" aria-label="Vídeo">
+            <button className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-black/5" aria-label="Vídeo">
               <Video className="h-4 w-4" />
             </button>
-            <button className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-white/10" aria-label="Mais opções">
+            <button className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-black/5" aria-label="Mais opções">
               <MoreVertical className="h-4 w-4" />
             </button>
           </div>
         </div>
 
-        <div ref={chatScrollRef} className="min-h-0 flex-1 overflow-y-auto bg-[#0b141a] p-4" style={chatBackgroundStyle}>
+        <div ref={chatScrollRef} className="min-h-0 flex-1 overflow-y-auto bg-[#efeae2] p-4" style={chatBackgroundStyle}>
           <div className="space-y-3">
             {isFlowMode
               ? flowBlocks.slice(0, activeFlowIndex + 1).map((block, index) => {
@@ -1738,8 +1736,8 @@ function WhatsAppPreview({
                   return (
                     <div key={block.id} className="space-y-3">
                       <div className="flex justify-start">
-                        <div className="max-w-[88%] rounded-lg rounded-tl-sm bg-[#202c33] px-4 py-3 text-sm leading-relaxed text-slate-100 shadow">
-                          <div className="mb-1 text-[10px] uppercase tracking-[0.18em] text-emerald-300">
+                        <div className="max-w-[88%] rounded-lg rounded-tl-sm bg-white px-4 py-3 text-sm leading-relaxed text-[#111b21] shadow-[0_1px_0.5px_rgba(11,20,26,0.13)]">
+                          <div className="mb-1 text-[10px] font-semibold text-[#008069]">
                             Bloco {index + 1} • {block.title}
                           </div>
                           <FormattedMessage content={block.message} />
@@ -1750,29 +1748,29 @@ function WhatsAppPreview({
                                   key={option.id}
                                   type="button"
                                   onClick={() => onFlowOptionClick(index, option)}
-                                  className="rounded-lg border border-[#00a884]/45 bg-[#111b21] px-3 py-2 text-left text-sm font-medium text-[#53d8b1] transition hover:bg-[#16262d]"
+                                  className="rounded-lg border border-[#d1d7db] bg-white px-3 py-2 text-left text-sm font-medium text-[#008069] transition hover:bg-[#f5f6f6]"
                                 >
                                   {option.label}
                                 </button>
                               ))}
                             </div>
                           )}
-                          <div className="mt-1 text-right text-[10px] text-white/45">20:31</div>
+                          <div className="mt-1 text-right text-[10px] text-[#667781]">20:31</div>
                         </div>
                       </div>
                       {flowSelections[index] && (
                         <div className="flex justify-end">
-                          <div className="max-w-[82%] rounded-lg rounded-tr-sm bg-[#005c4b] px-4 py-2 text-sm leading-relaxed text-white shadow">
+                          <div className="max-w-[82%] rounded-lg rounded-tr-sm bg-[#d9fdd3] px-4 py-2 text-sm leading-relaxed text-[#111b21] shadow-[0_1px_0.5px_rgba(11,20,26,0.13)]">
                             {flowSelections[index]}
-                            <div className="mt-1 text-right text-[10px] text-white/45">20:31</div>
+                            <div className="mt-1 text-right text-[10px] text-[#667781]">20:31</div>
                           </div>
                         </div>
                       )}
                       {selectedOption && (
                         <div className="flex justify-start">
-                          <div className="max-w-[88%] rounded-lg rounded-tl-sm bg-[#202c33] px-4 py-3 text-sm leading-relaxed text-slate-100 shadow">
+                          <div className="max-w-[88%] rounded-lg rounded-tl-sm bg-white px-4 py-3 text-sm leading-relaxed text-[#111b21] shadow-[0_1px_0.5px_rgba(11,20,26,0.13)]">
                             <FormattedMessage content={selectedOption.nextMessage} />
-                            <div className="mt-1 text-right text-[10px] text-white/45">20:31</div>
+                            <div className="mt-1 text-right text-[10px] text-[#667781]">20:31</div>
                           </div>
                         </div>
                       )}
@@ -1782,25 +1780,25 @@ function WhatsAppPreview({
               : messages.map((message, index) => (
                   <div key={`${message.role}-${index}`} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                     <div
-                      className={`max-w-[82%] rounded-lg px-4 py-2 text-sm leading-relaxed shadow ${
-                        message.role === 'user' ? 'rounded-tr-sm bg-[#005c4b] text-white' : 'rounded-tl-sm bg-[#202c33] text-slate-100'
+                      className={`max-w-[82%] rounded-lg px-4 py-2 text-sm leading-relaxed shadow-[0_1px_0.5px_rgba(11,20,26,0.13)] ${
+                        message.role === 'user' ? 'rounded-tr-sm bg-[#d9fdd3] text-[#111b21]' : 'rounded-tl-sm bg-white text-[#111b21]'
                       }`}
                     >
                       <FormattedMessage content={message.content} />
-                      <div className="mt-1 text-right text-[10px] text-white/45">20:31</div>
+                      <div className="mt-1 text-right text-[10px] text-[#667781]">20:31</div>
                     </div>
                   </div>
                 ))}
             {!isFlowMode && isSending && (
               <div className="flex justify-start">
-                <div className="rounded-lg rounded-tl-sm bg-[#202c33] px-4 py-2 text-sm text-slate-300">digitando...</div>
+                <div className="rounded-lg rounded-tl-sm bg-white px-4 py-2 text-sm text-[#667781]">digitando...</div>
               </div>
             )}
           </div>
         </div>
 
-        <div className="border-t border-black/30 bg-[#202c33] p-3">
-          {status && <p className="mb-3 text-xs text-sky-200">{status}</p>}
+        <div className="border-t border-black/5 bg-[#f0f2f5] p-3">
+          {status && <p className="mb-3 text-xs text-[#0b57b5]">{status}</p>}
           <div className="flex items-center gap-2">
             <input
               value={input}
@@ -1808,7 +1806,7 @@ function WhatsAppPreview({
               onKeyDown={(event) => {
                 if (event.key === 'Enter') void onSendMessage();
               }}
-              className="h-12 min-w-0 flex-1 rounded-full border border-transparent bg-[#2a3942] px-4 text-white outline-none transition placeholder:text-slate-400 focus:border-sky-200/60"
+              className="h-12 min-w-0 flex-1 rounded-full border border-transparent bg-white px-4 text-[#111b21] outline-none transition placeholder:text-[#8696a0] focus:border-[#00a884]/50"
               placeholder={isFlowMode ? 'Clique em um botão para avançar' : leadCaptured ? 'Mensagem' : 'Preencha o lead para testar'}
               disabled={!leadCaptured || isSending || isFlowMode}
             />

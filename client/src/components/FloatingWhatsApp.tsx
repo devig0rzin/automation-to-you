@@ -1,69 +1,60 @@
 import { useEffect, useState } from 'react';
 import WhatsAppIcon from './WhatsAppIcon';
 import { trackEvent } from '@/lib/analytics';
+import { whatsappLink } from '@/lib/site';
 
-const floatingWhatsAppUrl =
-  'https://wa.me/5511945177464?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20agentes%20de%20IA%20e%20automa%C3%A7%C3%A3o.';
+const floatingWhatsAppUrl = whatsappLink('Oi! Vim pelo site e quero conversar sobre um site para o meu negócio.');
+
+// Aparece depois da primeira tela e some onde já existe um botão de WhatsApp grande
+const HIDE_ON = ['simulador-agente', 'contato'];
 
 export default function FloatingWhatsApp() {
-  const [isSimulatorVisible, setIsSimulatorVisible] = useState(false);
-  const [isCapabilitiesVisible, setIsCapabilitiesVisible] = useState(false);
+  const [pastFirstScreen, setPastFirstScreen] = useState(false);
+  const [overlapping, setOverlapping] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
-    const simulator = document.getElementById('simulador-agente');
-    if (!simulator) return;
+    const onScroll = () => setPastFirstScreen(window.scrollY > window.innerHeight * 0.6);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     const observer = new IntersectionObserver(
-      ([entry]) => setIsSimulatorVisible(entry.isIntersecting),
-      { threshold: 0.12 },
+      (entries) =>
+        setOverlapping((current) => {
+          const next = { ...current };
+          entries.forEach((entry) => {
+            next[entry.target.id] = entry.isIntersecting;
+          });
+          return next;
+        }),
+      { threshold: 0.15 },
     );
+    HIDE_ON.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
 
-    observer.observe(simulator);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const capabilities = document.getElementById('servicos');
-    if (!capabilities) return;
-
-    const updateVisibility = () => {
-      const rect = capabilities.getBoundingClientRect();
-      setIsCapabilitiesVisible(rect.top < window.innerHeight * 0.92 && rect.bottom > window.innerHeight * 0.08);
-    };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsCapabilitiesVisible(entry.isIntersecting),
-      { rootMargin: '-8% 0px -8% 0px', threshold: 0.01 },
-    );
-
-    updateVisibility();
-    window.addEventListener('scroll', updateVisibility, { passive: true });
-    window.addEventListener('resize', updateVisibility);
-    observer.observe(capabilities);
     return () => {
+      window.removeEventListener('scroll', onScroll);
       observer.disconnect();
-      window.removeEventListener('scroll', updateVisibility);
-      window.removeEventListener('resize', updateVisibility);
     };
   }, []);
+
+  const visible = pastFirstScreen && !Object.values(overlapping).some(Boolean);
 
   return (
     <a
       href={floatingWhatsAppUrl}
       target="_blank"
       rel="noreferrer"
-      onClick={() =>
-        trackEvent('click_whatsapp', {
-          cta_location: 'floating_button',
-          link_url: floatingWhatsAppUrl,
-        })
-      }
-      className={`floating-whatsapp fixed z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] shadow-[0_16px_38px_rgba(37,211,102,0.34)] transition hover:-translate-y-1 hover:bg-[#20bd5a] hover:shadow-[0_22px_48px_rgba(37,211,102,0.42)] active:scale-95 sm:h-16 sm:w-16 ${
-        isSimulatorVisible || isCapabilitiesVisible ? 'pointer-events-none opacity-0' : 'opacity-100'
+      tabIndex={visible ? 0 : -1}
+      aria-hidden={!visible}
+      onClick={() => trackEvent('click_whatsapp', { cta_location: 'floating_button', link_url: floatingWhatsAppUrl })}
+      className={`fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-[0_16px_38px_rgba(37,211,102,0.34)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#20bd5a] sm:bottom-7 sm:right-7 sm:h-16 sm:w-16 ${
+        visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
       }`}
       aria-label="Falar no WhatsApp"
     >
-      <WhatsAppIcon variant="inverse" className="h-9 w-9 sm:h-12 sm:w-12" />
+      <WhatsAppIcon variant="inverse" className="h-9 w-9 sm:h-11 sm:w-11" />
     </a>
   );
 }

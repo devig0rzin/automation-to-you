@@ -1,6 +1,6 @@
 # Automation To You
 
-Automation To You (ATY) creates websites, automation solutions and artificial intelligence experiences for businesses.
+Automation To You (ATY) is a Brazilian studio that builds professional websites for small and medium businesses. Sites are designed and reviewed by a developer, with AI used to speed up the work, and come connected to payments (Pix, card), WhatsApp and online scheduling. After the website, ATY also offers AI customer service on WhatsApp, CRMs and business automation.
 
 ## Official Website
 
@@ -8,11 +8,11 @@ Automation To You (ATY) creates websites, automation solutions and artificial in
 
 ## Services
 
-- Website development
-- Business automation
-- Artificial intelligence solutions
-- Digital customer experiences
-- Workflow automation
+- Landing pages
+- Institutional websites
+- Websites with online payments or scheduling
+- Custom systems (client areas, CRMs, internal dashboards)
+- AI customer service on WhatsApp and business automation
 
 ## Official Profiles
 
