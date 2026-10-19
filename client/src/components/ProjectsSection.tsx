@@ -75,7 +75,7 @@ const projects: Project[] = [
     kind: 'Clínica de estética',
     summary: 'Tratamentos e campanhas apresentados com clareza, e o agendamento de avaliação indo direto para o WhatsApp da clínica.',
     delivered: ['Página de tratamentos', 'Campanhas', 'Agendamento no WhatsApp'],
-    url: 'https://espa-o-neia.vercel.app/',
+    url: 'https://espaco-neia.vercel.app/',
     src: '/projects/espaco-neia-final.webp',
     mobileSrc: '/projects/espaco-neia-final-mobile.webp',
     video: {
